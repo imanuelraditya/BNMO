@@ -13,3 +13,9 @@ Command Lain (2)
 RNG (3)
 Diner Dash (4)
 Game Tambahan/Buatan Pemain (5)
+
+1 -- Miralistya Cahya Fatimah
+2 -- Imanuel Raditya
+3 -- Seren Elizabeth Siahaan
+4 -- Muhammad Dastin Fauzi
+5 -- Michael Sihotang
