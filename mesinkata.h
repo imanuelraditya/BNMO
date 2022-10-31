@@ -46,4 +46,14 @@ void CopyWord();
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 
+void advNewline();
+
+Word concatWord(Word w1, Word w2);
+
+boolean isWordEqual(Word a, Word b);
+
+void displayWord(Word w);
+
+void copyWordFromWord(Word w1, Word *w2);
+
 #endif

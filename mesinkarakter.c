@@ -1,5 +1,6 @@
 #include<stdio.h>
-#include"mesinkarakter.h"
+#include<stdlib.h>
+#include "mesinkarakter.h"
 
 char currentChar;
 boolean EOP;
@@ -26,4 +27,14 @@ char GetCC() {
 
 boolean IsEOP() {
     return (currentChar == MARK) ;
+}
+
+void startFromFile(char *str){
+       // fclose (tipe) ;
+       pita = fopen(str, "r");
+       if(pita == NULL){
+              printf("File tidak ditemukan. Exiting....\n");
+              exit(0);
+       }
+       ADV();
 }
