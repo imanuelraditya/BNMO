@@ -1,81 +1,97 @@
-# include <stdio.h>
-# include "boolean.h"
-# include "queue.h"
+/* File : queue.c */
+/* Definisi ADT Queue dengan representasi array secara eksplisit dan alokasi dinamik */
+/* Model Implementasi Versi III dengan circular buffer */
+
+#include "boolean.h"
+#include "queue.h"
+#include <stdio.h>
 #include <stdlib.h>
 
-void CreateQueue(Queue *q) {
-    IDX_HEAD(*q) = IDX_UNDEF;
-    IDX_TAIL(*q) = IDX_UNDEF;
+/* ********* Prototype ********* */
+boolean IsQEmpty (Queue Q){
+	/* Mengirim true jika Q kosong: lihat definisi di atas */
+	return Head(Q)==QNil && Tail(Q)==QNil;	
 }
 
-boolean isEmpty(Queue q) {
-    return (IDX_HEAD(q) == IDX_UNDEF) && (IDX_TAIL(q) == IDX_UNDEF);
+boolean IsQFull (Queue Q){
+	/* Mengirim true jika tabel penampung elemen Q sudah penuh */
+	/* yaitu mengandung elemen sebanyak QMaxEl */
+	return (((Tail(Q)-Head(Q) + QMaxEl(Q)) % QMaxEl(Q)) + 1 == QMaxEl(Q));
 }
 
-boolean isFull(Queue q) {
-    return (length(q) == CAPACITY) ;
-}
-
-int length(Queue q) {
-    int length;
-    if (isEmpty(q)){
-        length = 0;
-    }
-    else if(IDX_HEAD(q) > IDX_TAIL(q)){
-        length = (IDX_TAIL(q) + 1) + (CAPACITY - IDX_HEAD(q));
-    }
-    else if(IDX_HEAD(q) <= IDX_TAIL(q)){
-        length = IDX_TAIL(q) - IDX_HEAD(q) + 1;
-    }
-    return length;
-}
-
-void enqueue(Queue *q, ElType val) {
-    if (isEmpty(*q)) {
-        IDX_HEAD(*q) = 0;
-        IDX_TAIL(*q) = 0;
-        TAIL(*q) = val;
-    }
-    else {
-        IDX_TAIL(*q) = (IDX_HEAD(*q) + length(*q)) % CAPACITY;
-        TAIL(*q) = val;
-    }
-}
-
-void dequeue(Queue *q, ElType *val) {
-   *val = HEAD(*q);
-	if (IDX_HEAD(*q)==IDX_TAIL(*q)){
-		IDX_HEAD(*q) = IDX_UNDEF;
-		IDX_TAIL(*q) = IDX_UNDEF;
+int QNBElmt (Queue Q){
+	/* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
+	if(IsQEmpty(Q)){
+		return 0;
 	}
-	else {
-		IDX_HEAD(*q) = ((IDX_HEAD(*q)+1) % CAPACITY);
+	else{
+		return ((Tail(Q)-Head(Q) + QMaxEl(Q)) % QMaxEl(Q)) + 1;
 	}
 }
 
-void displayQueue(Queue q) {
-    int i ;
-    printf ("[") ;
-    if (!isEmpty(q)) {
-        if (IDX_HEAD(q) > IDX_TAIL(q)) {
-            for (i = IDX_HEAD(q); i < CAPACITY; i++) {
-                printf("%d,",q.buffer[i]) ;
-            }
-            for (i = 0; i <= IDX_TAIL(q);i++) {
-                printf ("%d", q.buffer[i]) ;
-                if (i != IDX_TAIL(q)) {
-                    printf(",") ;
-                }
-            }
-        }
-        else {
-            for (i = IDX_HEAD(q); i <= IDX_TAIL(q); i++) {
-                printf("%d", q.buffer[i]) ;
-                if (i != IDX_TAIL(q)) {
-                    printf(",") ;
-                }
-            }
-        }
-    }
-    printf("]\n") ;
+
+/* *** Kreator *** */
+void QCreateEmpty (Queue * Q, int Max){
+	/* I.S. sembarang */
+	/* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
+	/* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
+	/* atau : jika alokasi gagal, Q kosong dg QMaxEl=0 */
+	/* Proses : Melakukan alokasi, membuat sebuah Q kosong */
+	(*Q).T = (int*) malloc ((Max+1) * sizeof(infotype));
+	if (!(*Q).T){
+		QMaxEl(*Q) = 0;
+	}
+	else{
+		QMaxEl(*Q) = Max;
+	}
+	Head(*Q) = QNil;
+	Tail(*Q) = QNil;
+}
+
+/* *** Destruktor *** */
+void QDeAlokasi(Queue * Q){
+	/* Proses: Mengembalikan memori Q */
+	/* I.S. Q pernah dialokasi */
+	/* F.S. Q menjadi tidak terdefinisi lagi, QMaxEl(Q) diset 0 */
+	free((*Q).T);
+	QMaxEl(*Q) = 0;
+}
+
+/* *** Primitif Add/Delete *** */
+void Add (Queue * Q, infotype X){
+	/* Proses: Menambahkan X pada Q dengan aturan FIFO */
+	/* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
+	/* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
+	if(IsQEmpty(*Q)){
+		Head(*Q) = 1;
+		Tail(*Q) = 1;
+	}
+	else{
+		Tail(*Q) = ((Tail(*Q) + QMaxEl(*Q)) % QMaxEl(*Q)) + 1;
+	}
+	InfoTail(*Q) = X;
+}
+
+void Del (Queue * Q, infotype * X){
+	/* Proses: Menghapus X pada Q dengan aturan FIFO */
+	/* I.S. Q tidak mungkin kosong */
+	/* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer; 
+	        Q mungkin kosong */
+	*X = InfoHead(*Q);
+	if(QNBElmt(*Q)==1){
+		Head(*Q) = QNil;
+		Tail(*Q) = QNil;
+	}
+	else{
+		Head(*Q) = ((Head(*Q) + QMaxEl(*Q)) % QMaxEl(*Q)) + 1;	
+	}
+	
+}
+
+
+Queue QEmpty(){
+	/* Mengirimkan Queue kosong */
+	Queue Q;
+	QCreateEmpty(&Q, 10);
+	return Q;
 }

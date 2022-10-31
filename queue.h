@@ -1,69 +1,71 @@
 /* File : queue.h */
-/* Definisi ADT Queue dengan representasi array secara eksplisit dan alokasi statik */
+/* Definisi ADT Queue dengan representasi array secara eksplisit dan alokasi dinamik */
+/* Model Implementasi Versi III dengan circular buffer */
 
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef queue_H
+#define queue_H
 
 #include "boolean.h"
 
-#define IDX_UNDEF -1
-#define CAPACITY 100
+#define QNil 0
+/* Konstanta untuk mendefinisikan address tak terdefinisi */
 
 /* Definisi elemen dan address */
-typedef int ElType;
-typedef struct {
-	ElType buffer[CAPACITY]; 
-	int idxHead;
-	int idxTail;
-} Queue;
-
+typedef int infotype;
+typedef int address;   /* indeks tabel */
+/* Contoh deklarasi variabel bertype Queue : */
+/* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */
+typedef struct { infotype * T;   /* tabel penyimpan elemen */
+                 address HEAD;  /* alamat penghapusan */
+                 address TAIL;  /* alamat penambahan */
+                 int QMaxEl;     /* Max elemen queue */
+               } Queue;
+/* Definisi Queue kosong: HEAD=QNil; TAIL=QNil. */
+/* Catatan implementasi: T[0] tidak pernah dipakai */
 
 /* ********* AKSES (Selektor) ********* */
-/* Jika q adalah Queue, maka akses elemen : */
-#define IDX_HEAD(q) (q).idxHead
-#define IDX_TAIL(q) (q).idxTail
-#define     HEAD(q) (q).buffer[(q).idxHead]
-#define     TAIL(q) (q).buffer[(q).idxTail]
-
-/* *** Kreator *** */
-void CreateQueue(Queue *q);
-/* I.S. sembarang */
-/* F.S. Sebuah q kosong terbentuk dengan kondisi sbb: */
-/* - Index head bernilai IDX_UNDEF */
-/* - Index tail bernilai IDX_UNDEF */
-/* Proses : Melakukan alokasi, membuat sebuah q kosong */
+/* Jika Q adalah Queue, maka akses elemen : */
+#define Head(Q) (Q).HEAD
+#define Tail(Q) (Q).TAIL
+#define InfoHead(Q) (Q).T[(Q).HEAD]
+#define InfoTail(Q) (Q).T[(Q).TAIL]
+#define QMaxEl(Q) (Q).QMaxEl
 
 /* ********* Prototype ********* */
-boolean isEmpty(Queue q);
-/* Mengirim true jika q kosong: lihat definisi di atas */
-boolean isFull(Queue q);
-/* Mengirim true jika tabel penampung elemen q sudah penuh */
-/* yaitu IDX_TAIL akan selalu di belakang IDX_HEAD dalam buffer melingkar*/
+boolean IsQEmpty (Queue Q);
+/* Mengirim true jika Q kosong: lihat definisi di atas */
+boolean IsQFull (Queue Q);
+/* Mengirim true jika tabel penampung elemen Q sudah penuh */
+/* yaitu mengandung elemen sebanyak QMaxEl */
+int QNBElmt (Queue Q);
+/* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 
-int length(Queue q);
-/* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika q kosong. */
+/* *** Kreator *** */
+void QCreateEmpty (Queue * Q, int Max);
+/* I.S. sembarang */
+/* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
+/* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
+/* atau : jika alokasi gagal, Q kosong dg QMaxEl=0 */
+/* Proses : Melakukan alokasi, membuat sebuah Q kosong */
+
+/* *** Destruktor *** */
+void QDeAlokasi(Queue * Q);
+/* Proses: Mengembalikan memori Q */
+/* I.S. Q pernah dialokasi */
+/* F.S. Q menjadi tidak terdefinisi lagi, QMaxEl(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
-void enqueue(Queue *q, ElType val);
-/* Proses: Menambahkan val pada q dengan aturan FIFO */
-/* I.S. q mungkin kosong, tabel penampung elemen q TIDAK penuh */
-/* F.S. val menjadi TAIL yang baru, IDX_TAIL "mundur" dalam buffer melingkar. */
+void Add (Queue * Q, infotype X);
+/* Proses: Menambahkan X pada Q dengan aturan FIFO */
+/* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
+/* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
+void Del (Queue * Q, infotype * X);
+/* Proses: Menghapus X pada Q dengan aturan FIFO */
+/* I.S. Q tidak mungkin kosong */
+/* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer; 
+        Q mungkin kosong */
 
-void dequeue(Queue *q, ElType *val);
-/* Proses: Menghapus val pada q dengan aturan FIFO */
-/* I.S. q tidak mungkin kosong */
-/* F.S. val = nilai elemen HEAD pd I.S., IDX_HEAD "mundur";
-        q mungkin kosong */
-
-/* *** Display Queue *** */
-void displayQueue(Queue q);
-/* Proses : Menuliskan isi Queue dengan traversal, Queue ditulis di antara kurung 
-   siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan 
-   karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
-/* I.S. q boleh kosong */
-/* F.S. Jika q tidak kosong: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-/* Jika Queue kosong : menulis [] */
-
+Queue QEmpty();
+/* Mengirimkan Queue kosong */
 
 #endif
