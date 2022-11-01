@@ -109,8 +109,6 @@ void InsertAt(ArrayDin *array, ElType el, IdxType i)
  * Prekondisi: array terdefinisi
  */
 void InsertLast(ArrayDin *array, ElType el) {
-	// KAMUS
-	// ALGORITMA
 	InsertAt(array, el,(*array).Neff);
 }
 
@@ -119,8 +117,6 @@ void InsertLast(ArrayDin *array, ElType el) {
  * Prekondisi: array terdefinisi
  */
 void InsertFirst(ArrayDin *array, ElType el) {
-	// KAMUS
-	// ALGORITMA
 	InsertAt(array, el, 0);
 }
 
@@ -169,9 +165,8 @@ void DeleteAt(ArrayDin *array, IdxType i)
  * Fungsi untuk menghapus elemen terakhir ArrayDin
  * Prekondisi: array tidak kosong
  */
-void DeleteLast(ArrayDin *array) {
-	// KAMUS
-	// ALGORITMA
+void DeleteLast(ArrayDin *array) 
+{
 	DeleteAt(array, (*array).Neff-1);
 }
 
@@ -179,9 +174,8 @@ void DeleteLast(ArrayDin *array) {
  * Fungsi untuk menghapus elemen pertama ArrayDin
  * Prekondisi: array tidak kosong
  */
-void DeleteFirst(ArrayDin *array) {
-	// KAMUS
-	// ALGORITMA
+void DeleteFirst(ArrayDin *array) 
+{
 	DeleteAt(array, 0);
 }
 
@@ -191,10 +185,9 @@ void DeleteFirst(ArrayDin *array) {
  * dan diakhiri newline.
  * Prekondisi: array terdefinisi
  */
-void PrintArrayDin(ArrayDin array) {
-	// KAMUS
+void PrintArrayDin(ArrayDin array) 
+{
 	IdxType j;
-	// ALGORITMA
 	printf("[");
 	for (j = 0; j < (array).Neff; j++) {
 		printf("%d", (array).A[j]);
@@ -209,11 +202,10 @@ void PrintArrayDin(ArrayDin array) {
  * Fungsi untuk melakukan reverse suatu ArrayDin.
  * Prekondisi: array terdefinisi
  */
-void ReverseArrayDin(ArrayDin *array) {
-	// KAMUS
+void ReverseArrayDin(ArrayDin *array) 
+{
 	IdxType j;
 	ElType *temp = (ElType*) malloc ((*array).Capacity * sizeof(ElType));
-	// ALGORITMA
 	for (j = 0; j < (*array).Neff; j++) {
 		temp[j] = (*array).A[(*array).Neff - (1+j)];
 	}
@@ -227,11 +219,10 @@ void ReverseArrayDin(ArrayDin *array) {
  * Fungsi untuk melakukan copy suatu ArrayDin.
  * Prekondisi: array terdefinisi
  */
-ArrayDin CopyArrayDin(ArrayDin array) {
-	// KAMUS
+ArrayDin CopyArrayDin(ArrayDin array) 
+{
 	ArrayDin newArr;
 	IdxType j;
-	// ALGORITMA
 	newArr.A = (ElType*) malloc (array.Capacity * sizeof(ElType));
 	newArr.Capacity = array.Capacity; newArr.Neff = array.Neff;
 	for (j = 0; j < newArr.Neff; j++) {
@@ -246,10 +237,9 @@ ArrayDin CopyArrayDin(ArrayDin array) {
  * Jika tidak ditemukan, akan mengembalikan -1.
  * Prekondisi: array terdefinisi
  */
-IdxType SearchArrayDin(ArrayDin array, ElType el) {
-	// KAMUS
+IdxType SearchArrayDin(ArrayDin array, ElType el) 
+{
 	IdxType j = 0; 
-	// ALGORITMA
 	while (((array).A[j] != el) && (j <= (array).Neff)) {
 		j++;
 	}

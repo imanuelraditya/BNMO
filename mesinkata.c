@@ -4,13 +4,22 @@
 boolean EndWord ;
 Word currentWord ;
 
-void IgnoreBlanks() {
+void IgnoreBlanks() 
+/* Mengabaikan satu atau beberapa BLANK
+   I.S. : currentChar sembarang
+   F.S. : currentChar ≠ BLANK atau currentChar = MARK */
+{
     while (currentChar == BLANK) {
         ADV() ;
     }
 }
 
-void STARTWORD() {
+void STARTWORD() 
+/* I.S. : currentChar sembarang
+   F.S. : EndWord = true, dan currentChar = MARK;
+          atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
+          currentChar karakter pertama sesudah karakter terakhir kata */
+{
     START() ;
     IgnoreBlanks() ;
     if (currentChar == MARK) {
@@ -22,7 +31,14 @@ void STARTWORD() {
     }
 }
 
-void ADVWORD() {
+void ADVWORD() 
+/* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
+   F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,
+          currentChar adalah karakter pertama dari kata berikutnya, mungkin MARK
+          Jika currentChar = MARK, EndWord = true.
+   Proses : Akuisisi kata menggunakan procedure SalinWord */
+
+{
     IgnoreBlanks () ;
     if (currentChar == MARK) {
         EndWord = true ;
@@ -33,7 +49,14 @@ void ADVWORD() {
     }
 }
 
-void CopyWord() {
+void CopyWord() 
+/* Mengakuisisi kata, menyimpan dalam currentWord
+   I.S. : currentChar adalah karakter pertama dari kata
+   F.S. : currentWord berisi kata yang sudah diakuisisi;
+          currentChar = BLANK atau currentChar = MARK;
+          currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
+          Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+{
     int i; 
     i = 0; 
     while ((currentChar != MARK) && (currentChar != BLANK)) {

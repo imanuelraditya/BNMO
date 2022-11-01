@@ -8,12 +8,26 @@ boolean EOP;
 static FILE *pita;
 static int retval;
 
-void START() {
+void START() 
+/* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
+   Karakter pertama yang ada pada pita posisinya adalah pada jendela.
+   Pita baca diambil dari stdin.
+   I.S. : sembarang
+   F.S. : currentChar adalah karakter pertama pada pita
+          Jika currentChar != MARK maka EOP akan padam (false)
+          Jika currentChar = MARK maka EOP akan menyala (true) */
+{
     pita = stdin ;
     ADV() ;
 }
 
-void ADV() {
+void ADV() 
+/* Pita dimajukan satu karakter.
+   I.S. : Karakter pada jendela = currentChar, currentChar != MARK
+   F.S. : currentChar adalah karakter berikutnya dari currentChar yang lama,
+          currentChar mungkin = MARK
+          Jika  currentChar = MARK maka EOP akan menyala (true) */
+{
     retval = fscanf(pita,"%c", &currentChar);
     EOP = (currentChar == MARK);
     if (EOP) {
@@ -21,16 +35,20 @@ void ADV() {
     }
 }
 
-char GetCC() {
+char GetCC() 
+/* Mengirimkan currentChar */
+{
     return currentChar ;
 }
 
-boolean IsEOP() {
+boolean IsEOP() 
+/* Mengirimkan true jika currentChar = MARK */
+{
     return (currentChar == MARK) ;
 }
 
-void startFromFile(char *str){
-       // fclose (tipe) ;
+void startFromFile(char *str)
+{
        pita = fopen(str, "r");
        if(pita == NULL){
               printf("File tidak ditemukan. Exiting....\n");

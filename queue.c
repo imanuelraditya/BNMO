@@ -29,7 +29,6 @@ int QNBElmt (Queue Q){
 	}
 }
 
-
 /* *** Kreator *** */
 void QCreateEmpty (Queue * Q, int Max){
 	/* I.S. sembarang */
@@ -87,7 +86,6 @@ void Del (Queue * Q, infotype * X){
 	}
 	
 }
-
 
 Queue QEmpty(){
 	/* Mengirimkan Queue kosong */
