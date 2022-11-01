@@ -1,4 +1,9 @@
-# Tugas-Besar-1-Algoritma-dan-Struktur-Data-STI
+# Tugas Besar 1
+## IF2111 Algoritma dan Struktur Data STI
+
+> Program membantu Indra dan Doni untuk memprogram 
+> robot video game console kesayangan mereka
+
 Kelompok 08, Kelas 02
 
 Anggota Kelompok
