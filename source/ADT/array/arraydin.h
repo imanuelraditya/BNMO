@@ -1,15 +1,15 @@
 #ifndef __ARRAY_DINAMIK__
 #define __ARRAY_DINAMIK__
 
-// Boolean
-#define boolean unsigned char
-#define true 1
-#define false 0
+#include <stdio.h>
+#include <stdlib.h>
+#include "../../boolean.h"
+#include "../mesinkata/mesinkata.h"
 
 #define InitialSize 10
 
 typedef int IdxType;
-typedef int ElType;
+typedef Word ElType;
 typedef struct {
     ElType *A;
     int Capacity;
@@ -117,5 +117,9 @@ ArrayDin CopyArrayDin(ArrayDin array);
  * Prekondisi: array terdefinisi
  */
 IdxType SearchArrayDin(ArrayDin array, ElType el);
+
+int stringLength(char *string);
+
+Word stringToWord(char *string);
 
 #endif

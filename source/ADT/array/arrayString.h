@@ -108,4 +108,7 @@ void TulisIsi (TabInt T);
 */
 /* Jika T kosong : Hanya menulis "Tabel kosong" */
 
+void insertLast (TabInt *T, ElType s);
+
+void deleteAt (TabInt *T, ElType *val);
 #endif

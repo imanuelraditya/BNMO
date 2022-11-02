@@ -239,12 +239,11 @@ ArrayDin CopyArrayDin(ArrayDin array)
  */
 IdxType SearchArrayDin(ArrayDin array, ElType el) 
 {
-	IdxType j = 0; 
-	while (((array).A[j] != el) && (j <= (array).Neff)) {
-		j++;
-	}
-	if (j > (array).Neff) {
-		j = -1;
-	}
-	return j;
+	IdxType j;
+    for (j = 0; j < array.Neff; j++) {
+        if (isWordEqual(array.A[j], el)) {
+            return j;
+        }
+    }
+    return -1;
 }

@@ -33,7 +33,7 @@ IdxType GetLastIdx (TabInt T)
 /* Prekondisi : Tabel T tidak kosong */
 /* Mengirimkan indeks elemen terakhir */
 {
-    return NbElmt(T) ; 
+    return NbElmt(T) - 1 ; 
 }
 
 ElType GetElmt (TabInt T, IdxType i) 

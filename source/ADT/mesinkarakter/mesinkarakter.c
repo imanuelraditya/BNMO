@@ -56,3 +56,12 @@ void startFromFile(char *str)
        }
        ADV();
 }
+
+void advFromFile()
+{
+    retval = fscanf(pita,"%c", &currentChar);
+    EOP = (currentChar == ENTER);
+    if (EOP) {
+        fclose(pita);
+    }
+}

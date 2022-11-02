@@ -4,7 +4,7 @@
 #ifndef __MESINKATA_H__
 #define __MESINKATA_H__
 
-#include "boolean.h"
+#include "../../boolean.h"
 #include "../mesinkarakter/mesinkarakter.h"
 
 #define NMax 50
@@ -55,5 +55,17 @@ boolean isWordEqual(Word a, Word b);
 void displayWord(Word w);
 
 void copyWordFromWord(Word w1, Word *w2);
+
+void STARTCOMMAND ();
+
+void ADVCOMMAND ();
+
+void CopyCommand ();
+
+void IgnoreDots ();
+
+int stringLength(char *str);
+
+Word stringToWord(char *str);
 
 #endif
