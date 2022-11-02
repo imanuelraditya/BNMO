@@ -17,3 +17,6 @@ BNMO (dibaca: Binomo) adalah sebuah robot video game console yang dimiliki oleh 
 
 ## Cara Kompilasi Program
 > ...
+
+
+### Pengcarry : Immanuel Raditya (18221112)
