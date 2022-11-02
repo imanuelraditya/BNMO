@@ -1,13 +1,14 @@
 # include <stdio.h>
-# include "../ADT/mesinkarakter/mesinkarakter.h"
-# include "../ADT/mesinkata/mesinkata.h"
+# include "CreateGame.h"
 
-void CreateGame () 
-{
-    Word namaGame ;
-    int i = 0 ;
+ /* I.S. Game sembarang
+    F.S. Game terdefinisi */
+void CreateGame (char namaGame[]);
+    char namaGame[] ;
+    printf ("Masukkan nama game yang ingin ditambahkan: ") ;
+    scanf("%d", namaGame[]) ;
+    String s;
+    make_string (&s);
+    s = stringToWord (namaGame);
 
-    printf ("Masukkan nama game yang akan ditambahkan : ") ;
-    scanf ("%s", &namaGame) ;
-
-}
+    insertLast(&T, s) ;
