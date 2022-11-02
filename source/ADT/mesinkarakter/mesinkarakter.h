@@ -12,6 +12,7 @@
 /* State Mesin */
 extern char currentChar;
 extern boolean EOP;
+extern boolean finish;
 
 void START();
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
@@ -37,6 +38,6 @@ boolean IsEOP();
 
 void startFromFile(char *str);
 
-void advFromFile();
+void advFile();
 
 #endif

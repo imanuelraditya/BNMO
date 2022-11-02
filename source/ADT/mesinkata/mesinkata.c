@@ -16,7 +16,52 @@ void IgnoreBlanks()
 
 void IgnoreDots() {
     while (currentChar == ' ' && currentChar == '.') {
-        advFromFile();
+        //advFromFile(); ini gaada fungsinya -rr
+    }
+}
+
+void startWFile(char * file) //trialnya rr
+/* */
+{
+    finish = false;
+    startFromFile(file);
+    copywFile();
+}
+
+void copywFile() //trialnya rr
+/* */
+{
+    int i = 0;
+    while(currentChar != ENTER && !finish) {
+        if(i < NMax) {
+            currentWord.TabWord[i] = currentChar;
+            i++;
+            advFile();
+        }
+    }
+    if(i > NMax) {
+        currentWord.Length = NMax;
+    } else {
+        currentWord.Length = i;
+    }
+}
+
+void igBlankFile() //trialnya rr
+/* */
+{
+    while(currentChar == BLANK) {
+        advFile();
+    }
+}
+
+void advNewlineFile() //trialnya rr
+{
+    Word EMPTY = {"", 0};
+    currentWord = EMPTY;
+    if(currentChar == ENTER){
+        EndWord = false;
+        advFile();
+        copywFile();
     }
 }
 
@@ -165,7 +210,7 @@ void CopyCommand () {
             currentWord.TabWord[i] = currentChar;
             i++;
         }
-        advFromFile();
+        //advFromFile(); // ini gaada fungsinya -rr
     }
     currentWord.Length = i;
 }

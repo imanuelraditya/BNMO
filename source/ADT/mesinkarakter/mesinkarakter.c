@@ -4,6 +4,7 @@
 
 char currentChar;
 boolean EOP;
+boolean finish;
 
 static FILE *pita;
 static int retval;
@@ -47,21 +48,26 @@ boolean IsEOP()
     return (currentChar == MARK) ;
 }
 
-void startFromFile(char *str)
+void startFromFile(char *str) //trialnya rr
 {
+       finish = false;
        pita = fopen(str, "r");
-       if(pita == NULL){
-              printf("File tidak ditemukan. Exiting....\n");
-              exit(0);
-       }
-       ADV();
+    //    if(pita == NULL){
+    //           printf("File tidak ditemukan. Exiting....\n");
+    //           exit(0);
+    //    }
+       advFile();
 }
 
-void advFromFile()
+void advFile() //trialnya rr
 {
     retval = fscanf(pita,"%c", &currentChar);
-    EOP = (currentChar == ENTER);
-    if (EOP) {
+    // EOP = (currentChar == ENTER);
+    // if (EOP) {
+    //     fclose(pita);
+    // }
+    if(retval == EOF) {
         fclose(pita);
+        finish = true;
     }
 }
