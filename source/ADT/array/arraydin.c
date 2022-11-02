@@ -14,7 +14,6 @@ ArrayDin MakeArrayDin()
     arr.Capacity = InitialSize;
     arr.Neff = 0;
     return arr;
-
 }
 
 /**

@@ -1,10 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "mesinkata.h"
 
 boolean EndWord ;
 Word currentWord ;
 
-void IgnoreBlanks() 
+void IgnoreBlanks()
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang
    F.S. : currentChar ≠ BLANK atau currentChar = MARK */
@@ -182,11 +183,23 @@ int stringLength(char *str)
 
 Word stringToWord(char *str)
 {
-    Word word;
-    word.Length = stringLength(str);
-    for (int i = 0; i < word.Length; i++)
-    {
-        word.TabWord[i] = str[i];
+    int i;
+    Word output;
+    for (i = 0; i < stringLength(str); i++) {
+        output.TabWord[i] = str[i];
+        if (i == stringLength(str) - 1) {
+            output.TabWord[i + 1] = '\0';
+        }
     }
-    return word;
+    output.Length = stringLength(str);
+    return output;
+}
+
+char* wordToString(Word w)
+{
+    char* output = (char*) malloc(sizeof(char) * w.Length);
+    for(int i = 0; i < w.Length; i++){
+        output[i] = w.TabWord[i];
+    }
+    return output;
 }
