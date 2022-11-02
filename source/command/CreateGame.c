@@ -9,5 +9,4 @@ void CreateGame ()
 
     printf ("Masukkan nama game yang akan ditambahkan : ") ;
     scanf ("%s", &namaGame) ;
-
 }

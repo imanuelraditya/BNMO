@@ -1,15 +1,10 @@
-#include "boolean.h"
-#include "../ADT/mesinkata/string.h"
+#include "../../boolean.h"
+#include "../mesinkata/string.h"
 
 #ifndef ARRAY_H
 #define ARRAY_H
 
 /* Kamus Umum */
-
-// Boolean
-#define boolean unsigned char
-#define true 1
-#define false 0
 
 #define CAPACITY 100
 #define IdxMin 0

@@ -9,25 +9,31 @@ void IgnoreBlanks()
    I.S. : currentChar sembarang
    F.S. : currentChar ≠ BLANK atau currentChar = MARK */
 {
-    while (currentChar == BLANK) {
+    while (currentChar == BLANK || currentChar == ENTER) {
         ADV() ;
     }
 }
 
-void STARTWORD() 
+void IgnoreDots() {
+    while (currentChar == ' ' && currentChar == '.') {
+        advFromFile();
+    }
+}
+
+void STARTWORD(char* file)
 /* I.S. : currentChar sembarang
    F.S. : EndWord = true, dan currentChar = MARK;
           atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
           currentChar karakter pertama sesudah karakter terakhir kata */
 {
-    START() ;
+    startFromFile(file);
     IgnoreBlanks() ;
     if (currentChar == MARK) {
             EndWord = true;
     } 
     else {
         EndWord = false;
-        CopyWord();
+        ADVWORD() ;
     }
 }
 
@@ -40,7 +46,7 @@ void ADVWORD()
 
 {
     IgnoreBlanks () ;
-    if (currentChar == MARK) {
+    if (currentChar == MARK && !EndWord) {
         EndWord = true ;
     }
     else {
@@ -59,7 +65,7 @@ void CopyWord()
 {
     int i; 
     i = 0; 
-    while ((currentChar != MARK) && (currentChar != BLANK)) {
+    while ((currentChar != MARK) && (currentChar != BLANK) && (currentChar != ENTER)) {
         if (i < NMax)
         {
             currentWord.TabWord[i] = currentChar ;
@@ -77,7 +83,7 @@ void advNewline()
     if(currentChar == MARK){
         EndWord = false;
         ADV();
-        copyWord();
+        CopyWord();
     }
 }
 
@@ -128,4 +134,59 @@ void copyWordFromWord(Word w1, Word *w2)
     for(int i = 0; i < w1.Length; i++){
         w2->TabWord[i] = w1.TabWord[i];
     }
+}
+
+void STARTCOMMAND () {
+    START();
+    IgnoreBlanks();
+    if (currentChar == ENTER) {
+        EndWord = true;
+    } else {
+        EndWord = false;
+        ADVCOMMAND();
+    }
+}
+
+void ADVCOMMAND () {
+    IgnoreDots();
+    if (currentChar == ENTER && !EndWord) {
+        EndWord = true;
+    } else {
+        CopyCommand();
+        IgnoreBlanks();
+    }
+}
+
+void CopyCommand () {
+    int i;
+    i = 0;
+    while ((currentChar != ENTER) && (currentChar != BLANK)) {
+        if (i < NMax) {
+            currentWord.TabWord[i] = currentChar;
+            i++;
+        }
+        advFromFile();
+    }
+    currentWord.Length = i;
+}
+
+int stringLength(char *str)
+{
+    int i = 0;
+    while (str[i] != '\0')
+    {
+        i++;
+    }
+    return i;
+}
+
+Word stringToWord(char *str)
+{
+    Word word;
+    word.Length = stringLength(str);
+    for (int i = 0; i < word.Length; i++)
+    {
+        word.TabWord[i] = str[i];
+    }
+    return word;
 }

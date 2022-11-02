@@ -239,12 +239,32 @@ ArrayDin CopyArrayDin(ArrayDin array)
  */
 IdxType SearchArrayDin(ArrayDin array, ElType el) 
 {
-	IdxType j = 0; 
-	while (((array).A[j] != el) && (j <= (array).Neff)) {
-		j++;
-	}
-	if (j > (array).Neff) {
-		j = -1;
-	}
-	return j;
+	IdxType j;
+    for (j = 0; j < array.Neff; j++) {
+        if (isWordEqual(array.A[j], el)) {
+            return j;
+        }
+    }
+    return -1;
+}
+
+int stringLength(char *str)
+{
+    int i = 0;
+    while (str[i] != '\0')
+    {
+        i++;
+    }
+    return i;
+}
+
+Word stringToWord(char *str)
+{
+    Word word;
+    word.Length = stringLength(str);
+    for (int i = 0; i < word.Length; i++)
+    {
+        word.TabWord[i] = str[i];
+    }
+    return word;
 }

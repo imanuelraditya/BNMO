@@ -1,7 +1,7 @@
 #ifndef string_H
 #define string_H
 
-#include "boolean.h"
+#include "../../boolean.h"
 
 #define MAX_STRING_LENGTH 100
 
