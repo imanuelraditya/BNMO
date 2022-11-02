@@ -248,23 +248,3 @@ IdxType SearchArrayDin(ArrayDin array, ElType el)
     return -1;
 }
 
-int stringLength(char *str)
-{
-    int i = 0;
-    while (str[i] != '\0')
-    {
-        i++;
-    }
-    return i;
-}
-
-Word stringToWord(char *str)
-{
-    Word word;
-    word.Length = stringLength(str);
-    for (int i = 0; i < word.Length; i++)
-    {
-        word.TabWord[i] = str[i];
-    }
-    return word;
-}
