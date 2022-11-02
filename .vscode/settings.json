@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "boolean.h": "c",
+        "stdlib.h": "c",
+        "string.h": "c",
+        "mesinkata.h": "c"
+    }
+}

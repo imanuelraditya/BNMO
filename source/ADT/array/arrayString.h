@@ -1,4 +1,5 @@
 #include "boolean.h"
+#include "../ADT/mesinkata/string.h"
 
 #ifndef ARRAY_H
 #define ARRAY_H
@@ -10,17 +11,17 @@
 #define true 1
 #define false 0
 
-#define IdxMax 100
-#define IdxMin 1
+#define CAPACITY 100
+#define IdxMin 0
 #define IdxUndef -999 /* indeks tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
 typedef int IdxType;
-typedef int ElType;
+typedef String ElType;
 
 typedef struct
 	{
-		ElType TI [IdxMax-IdxMin+1]; /* memori tempat penyimpan elemen (container) */
+		ElType TI [CAPACITY]; /* memori tempat penyimpan elemen (container) */
 		int Neff; /* banyaknya elemen efektif */
 	} TabInt;
 
@@ -106,33 +107,5 @@ void TulisIsi (TabInt T);
 2:3
 */
 /* Jika T kosong : Hanya menulis "Tabel kosong" */
-
-/* ********** OPERATOR ARITMATIKA ********** */
-/* *** Aritmatika tabel : Penjumlahan, pengurangan, perkalian, ... *** */
-TabInt PlusTab (TabInt T1, TabInt T2);
-/* Prekondisi : T1 dan T2 berukuran sama dan tidak kosong */
-/* Mengirimkan T1 + T2 */
-TabInt MinusTab (TabInt T1, TabInt T2);
-/* Prekondisi : T1 dan T2 berukuran sama dan tidak kosong */
-/* Mengirimkan T1 - T2 */
-
-/* ********** NILAI EKSTREM ********** */
-ElType ValMax (TabInt T);
-/* Prekondisi : Tabel T tidak kosong */
-/* Mengirimkan nilai maksimum tabel */
-
-ElType ValMin (TabInt T);
-/* Prekondisi : Tabel T tidak kosong */
-/* Mengirimkan nilai minimum tabel */
-
-/* *** Mengirimkan indeks elemen bernilai ekstrem *** */
-IdxType IdxMaxTab (TabInt T);
-/* Prekondisi : Tabel T tidak kosong */
-/* Mengirimkan indeks i dengan elemen ke-i adalah nilai maksimum pada tabel */
-
-IdxType IdxMinTab (TabInt T);
-/* Prekondisi : Tabel tidak kosong */
-/* Mengirimkan indeks i */
-/* dengan elemen ke-i nilai minimum pada tabel */
 
 #endif

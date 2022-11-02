@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include"boolean.h"
-#include"array.h"
+#include"arrayString.h"
 
 void MakeEmpty (TabInt *T) 
 /* I.S. sembarang */
@@ -19,7 +19,7 @@ int NbElmt (TabInt T)
 int MaxNbEl (TabInt T) 
 /* Mengirimkan maksimum elemen yang dapat ditampung oleh tabel */
 {
-    return IdxMax ;
+    return CAPACITY ;
 }
 
 IdxType GetFirstIdx (TabInt T) 
@@ -120,88 +120,4 @@ void TulisIsi (TabInt T)
             printf("%d:%d\n",i,T.TI[i]);
         }
     }
-}
-
-TabInt PlusTab (TabInt T1, TabInt T2) 
-/* Prekondisi : T1 dan T2 berukuran sama dan tidak kosong */
-/* Mengirimkan T1 + T2 */
-{
-    TabInt T;
-    int i;
-    for (i=GetFirstIdx(T1); i<=GetLastIdx(T1); i++) {
-        T.TI[i] = GetElmt(T1,i) + GetElmt(T2,i); 
-	}
-	T.Neff = T1.Neff; 
-	return(T);
-}
-
-TabInt MinusTab (TabInt T1, TabInt T2) 
-/* Prekondisi : T1 dan T2 berukuran sama dan tidak kosong */
-/* Mengirimkan T1 - T2 */
-
-{
-    TabInt T;
-    int i;
-    for(i=GetFirstIdx(T1);i<=GetLastIdx(T1);i++) {
-    T.TI[i] = GetElmt(T1,i) - GetElmt(T2,i); 
-	}
-	T.Neff = T1.Neff; 
-	return(T);
-}
-
-ElType ValMax (TabInt T) 
-/* Prekondisi : Tabel T tidak kosong */
-/* Mengirimkan nilai maksimum tabel */
-{
-    ElType maksimum;
-    int i;
-    maksimum =  T.TI[IdxMin];
-    for (i=IdxMin + 1;i<=GetLastIdx(T);i++) {
-        if(maksimum < GetElmt(T,i))
-        maksimum = GetElmt(T,i);
-    }
-    return (maksimum);
-}
-
-ElType ValMin (TabInt T) 
-/* Prekondisi : Tabel T tidak kosong */
-/* Mengirimkan nilai minimum tabel */
-{
-    ElType mn;
-    int i;
-    mn =  T.TI[IdxMin];
-    for (i=IdxMin + 1; i<=GetLastIdx(T); i++) {
-        if(mn > T.TI[i])
-        mn = T.TI[i];
-   }
-   return (mn);
-}
-
-IdxType IdxMaxTab (TabInt T) 
-/* Prekondisi : Tabel T tidak kosong */
-/* Mengirimkan indeks i dengan elemen ke-i adalah nilai maksimum pada tabel */
-{
-    ElType mxi;
-    int i;
-    mxi =  GetFirstIdx(T);
-    for (i = GetFirstIdx(T) + 1;i <= GetLastIdx(T); i++) {
-        if(GetElmt(T,mxi) < GetElmt(T,i))
-        mxi = i;
-    }
-    return (mxi);
-}
-
-IdxType IdxMinTab (TabInt T) 
-/* Prekondisi : Tabel tidak kosong */
-/* Mengirimkan indeks i */
-/* dengan elemen ke-i nilai minimum pada tabel */
-{
-    ElType mni;
-    int i;
-    mni =  GetFirstIdx(T);
-    for (i = GetFirstIdx(T) + 1;i <= GetLastIdx(T); i++) {
-        if(GetElmt(T,mni) > GetElmt(T,i))
-        mni = i;
-    }
-    return (mni);
 }
