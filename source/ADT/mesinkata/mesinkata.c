@@ -4,6 +4,7 @@
 
 boolean EndWord ;
 Word currentWord ;
+Word currentCommand;
 
 void IgnoreBlanks() 
 /* Mengabaikan satu atau beberapa BLANK
@@ -17,7 +18,7 @@ void IgnoreBlanks()
 
 void IgnoreDots() {
     while (currentChar == ' ' && currentChar == '.') {
-        advFile() ;
+        advTerminal() ;
     }
 }
 
@@ -184,7 +185,7 @@ void copyWordFromWord(Word w1, Word *w2)
 
 void STARTCOMMAND () {
     START();
-    IgnoreBlanks();
+    IgnoreDots();
     if (currentChar == ENTER) {
         EndWord = true;
     } else {
@@ -199,21 +200,21 @@ void ADVCOMMAND () {
         EndWord = true;
     } else {
         CopyCommand();
-        IgnoreBlanks();
+        IgnoreDots();
     }
 }
 
 void CopyCommand () {
     int i;
     i = 0;
-    while ((currentChar != ENTER) && (currentChar != BLANK)) {
+    while ((currentChar != BLANK) && (currentChar != ENTER) && (currentChar != BLANK)) {
         if (i < NMax) {
-            currentWord.TabWord[i] = currentChar;
+            currentCommand.TabWord[i] = currentChar;
             i++;
         }
-        advFile();
+        advTerminal();
     }
-    currentWord.Length = i;
+    currentCommand.Length = i;
 }
 
 int stringLength(char *str)

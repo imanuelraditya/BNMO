@@ -3,6 +3,7 @@
 #include "source/command/list_game.h"
 #include "source/ADT/mesinkata/mesinkata.h"
 #include "source/command/startGame.h"
+#include "source/command/CreateGame.h"
 
 int main() {
     ArrayDin array = MakeArrayDin();
@@ -12,6 +13,8 @@ int main() {
     // InsertFirst(&array, stringToWord("Farm Frenzy 2"));
     // InsertFirst(&array, stringToWord("Insaniquarium"));
     startGame(&array);
+    ListGame(array);
+    CreateGame(&array);
     ListGame(array);
 
     return 0;

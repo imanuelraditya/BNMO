@@ -42,6 +42,12 @@ void startFromFile(char *str);
           Jika currentChar != MARK maka EOP akan padam (false)
           Jika currentChar = MARK maka EOP akan menyala (true) */
 
+void advTerminal();
+/* I.S. : Karakter pada jendela = currentChar, currentChar != MARK
+   F.S. : currentChar adalah karakter berikutnya dari currentChar yang lama,
+          currentChar mungkin = MARK
+          Jika  currentChar = MARK maka EOP akan menyala (true) */
+
 void advFile();
 /* I.S. : currentChar != MARK
    F.S. : currentChar adalah karakter berikutnya dari currentChar yang lama,

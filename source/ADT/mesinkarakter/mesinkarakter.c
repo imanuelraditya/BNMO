@@ -59,6 +59,15 @@ void startFromFile(char *str) //trialnya rr
        advFile();
 }
 
+void advTerminal()
+{
+       retval = fscanf(pita,"%c", &currentChar);
+       EOP = (currentChar == MARK);
+    //    if (EOP) {
+    //        fclose(pita);
+    //    }
+}
+
 void advFile() //trialnya rr
 {
     retval = fscanf(pita,"%c", &currentChar);

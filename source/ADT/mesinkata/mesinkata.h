@@ -19,6 +19,7 @@ typedef struct
 /* State Mesin Kata */
 extern boolean EndWord;
 extern Word currentWord;
+extern Word currentCommand;
 
 void IgnoreBlanks();
 /* Mengabaikan satu atau beberapa BLANK
