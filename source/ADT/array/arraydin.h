@@ -118,8 +118,4 @@ ArrayDin CopyArrayDin(ArrayDin array);
  */
 IdxType SearchArrayDin(ArrayDin array, ElType el);
 
-int stringLength(char *string);
-
-Word stringToWord(char *string);
-
 #endif

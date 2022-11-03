@@ -93,3 +93,23 @@ Queue QEmpty(){
 	QCreateEmpty(&Q, 10);
 	return Q;
 }
+
+void ListQueueGame (Queue Q){
+	/* I.S. Q terdefinisi */
+	/* F.S. Q ditulis ke layar dengan format: [e1,e2,...,en] */
+	/* Proses: Menulis semua elemen Q dan alamat elemen beserta nilainya */
+	/* Contoh: Jika Q adalah [9, 8, 7, 6, 5] maka ditulis: [9, 8, 7, 6, 5] */
+	
+	int i;
+
+	printf("Berikut adalah daftar antrian game-mu");
+	
+	if (IsQEmpty(Q)){
+		printf("Antrian kosong");
+	}
+	else{
+		for (i=Head(Q); i==Tail(Q); i++){
+			printf("%d. %s\n", i+1, Q.T[i].TabWord);
+		}
+	}
+}

@@ -20,6 +20,12 @@ void startGame() {
     printf("%s\n", currentWord.TabWord);
     advNewlineFile();
     printf("%s\n", currentWord.TabWord);
+    advNewlineFile();
+    printf("%s\n", currentWord.TabWord);
+    advNewlineFile();
+    printf("%s\n", currentWord.TabWord);
+    advNewlineFile();
+    printf("%s\n", currentWord.TabWord);
 
     // ini start game versi beneran kalo uda ada listnya
     // for (i = 0 ; i < jumlah ; i++) {

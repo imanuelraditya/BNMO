@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "mesinkata.h"
 
 boolean EndWord ;
@@ -16,7 +17,7 @@ void IgnoreBlanks()
 
 void IgnoreDots() {
     while (currentChar == ' ' && currentChar == '.') {
-        //advFromFile(); ini gaada fungsinya -rr
+        advFile() ;
     }
 }
 
@@ -210,7 +211,7 @@ void CopyCommand () {
             currentWord.TabWord[i] = currentChar;
             i++;
         }
-        //advFromFile(); // ini gaada fungsinya -rr
+        advFile();
     }
     currentWord.Length = i;
 }
@@ -232,6 +233,24 @@ Word stringToWord(char *str)
     for (int i = 0; i < word.Length; i++)
     {
         word.TabWord[i] = str[i];
+        if (i == word.Length - 1)
+        {
+            word.TabWord[i + 1] = '\0';
+        }
     }
     return word;
+}
+
+char* wordToString(Word word)
+{
+    char *str = (char *)malloc(sizeof(char) * word.Length);
+    for (int i = 0; i < word.Length; i++)
+    {
+        str[i] = word.TabWord[i];
+        if (i == word.Length - 1)
+        {
+            str[i + 1] = '\0';
+        }
+    }
+    return str;
 }

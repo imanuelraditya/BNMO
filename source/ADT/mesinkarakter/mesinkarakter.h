@@ -37,7 +37,15 @@ boolean IsEOP();
 /* Mengirimkan true jika currentChar = MARK */
 
 void startFromFile(char *str);
+/* I.S. : str terdefinisi
+   F.S. : currentChar adalah karakter pertama pada pita
+          Jika currentChar != MARK maka EOP akan padam (false)
+          Jika currentChar = MARK maka EOP akan menyala (true) */
 
 void advFile();
+/* I.S. : currentChar != MARK
+   F.S. : currentChar adalah karakter berikutnya dari currentChar yang lama,
+          currentChar mungkin = MARK
+          Jika  currentChar = MARK maka EOP akan menyala (true) */
 
 #endif
