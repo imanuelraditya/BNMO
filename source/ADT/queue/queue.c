@@ -2,7 +2,7 @@
 /* Definisi ADT Queue dengan representasi array secara eksplisit dan alokasi dinamik */
 /* Model Implementasi Versi III dengan circular buffer */
 
-#include "boolean.h"
+#include "../../boolean.h"
 #include "queue.h"
 #include <stdio.h>
 #include <stdlib.h>

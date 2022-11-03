@@ -5,13 +5,13 @@
 #ifndef queue_H
 #define queue_H
 
-#include "boolean.h"
+#include "../../boolean.h"
 
 #define QNil 0
 /* Konstanta untuk mendefinisikan address tak terdefinisi */
 
 /* Definisi elemen dan address */
-typedef int infotype;
+typedef Word infotype;
 typedef int address;   /* indeks tabel */
 /* Contoh deklarasi variabel bertype Queue : */
 /* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */

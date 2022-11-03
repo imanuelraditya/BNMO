@@ -1,8 +1,4 @@
 #include "boolean.h"
-#include "ADT/array/arrayString.h"
-
-typedef struct game {
-    String game;
-} Game;
 
 void CreateGame () ;
+/* command yang digunakan untuk menambahkan game baru pada daftar game */
