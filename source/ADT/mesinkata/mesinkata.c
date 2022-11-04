@@ -17,7 +17,7 @@ void IgnoreBlanks()
 }
 
 void IgnoreDots() {
-    while (currentChar == ' ' && currentChar == '.') {
+    while (currentChar == BLANK && currentChar == '.') {
         advTerminal() ;
     }
 }
@@ -207,7 +207,7 @@ void ADVCOMMAND () {
 void CopyCommand () {
     int i;
     i = 0;
-    while ((currentChar != BLANK) && (currentChar != ENTER) && (currentChar != BLANK)) {
+    while ((currentChar != ENTER)) {
         if (i < NMax) {
             currentCommand.TabWord[i] = currentChar;
             i++;
