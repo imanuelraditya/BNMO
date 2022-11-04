@@ -255,3 +255,15 @@ char* wordToString(Word word)
     }
     return str;
 }
+
+int wordToInt(Word word) {
+    int num, i;
+    
+    num = 0;
+
+    for (i = 0; i < word.Length; i++)
+    {
+        num = num * 10 + (word.TabWord[i] - '0');
+    }
+    return num;
+}

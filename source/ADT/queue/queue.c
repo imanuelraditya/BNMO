@@ -100,7 +100,7 @@ void ListQueueGame (Queue Q){
 	/* Proses: Menulis semua elemen Q dan alamat elemen beserta nilainya */
 	/* Contoh: Jika Q adalah [9, 8, 7, 6, 5] maka ditulis: [9, 8, 7, 6, 5] */
 	
-	int i,num;
+	int i, num;
 
 	num = 1;
 
@@ -110,7 +110,7 @@ void ListQueueGame (Queue Q){
 		printf("Antrian kosong\n");
 	}
 	else{
-		for(i = Head(Q); i <= Tail(Q); i = (i + 1) % QMaxEl(Q)){
+		for (i = Head(Q); i <= Tail(Q); i = (i + 1) % QMaxEl(Q)){
 			printf("%d. %s\n", num, Q.T[i].TabWord);
 			num++;
 		}

@@ -121,4 +121,7 @@ Word stringToWord(char *str);
 char* wordToString(Word w);
 /* Mengubah kata menjadi string */
 
+int wordToInt(Word w);
+/* Mengubah kata menjadi integer */
+
 #endif
