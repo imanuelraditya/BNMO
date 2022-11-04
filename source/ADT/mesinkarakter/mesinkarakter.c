@@ -63,9 +63,6 @@ void advTerminal()
 {
        retval = fscanf(pita,"%c", &currentChar);
        EOP = (currentChar == ENTER);
-       if (EOP) {
-    //        fclose(pita);
-       }
 }
 
 void advFile() //trialnya rr
