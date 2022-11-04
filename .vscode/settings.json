@@ -3,6 +3,7 @@
         "boolean.h": "c",
         "stdlib.h": "c",
         "string.h": "c",
-        "mesinkata.h": "c"
+        "mesinkata.h": "c",
+        "creategame.h": "c"
     }
 }

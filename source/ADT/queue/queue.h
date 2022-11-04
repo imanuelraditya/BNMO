@@ -68,4 +68,8 @@ void Del (Queue * Q, infotype * X);
 Queue QEmpty();
 /* Mengirimkan Queue kosong */
 
+void ListQueueGame (Queue Q);
+/* I.S. Q terdefinisi */
+/* F.S. Q ditulis ke layar dengan format: [Q1,Q2,...,Qn] */
+
 #endif
