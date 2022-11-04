@@ -6,13 +6,13 @@ void playGame (Queue queueGame)
     printf ("Berikut adalah daftar game mu\n") ;
     ListQueueGame (queueGame) ; 
     if (!IsQEmpty (queueGame)) {
-        Del (&queueGame, &play) ; 
+        Del(&queueGame, &play) ; 
     }
     if (isWordEqual(play, stringToWord("Dinner DASH"))) {
-        dinner_DASH() ;
+        dinner_dash() ;
     }
     else if (isWordEqual(play, stringToWord("RNG"))) {
-        RNG() ;
+        rng() ;
     }
     else {
         wordToString (play) ;
