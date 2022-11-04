@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../ADT/array/arraydin.h"
+#include "list_game.h"
 
 void ListGame (ArrayDin array) {
     /* I.S. array terdefinisi */

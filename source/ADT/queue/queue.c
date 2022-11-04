@@ -36,7 +36,7 @@ void QCreateEmpty (Queue * Q, int Max){
 	/* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
 	/* atau : jika alokasi gagal, Q kosong dg QMaxEl=0 */
 	/* Proses : Melakukan alokasi, membuat sebuah Q kosong */
-	(*Q).T = (int*) malloc ((Max+1) * sizeof(infotype));
+	(*Q).T = (infotype *) malloc ((Max+1) * sizeof(infotype));
 	if (!(*Q).T){
 		QMaxEl(*Q) = 0;
 	}
@@ -102,14 +102,19 @@ void ListQueueGame (Queue Q){
 	
 	int i;
 
-	printf("Berikut adalah daftar antrian game-mu");
-	
-	if (IsQEmpty(Q)){
-		printf("Antrian kosong");
+	printf("Berikut adalah daftar antrian game-mu\n");
+
+	if(IsQEmpty(Q)){
+		printf("Antrian kosong\n");
 	}
 	else{
-		for (i=Head(Q); i==Tail(Q); i++){
-			printf("%d. %s\n", i+1, Q.T[i].TabWord);
+		printf("[");
+		for(i=Head(Q); i!=Tail(Q); i=((i+QMaxEl(Q)) % QMaxEl(Q)) + 1){
+			printf("%d", InfoHead(Q));
+			if(i!=Tail(Q)){
+				printf(", ");
+			}
 		}
+		printf("]");
 	}
 }

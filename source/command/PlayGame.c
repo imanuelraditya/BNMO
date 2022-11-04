@@ -3,7 +3,7 @@
 void playGame (Queue queueGame) 
 {
     Word play ;
-    printf ("Berikut adalah daftar game mu") ;
+    printf ("Berikut adalah daftar game mu\n") ;
     ListQueueGame (queueGame) ; 
     if (!IsQEmpty (queueGame)) {
         Del (&queueGame, &play) ; 

@@ -2,19 +2,30 @@
 #include <stdlib.h>
 #include "source/command/list_game.h"
 #include "source/ADT/mesinkata/mesinkata.h"
+#include "source/ADT/mesinkarakter/mesinkarakter.h"
+#include "source/ADT/array/arraydin.h"
+#include "source/ADT/queue/queue.h"
 #include "source/command/startGame.h"
 #include "source/command/CreateGame.h"
+#include "source/command/load.h"
 
 int main() {
     ArrayDin array = MakeArrayDin();
-    // InsertFirst(&array, stringToWord("Diner Dash"));
-    // InsertFirst(&array, stringToWord("Fishing Frenzy"));
-    // InsertFirst(&array, stringToWord("Farm Frenzy"));
-    // InsertFirst(&array, stringToWord("Farm Frenzy 2"));
-    // InsertFirst(&array, stringToWord("Insaniquarium"));
-    startGame(&array);
-    ListGame(array);
-    CreateGame(&array);
+    // // InsertFirst(&array, stringToWord("Diner Dash"));
+    // // InsertFirst(&array, stringToWord("Fishing Frenzy"));
+    // // InsertFirst(&array, stringToWord("Farm Frenzy"));
+    // // InsertFirst(&array, stringToWord("Farm Frenzy 2"));
+    // // InsertFirst(&array, stringToWord("Insaniquarium"));
+    
+    // char* maindir;
+
+    // maindir = "data/";
+
+    printf("Masukkan command: LOAD ");
+    STARTCOMMAND();
+
+    // printf("%s", wordToString(concatWord(stringToWord(maindir), currentCommand)));
+    load(currentCommand, &array);
     ListGame(array);
 
     return 0;
