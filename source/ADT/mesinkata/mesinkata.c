@@ -1,8 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "mesinkata.h"
 
 boolean EndWord ;
 Word currentWord ;
+Word currentCommand;
 
 void IgnoreBlanks() 
 /* Mengabaikan satu atau beberapa BLANK
@@ -15,8 +17,8 @@ void IgnoreBlanks()
 }
 
 void IgnoreDots() {
-    while (currentChar == ' ' && currentChar == '.') {
-        //advFromFile(); ini gaada fungsinya -rr
+    while (currentChar == BLANK && currentChar == '.') {
+        advTerminal() ;
     }
 }
 
@@ -183,7 +185,7 @@ void copyWordFromWord(Word w1, Word *w2)
 
 void STARTCOMMAND () {
     START();
-    IgnoreBlanks();
+    IgnoreDots();
     if (currentChar == ENTER) {
         EndWord = true;
     } else {
@@ -198,21 +200,21 @@ void ADVCOMMAND () {
         EndWord = true;
     } else {
         CopyCommand();
-        IgnoreBlanks();
+        IgnoreDots();
     }
 }
 
 void CopyCommand () {
     int i;
     i = 0;
-    while ((currentChar != ENTER) && (currentChar != BLANK)) {
+    while ((currentChar != ENTER)) {
         if (i < NMax) {
-            currentWord.TabWord[i] = currentChar;
+            currentCommand.TabWord[i] = currentChar;
             i++;
         }
-        //advFromFile(); // ini gaada fungsinya -rr
+        advTerminal();
     }
-    currentWord.Length = i;
+    currentCommand.Length = i;
 }
 
 int stringLength(char *str)
@@ -232,6 +234,24 @@ Word stringToWord(char *str)
     for (int i = 0; i < word.Length; i++)
     {
         word.TabWord[i] = str[i];
+        if (i == word.Length - 1)
+        {
+            word.TabWord[i + 1] = '\0';
+        }
     }
     return word;
+}
+
+char* wordToString(Word word)
+{
+    char *str = (char *)malloc(sizeof(char) * word.Length);
+    for (int i = 0; i < word.Length; i++)
+    {
+        str[i] = word.TabWord[i];
+        if (i == word.Length - 1)
+        {
+            str[i + 1] = '\0';
+        }
+    }
+    return str;
 }

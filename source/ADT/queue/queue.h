@@ -6,6 +6,7 @@
 #define queue_H
 
 #include "../../boolean.h"
+#include "../mesinkata/mesinkata.h"
 
 #define QNil 0
 /* Konstanta untuk mendefinisikan address tak terdefinisi */
@@ -70,6 +71,10 @@ Queue QEmpty();
 
 void ListQueueGame (Queue Q);
 /* I.S. Q terdefinisi */
+<<<<<<< HEAD
 /* F.S. Q ditulis ke layar dengan format: [Q1,Q2,...,Qn] */
+=======
+/* F.S. Q ditulis ke layar */
+>>>>>>> 6757cb7e0d3ff622314e97d3dd67e214b66564ba
 
 #endif

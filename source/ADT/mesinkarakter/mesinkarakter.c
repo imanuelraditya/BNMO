@@ -19,7 +19,7 @@ void START()
           Jika currentChar = MARK maka EOP akan menyala (true) */
 {
     pita = stdin ;
-    ADV() ;
+    advTerminal() ;
 }
 
 void ADV() 
@@ -57,6 +57,12 @@ void startFromFile(char *str) //trialnya rr
     //           exit(0);
     //    }
        advFile();
+}
+
+void advTerminal()
+{
+       retval = fscanf(pita,"%c", &currentChar);
+       EOP = (currentChar == ENTER);
 }
 
 void advFile() //trialnya rr

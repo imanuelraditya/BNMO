@@ -4,6 +4,10 @@
         "stdlib.h": "c",
         "string.h": "c",
         "mesinkata.h": "c",
+<<<<<<< HEAD
         "creategame.h": "c"
+=======
+        "arraydin.h": "c"
+>>>>>>> 6757cb7e0d3ff622314e97d3dd67e214b66564ba
     }
 }
