@@ -8,8 +8,10 @@ void startGame(ArrayDin * arr)
         List Game yang dapat dimainkan sudah tersedia yaitu dengan konfigurasi awal
         command - command lain dapat dijalankan */
 {
+/* KAMUS LOKAL */
     int jumlah, i; // jumlah game yang tersedia, untuk looping banyak membaca 
-
+    
+/* ALGORITMA */
     startWFile("data/config.txt"); // membuka file konfigurasi awal yang tersedia di dalam file config.txt
 
     /* currentWord adalah baris pertama pada file config.txt

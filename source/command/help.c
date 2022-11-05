@@ -2,6 +2,7 @@
 #include "help.h"
 
 void help() {
+/* deskripsi atau bantuan dari command-command lain*/
     printf("================================================================\n");
     printf("  +:*+.+:*+.+:*+.+:*+.  H E L P  M E N U .+*:+.+*:+.+*:+.+*:+. \n\n");
     printf("                daftar dan cara kerja command:\n");
