@@ -17,19 +17,29 @@ int main() {
     // // InsertFirst(&array, stringToWord("Farm Frenzy 2"));
     // // InsertFirst(&array, stringToWord("Insaniquarium"));
     
-    startGame(&array);
-    ListGame(array);
-    CreateGame(&array);
-    ListGame(array);
+    // startGame(&array);
+    // ListGame(array);
+    // CreateGame(&array);
+    // ListGame(array);
 
-    // char* maindir;
+    char* maindir;
 
-    // maindir = "data/";
+    maindir = "data/";
 
-    // printf("Masukkan command: LOAD ");
-    // STARTCOMMAND();
+    printf("Masukkan command: ");
+    STARTCOMMAND();
 
-    // // printf("%s", wordToString(concatWord(stringToWord(maindir), currentCommand)));
+    // ADVCOMMAND();
+    // printf("%s", wordToString(currentCommand));
+
+    if (isWordEqual(currentCommand, stringToWord("LOAD"))) {
+        ADVCOMMAND();
+        // printf("%s", wordToString(currentCommand));
+        load(currentCommand, &array);
+        ListGame(array);
+    }
+
+    // printf("%s", wordToString(concatWord(stringToWord(maindir), currentCommand)));
     // load(currentCommand, &array);
     // ListGame(array);
 

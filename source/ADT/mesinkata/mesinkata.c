@@ -17,7 +17,7 @@ void IgnoreBlanks()
 }
 
 void IgnoreDots() {
-    while (currentChar == BLANK && currentChar == '.') {
+    while (currentChar == BLANK || currentChar == '.') {
         advTerminal() ;
     }
 }
@@ -185,7 +185,7 @@ void copyWordFromWord(Word w1, Word *w2)
 
 void STARTCOMMAND () {
     START();
-    IgnoreDots();
+    IgnoreBlanks();
     if (currentChar == ENTER) {
         EndWord = true;
     } else {
@@ -205,6 +205,40 @@ void ADVCOMMAND () {
 }
 
 void CopyCommand () {
+    int i;
+    i = 0;
+    while ((currentChar != BLANK) && (currentChar != ENTER)) {
+        if (i < NMax) {
+            currentCommand.TabWord[i] = currentChar;
+            i++;
+        }
+        advTerminal();
+    }
+    currentCommand.Length = i;
+}
+
+void STARTGAMENAME () {
+    START();
+    IgnoreDots();
+    if (currentChar == ENTER) {
+        EndWord = true;
+    } else {
+        EndWord = false;
+        ADVGAMENAME();
+    }
+}
+
+void ADVGAMENAME () {
+    IgnoreDots();
+    if (currentChar == ENTER && !EndWord) {
+        EndWord = true;
+    } else {
+        CopyGameName();
+        IgnoreDots();
+    }
+}
+
+void CopyGameName () {
     int i;
     i = 0;
     while ((currentChar != ENTER)) {

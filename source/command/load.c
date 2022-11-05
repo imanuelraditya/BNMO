@@ -11,14 +11,11 @@ void load(Word filename, ArrayDin *array) {
     int count, i;
 
     maindir = "data/";
-    count = 0;
     i = 0;
 
     startWFile(wordToString(concatWord(stringToWord(maindir), filename)));
 
-    for (i = 0; i < currentWord.Length; i++) {
-        count = (count * 10 + (currentWord.TabWord[i] - '0'));
-    }
+    count = wordToInt(currentWord);
 
     for (i = 0; i < count; i++) {
         advNewlineFile();

@@ -6,6 +6,6 @@
     F.S. Game terdefinisi */
 void CreateGame (ArrayDin* listGame) {
     printf("Masukkan nama game yang ingin ditambahkan: ");
-    STARTCOMMAND();
+    STARTGAMENAME();
     InsertLast(listGame, stringToWord(currentCommand.TabWord));
 }
