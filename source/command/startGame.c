@@ -25,4 +25,6 @@ void startGame(ArrayDin * arr)
          advNewlineFile();
          InsertLast(arr, currentWord);
      }
+
+     printf("File konfigurasi sistem berhasil dibaca. BNMO berhasil dijalankan.\n");
 }

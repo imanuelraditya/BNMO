@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "quit.h"
 
 void Quit(){

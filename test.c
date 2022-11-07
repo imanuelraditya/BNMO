@@ -8,36 +8,37 @@
 #include "source/command/startGame.h"
 #include "source/command/CreateGame.h"
 #include "source/command/load.h"
+#include "source/command/welcome.h"
 
 int main() {
-    ArrayDin array = MakeArrayDin();
-    // // InsertFirst(&array, stringToWord("Diner Dash"));
-    // // InsertFirst(&array, stringToWord("Fishing Frenzy"));
-    // // InsertFirst(&array, stringToWord("Farm Frenzy"));
-    // // InsertFirst(&array, stringToWord("Farm Frenzy 2"));
-    // // InsertFirst(&array, stringToWord("Insaniquarium"));
+    // ArrayDin array = MakeArrayDin();
+    // // // InsertFirst(&array, stringToWord("Diner Dash"));
+    // // // InsertFirst(&array, stringToWord("Fishing Frenzy"));
+    // // // InsertFirst(&array, stringToWord("Farm Frenzy"));
+    // // // InsertFirst(&array, stringToWord("Farm Frenzy 2"));
+    // // // InsertFirst(&array, stringToWord("Insaniquarium"));
     
-    // startGame(&array);
-    // ListGame(array);
-    // CreateGame(&array);
-    // ListGame(array);
+    // // startGame(&array);
+    // // ListGame(array);
+    // // CreateGame(&array);
+    // // ListGame(array);
 
-    char* maindir;
+    // char* maindir;
 
-    maindir = "data/";
+    // maindir = "data/";
 
-    printf("Masukkan command: ");
-    STARTCOMMAND();
+    // printf("Masukkan command: ");
+    // STARTCOMMAND();
 
-    // ADVCOMMAND();
-    // printf("%s", wordToString(currentCommand));
+    // // ADVCOMMAND();
+    // // printf("%s", wordToString(currentCommand));
 
-    if (isWordEqual(currentCommand, stringToWord("LOAD"))) {
-        ADVCOMMAND();
-        // printf("%s", wordToString(currentCommand));
-        load(currentCommand, &array);
-        ListGame(array);
-    }
+    // if (isWordEqual(currentCommand, stringToWord("LOAD"))) {
+    //     ADVCOMMAND();
+    //     // printf("%s", wordToString(currentCommand));
+    //     load(currentCommand, &array);
+    //     ListGame(array);
+    // }
 
     // printf("%s", wordToString(concatWord(stringToWord(maindir), currentCommand)));
     // load(currentCommand, &array);
@@ -53,6 +54,8 @@ int main() {
     // Add(&Q, stringToWord("DINER DASH"));
 
     // ListQueueGame(Q);
+
+    welcome();
     
     return 0;
 }
