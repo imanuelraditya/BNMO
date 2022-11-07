@@ -2,8 +2,8 @@
 #include <time.h>
 #include <stdlib.h>
 
-#include "queue.h"
-#include "map.h"
+#include "../ADT/queuedinerdash/queue.h"
+#include "../ADT/map/map.h"
 
 #ifndef DINERDASH_H
 #define DINERDASH_H
