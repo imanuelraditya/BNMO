@@ -5,6 +5,9 @@
         "string.h": "c",
         "mesinkata.h": "c",
         "creategame.h": "c",
-        "arraydin.h": "c"
+        "arraydin.h": "c",
+        "queue.h": "c",
+        "stdio.h": "c",
+        "time.h": "c"
     }
 }

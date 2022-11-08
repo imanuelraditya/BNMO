@@ -2,13 +2,14 @@
 #include <time.h>
 #include <stdlib.h>
 
-#include "../ADT/queuedinerdash/queue.h"
 #include "../ADT/map/map.h"
+#include "../ADT/queuedinerdash/queue.h"
+#include "../ADT/mesinkata/mesinkata.h"
 
 #ifndef DINERDASH_H
 #define DINERDASH_H
 
-void displayOrder(Queue Q);
+void displayOrder(QueueInt Q);
 
 void displayCook(Map C);
 
@@ -20,6 +21,6 @@ int idxToInt(char *idx);
 
 void sortMap(Map *Map);
 
-void main();
+void dinerdash();
 
 #endif

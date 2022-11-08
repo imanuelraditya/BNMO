@@ -1,15 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "source/ADT/array/arraydin.h"
+#include "source/ADT/map/map.h"
 #include "source/ADT/mesinkarakter/mesinkarakter.h"
 #include "source/ADT/mesinkata/mesinkata.h"
 #include "source/ADT/queue/queue.h"
+#include "source/ADT/queuedinerdash/queue.h"
 #include "source/command/command_lain.h"
 #include "source/command/createGame.h"
+#include "source/command/dinerdash.h"
 #include "source/command/help.h"
 #include "source/command/list_game.h"
 #include "source/command/load.h"
 #include "source/command/PlayGame.h"
+#include "source/command/queueGame.h"
 #include "source/command/quit.h"
 #include "source/command/rng.h"
 #include "source/command/skipGame.h"
@@ -43,7 +47,14 @@ int main() {
         } else if (isWordEqual(currentCommand, stringToWord("LOAD"))) {
             ADVCOMMAND();
             load(currentCommand, &array);
-            esc = true;
+            if (Length(array) > 0) {
+                esc = true;
+                printf("Save file berhasil dibaca. BNMO berhasil dijalankan.\n");
+
+            }
+            else {
+                printf("File tidak ditemukan\n");
+            }
         } else {
             while (!EndWord) {
                 ADVCOMMAND();
@@ -113,8 +124,8 @@ int main() {
         } else if (isWordEqual(currentCommand, stringToWord("QUEUE"))) {
             ADVCOMMAND();
             if (isWordEqual(currentCommand, stringToWord("GAME"))) {
-                printf("Game berhasil dimasukkan ke dalam queue\n");
-                // queueGame(currentCommand, &array, &Q);
+                // printf("Game berhasil dimasukkan ke dalam queue\n");
+                queueGame(array, &Q);
             }
             else {
                 while (!EndWord) {
@@ -125,7 +136,7 @@ int main() {
         } else if (isWordEqual(currentCommand, stringToWord("PLAY"))) {
             ADVCOMMAND();
             if (isWordEqual(currentCommand, stringToWord("GAME"))) {
-                playGame(Q);
+                playGame(&Q);
             }
             else {
                 while (!EndWord) {
@@ -133,9 +144,18 @@ int main() {
                 }
                 printf("Command tidak valid\n");
             }
-        } else if (isWordEqual(currentCommand, stringToWord("SKIPGAME"))) {
+        } else if (isWordEqual(currentCommand, stringToWord("SKIP"))) {
             ADVCOMMAND();
-            skipGame(&Q, wordToInt(currentCommand));
+            if (isWordEqual(currentCommand, stringToWord("GAME"))) {
+                ADVCOMMAND();
+                skipGame(&Q, wordToInt(currentCommand));
+            }
+            else {
+                while (!EndWord) {
+                    ADVCOMMAND();
+                }
+                printf("Command tidak valid\n");
+            }
         } else if (isWordEqual(currentCommand, stringToWord("QUIT"))) {
             Quit();
             esc = true;

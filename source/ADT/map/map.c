@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include "map.h"
 
-void CreateEmpty(Map *M)
+void CreateMapEmpty(Map *M)
 {
     M->Count = Nil;
 }
 
-boolean IsEmpty(Map M)
+boolean IsMapEmpty(Map M)
 {
     return M.Count == Nil;
 }
 
-boolean IsFull(Map M)
+boolean IsMapFull(Map M)
 {
     return M.Count == MaxEl;
 }
@@ -32,9 +32,9 @@ valuetype Value(Map M, keytype k)
 
 void Insert(Map *M, keytype k, valuetype v)
 {
-    if (!IsFull(*M))
+    if (!IsMapFull(*M))
     {
-        if (!IsMember(*M, k))
+        if (!IsMemberMap(*M, k))
         {
             M->Count++;
             M->Elements[M->Count - 1].Key = k;
@@ -51,7 +51,7 @@ void Delete(Map *M, keytype k)
     }
     else
     {
-        if (IsMember(*M, k))
+        if (IsMemberMap(*M, k))
         {
             int i = 0;
             while (i < M->Count && M->Elements[i].Key != k)
@@ -69,7 +69,7 @@ void Delete(Map *M, keytype k)
     }
 }
 
-boolean IsMember(Map M, keytype k)
+boolean IsMemberMap(Map M, keytype k)
 {
     int i = 0;
     while (i < M.Count)

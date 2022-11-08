@@ -10,7 +10,7 @@
 /* ********* Prototype ********* */
 boolean IsQEmpty (Queue Q){
 	/* Mengirim true jika Q kosong: lihat definisi di atas */
-	return Head(Q)==QNil && Tail(Q)==QNil;	
+	return ((Head(Q)==QNil) && (Tail(Q)==QNil));	
 }
 
 boolean IsQFull (Queue Q){

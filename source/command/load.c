@@ -21,6 +21,4 @@ void load(Word filename, ArrayDin *array) {
         advNewlineFile();
         InsertLast(array, currentWord);
     }
-
-    printf("Save file berhasil dibaca. BNMO berhasil dijalankan.\n");
 }

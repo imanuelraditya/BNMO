@@ -10,13 +10,13 @@ typedef struct{
     int cookTime;
     int expTime;
     int price;
-} ElType;
+} ElTypeInt;
 
 typedef struct {
-	ElType buffer[CAPACITY]; 
+	ElTypeInt buffer[CAPACITY]; 
 	int idxHead;
 	int idxTail;
-} Queue;
+} QueueInt;
 
 
 /* ********* AKSES (Selektor) ********* */
@@ -27,7 +27,7 @@ typedef struct {
 #define     TAIL(q) (q).buffer[(q).idxTail]
 
 /* *** Kreator *** */
-void CreateQueue(Queue *q);
+void CreateQueueInt(QueueInt *q);
 /* I.S. sembarang */
 /* F.S. Sebuah q kosong terbentuk dengan kondisi sbb: */
 /* - Index head bernilai IDX_UNDEF */
@@ -35,29 +35,29 @@ void CreateQueue(Queue *q);
 /* Proses : Melakukan alokasi, membuat sebuah q kosong */
 
 /* ********* Prototype ********* */
-boolean isEmpty(Queue q);
+boolean isQueueIntEmpty(QueueInt q);
 /* Mengirim true jika q kosong: lihat definisi di atas */
-boolean isFull(Queue q);
+boolean isQueueIntFull(QueueInt q);
 /* Mengirim true jika tabel penampung elemen q sudah penuh */
 /* yaitu IDX_TAIL akan selalu di belakang IDX_HEAD dalam buffer melingkar*/
 
-int length(Queue q);
+int QueueIntLength(QueueInt q);
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika q kosong. */
 
 /* *** Primitif Add/Delete *** */
-void enqueue(Queue *q, ElType val);
+void enqueue(QueueInt *q, ElTypeInt val);
 /* Proses: Menambahkan val pada q dengan aturan FIFO */
 /* I.S. q mungkin kosong, tabel penampung elemen q TIDAK penuh */
 /* F.S. val menjadi TAIL yang baru, IDX_TAIL "mundur" dalam buffer melingkar. */
 
-void dequeue(Queue *q, ElType *val);
+void dequeue(QueueInt *q, ElTypeInt *val);
 /* Proses: Menghapus val pada q dengan aturan FIFO */
 /* I.S. q tidak mungkin kosong */
 /* F.S. val = nilai elemen HEAD pd I.S., IDX_HEAD "mundur";
         q mungkin kosong */
 
 /* *** Display Queue *** */
-void displayQueue(Queue q);
+void displayQueueInt(QueueInt q);
 /* Proses : Menuliskan isi Queue dengan traversal, Queue ditulis di antara kurung 
    siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan 
    karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */

@@ -21,10 +21,10 @@ typedef int address;
 typedef struct {
 	keytype Key;
 	valuetype Value;
-} infotype;
+} info;
 
 typedef struct {
-	infotype Elements[MaxEl];
+	info Elements[MaxEl];
 	address Count;
 } Map;
 
@@ -35,17 +35,17 @@ typedef struct {
 /* ********* Prototype ********* */
 
 /* *** Konstruktor/Kreator *** */
-void CreateEmpty(Map *M);
+void CreateMapEmpty(Map *M);
 /* I.S. Sembarang */
 /* F.S. Membuat sebuah Map M kosong berkapasitas MaxEl */
 /* Ciri Map kosong : count bernilai Nil */
 
 /* ********* Predikat Untuk test keadaan KOLEKSI ********* */
-boolean IsEmpty(Map M);
+boolean IsMapEmpty(Map M);
 /* Mengirim true jika Map M kosong*/
 /* Ciri Map kosong : count bernilai Nil */
 
-boolean IsFull(Map M);
+boolean IsMapFull(Map M);
 /* Mengirim true jika Map M penuh */
 /* Ciri Map penuh : count bernilai MaxEl */
 
@@ -66,7 +66,7 @@ void Delete(Map *M, keytype k);
         element dengan key k mungkin anggota / bukan anggota dari M */
 /* F.S. element dengan key k bukan anggota dari M */
 
-boolean IsMember(Map M, keytype k);
+boolean IsMemberMap(Map M, keytype k);
 /* Mengembalikan true jika k adalah member dari M */
 
 #endif

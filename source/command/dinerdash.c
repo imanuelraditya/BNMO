@@ -2,10 +2,8 @@
 #include <time.h>
 #include <stdlib.h>
 #include "dinerdash.h"
-#include "../ADT/queuedinerdash/queue.h"
-#include "../ADT/map/map.h"
 
-void displayOrder(Queue Q)
+void displayOrder(QueueInt Q)
 {
     int i = IDX_HEAD(Q);
     printf("Daftar Pesanan\n");
@@ -84,7 +82,7 @@ void sortMap(Map *Map){
         {
             if(Map->Elements[j].Value > Map->Elements[j+1].Value)
             {
-                infotype temp = Map->Elements[j];
+                info temp = Map->Elements[j];
                 Map->Elements[j] = Map->Elements[j+1];
                 Map->Elements[j+1] = temp;
             }
@@ -92,16 +90,16 @@ void sortMap(Map *Map){
     }
 }
 
-void main(){
+void dinerdash(){
     // Deklarasi ADT
-    Queue Order;
+    QueueInt Order;
     Map Cook;
     Map Serve;
 
     // Inisialisasi ADT
-    CreateQueue(&Order);
-    CreateEmpty(&Cook);
-    CreateEmpty(&Serve);
+    CreateQueueInt(&Order);
+    CreateMapEmpty(&Cook);
+    CreateMapEmpty(&Serve);
 
     // Inisialisasi Variabel
     int serveCount = 0;
@@ -110,7 +108,7 @@ void main(){
     // Inisialiasi 3 order awal
     int firstOrder = 0;
     for(firstOrder; firstOrder < 3; firstOrder++){
-        ElType ord;
+        ElTypeInt ord;
         ord.cookTime = randomNumber(5,1);
         ord.expTime = randomNumber(5,1);
         ord.price = randomNumber(50000,10000);
@@ -121,7 +119,7 @@ void main(){
     printf("Selamat Datang di Diner Dash!");
     
     // Looping Untuk Keberjalanan Game
-    while (length(Order) <= 7 && serveCount < 15)
+    while (QueueIntLength(Order) <= 7 && serveCount < 15)
     {
 
         // Display
@@ -140,20 +138,38 @@ void main(){
         while(!valid){
             if(countValid > 0)
             {
+                while (!EndWord)
+                {
+                    ADVCOMMAND();
+                }
                 printf("INPUT SALAH!\n");
             }
             printf("MASUKKAN COMMAND: ");
-            scanf("%s %s", &command, &index);
+            // scanf("%s %s", &command, &index);
+            STARTCOMMAND();
+
+            for (int i = 0; i < currentCommand.Length; i++)
+            {
+                command[i] = currentCommand.TabWord[i];
+            }
+
+            ADVCOMMAND();
+
+            for (int i = 0; i < currentCommand.Length; i++)
+            {
+                index[i] = currentCommand.TabWord[i];
+            }
+
             if(command[0] == 'C' && command[1] == 'O' && command[2] == 'O' && command[3] == 'K')
             {
-                if(index[0] == 'M' && idxToInt(index) < length(Order))
+                if(index[0] == 'M' && idxToInt(index) < QueueIntLength(Order))
                 {
                     valid = true;
                 }
             }
             if(command[0] == 'S' && command[1] == 'E' && command[2] == 'R' && command[3] == 'V' && command[4] == 'E')
             {
-                if(index[0] == 'M' && IsMember(Serve, idxToInt(index)))
+                if(index[0] == 'M' && IsMemberMap(Serve, idxToInt(index)))
                 {
                     valid = true;
                 }
@@ -219,7 +235,7 @@ void main(){
             {
                 // Mencari makanan di serve dengan ID = idx
                 int i = 0;
-                ElType el;
+                ElTypeInt el;
                 boolean found = false;
                 while(!found)
                 {
@@ -241,7 +257,7 @@ void main(){
         }
 
         // Order Baru
-        ElType newOrder;
+        ElTypeInt newOrder;
         newOrder.cookTime = randomNumber(5,1);
         newOrder.expTime = randomNumber(5,1);
         newOrder.price = randomNumber(50000,10000);

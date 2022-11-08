@@ -16,19 +16,21 @@ void skipGame(Queue * Q, int n)
     // KAMUS LOKAL
     Word temp;
     int i = 0;
-    // ALGORITMA
-    if(IsQEmpty){
-        printf("Tidak ada permainan di dalam daftar game-mu (T ^ T)\n");
-    } else if(n > QNBElmt(*Q)){
-        for(i = 0; i < QNBElmt(*Q) ; i++) { // menghapus semua isi yang ada di antrian game 
-            Del(Q, &temp);                  // karena skip lebih banyak dr jumlah game di antrian
-        }
-        printf("Tidak ada lagi permainan di dalam daftar game-mu\n");
-    } else { // n < QNBElmt(*Q) -> maka akan di play game paling atas 
-        for(i = 0 ; i < n ; i++) {
-            Del(Q, &temp);
-        }
-        playGame(*Q);
 
+    // ALGORITMA
+    if (IsQEmpty(*Q)) {
+        printf("Tidak ada permainan di dalam daftar game-mu\n");
+    }
+    else {
+        while (i < n && !IsQEmpty(*Q)) {
+            Del(Q, &temp);
+            i++;
+        }
+        if (IsQEmpty(*Q)) {
+            printf("Tidak ada permainan lagi di dalam daftar game-mu\n");
+        }
+        else {
+            playGame(Q);
+        }
     }
 }

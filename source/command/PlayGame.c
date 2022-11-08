@@ -1,17 +1,21 @@
 # include "PlayGame.h"
 
-void playGame (Queue queueGame) 
+void playGame (Queue* queueGame) 
 {
     Word play ;
-    ListQueueGame (queueGame) ; 
-    if (!IsQEmpty (queueGame)) {
-        Del(&queueGame, &play) ; 
+    ListQueueGame (*queueGame) ; 
 
-        if (isWordEqual(play, stringToWord("Dinner DASH"))) {
-            printf ("Dinner DASH\n") ;
-            // dinner_dash() ;
+    printf ("\n") ;
+
+    if (!IsQEmpty (*queueGame)) {
+        Del(queueGame, &play) ; 
+
+        if (isWordEqual(play, stringToWord("DINER DASH"))) {
+            printf ("Loading %s . . .\n\n", wordToString(play)) ;
+            dinerdash() ;
         }
         else if (isWordEqual(play, stringToWord("RNG"))) {
+            printf ("Loading %s . . .\n\n", wordToString(play)) ;
             rng() ;
         }
         else {
