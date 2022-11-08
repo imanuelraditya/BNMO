@@ -145,4 +145,10 @@ char* wordToString(Word w);
 int wordToInt(Word w);
 /* Mengubah kata menjadi integer */
 
+int commandWord(Word w);
+/* Mengembalikan jumlah kata pada command */
+
+void invalidCommand(Word* w);
+/* Menampilkan pesan kesalahan pada command */
+
 #endif

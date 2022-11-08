@@ -5,10 +5,8 @@
 void queueGame(ArrayDin listGame, Queue* Q)
 {
     int i;
-    boolean valid;
     
     ListQueueGame(*Q);
-    valid = false;
 
     printf("\n");
 
@@ -16,20 +14,19 @@ void queueGame(ArrayDin listGame, Queue* Q)
 
     printf("\n");
 
-    while (!valid) {
 
-        printf("Nomor Game yang mau ditambahkan ke antrian: ");
-        STARTCOMMAND();
+    printf("Nomor Game yang mau ditambahkan ke antrian: ");
+    STARTCOMMAND();
+
+    if (commandWord(currentCommand) == 1) {
 
         if (wordToInt(currentCommand) > Length(listGame) || wordToInt(currentCommand) < 1){
             while (!EndWord) {
                 ADVCOMMAND();
             }
-            printf("Nomor permainan tidak valid, silahkan masukkan nomor game pada list.\n\n");
+            printf("Nomor permainan tidak valid, silahkan masukkan nomor game pada list.\n");
         }
         else {
-            valid = true;
-
             for (i = 0; i < Length(listGame); i++)
             {
                 if (i == wordToInt(currentCommand) - 1)
@@ -40,5 +37,8 @@ void queueGame(ArrayDin listGame, Queue* Q)
 
             printf("Game berhasil ditambahkan ke dalam daftar antrian.\n");
         }
+    }
+    else {
+        invalidCommand(&currentCommand);
     }
 }

@@ -264,15 +264,16 @@ int stringLength(char *str)
 Word stringToWord(char *str)
 {
     Word word;
+    int i;
+    
     word.Length = stringLength(str);
-    for (int i = 0; i < word.Length; i++)
+    for (i = 0; i < word.Length; i++)
     {
         word.TabWord[i] = str[i];
-        if (i == word.Length - 1)
-        {
-            word.TabWord[i + 1] = '\0';
-        }
     }
+
+    word.TabWord[i] = '\0';
+
     return word;
 }
 
@@ -300,4 +301,24 @@ int wordToInt(Word word) {
         num = num * 10 + (word.TabWord[i] - '0');
     }
     return num;
+}
+
+int commandWord(Word w) {
+    int i;
+
+    i = 0;
+
+    while (!EndWord) {
+        ADVCOMMAND();
+        i++;
+    }
+
+    return i;
+}
+
+void invalidCommand(Word* w) {
+    while (!EndWord) {
+        ADVCOMMAND();
+    }
+    printf("Command tidak valid.\n");
 }

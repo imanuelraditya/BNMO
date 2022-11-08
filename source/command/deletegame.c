@@ -5,33 +5,45 @@
 void deleteGame (ArrayDin* listGame, Queue Q) 
 {
     int nomor, i, gameQueue;
+    boolean found;
+
     gameQueue = QNBElmt(Q);
-    ada_di_Queue = false;
+    i = 0;
+    found = false;
 
-    ListGame (listGame);
+    ListGame(*listGame);
     printf("Masukkan nomor game yang akan dihapus: ");
-    scanf("%d", &nomor);
+    STARTCOMMAND();
 
-    for (i=0; i=gameQueue; i++)
-    {
-        if (Q.T[i].TabWord == Get(listGame, nomor).TabWord)
+    if (commandWord(currentCommand) == 1) {
+        nomor = wordToInt(currentCommand);
+
+        while (i < QNBElmt(Q) && !found) {
+            if (isWordEqual(Q.T[i], Get(*listGame, (nomor - 1)))) {
+                found = true;
+            }
+            else {
+                i++;
+            }
+        }
+        
+        if (found)
         {
-            printf("Game gagal dihapus\n");
-            ada_di_Queue == true;
-            break;
+            printf("Game gagal dihapus.\n");
+        }
+        else {
+            if (nomor == 1 || nomor == 2 || nomor == 3 || nomor == 4 || nomor == 5)
+            {
+                printf("Game gagal dihapus.\n");
+            }
+            else 
+            {
+                DeleteAt(listGame, (nomor-1));
+                printf("Game berhasil dihapus.\n");
+            }
         }
     }
-    
-    if ada_di_Queue == false
-    {
-        if (nomor == 1 || nomor == 2 || nomor == 3 || nomor == 4 || nomor == 5)
-        {
-            printf("Game gagal dihapus\n");
-        }
-        else 
-        {
-            DeleteAt(listGame, nomor);
-            printf("Game berhasil dihapus\n");
-        }
+    else {
+        invalidCommand(&currentCommand);
     }
 }

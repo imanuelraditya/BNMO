@@ -14,7 +14,7 @@ void ListGame (ArrayDin array) {
         printf("Tidak ada game yang tersedia.\n");
     } else {
         for (i = 0; i < Length(array); i++) {
-            printf("%d. %s\n", i+1, Get(array, i).TabWord);
+            printf("%d. %s\n", i+1, wordToString(Get(array, i)));
         }
     }
 }

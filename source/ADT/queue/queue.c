@@ -111,7 +111,7 @@ void ListQueueGame (Queue Q){
 	}
 	else{
 		for (i = Head(Q); i <= Tail(Q); i = (i + 1) % QMaxEl(Q)){
-			printf("%d. %s\n", num, Q.T[i].TabWord);
+			printf("%d. %s\n", num, wordToString(Q.T[i]));
 			num++;
 		}
 	}

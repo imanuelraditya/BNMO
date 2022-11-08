@@ -4,17 +4,25 @@
 
 void save(Word filename, ArrayDin* listGame)
 {
+    FILE *fpointer;
+    char* maindir;
     int i;
 
-    FILE * fpointer
-    fpointer = fopen(filename, "w+");
+    maindir = "data/";
 
-    fprintf(fpointer, "%d\n", Length(listGame));
-    for (i=0, i<Length(listGame), i++)
-    {
-        fprintf(fpointer, "%s\n", Get(listGame, i).TabWord);
+    fpointer = fopen(wordToString(concatWord(stringToWord(maindir), filename)), "w");
+
+    if (fpointer == NULL) {
+        printf("Tidak ada nama file yang tercantum. Silakan coba lagi.\n");
     }
-    fclose(fpointer);
+    else {
+        fprintf(fpointer, "%d\n", Length(*listGame));
+        for (i = 0; i < Length(*listGame); i++)
+        {
+            fprintf(fpointer, "%s\n", wordToString(Get(*listGame, i)));
+        }
+        fclose(fpointer);
+    }
 
     printf("Save file berhasil disimpan\n");
 }

@@ -8,6 +8,9 @@
         "arraydin.h": "c",
         "queue.h": "c",
         "stdio.h": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "list_game.h": "c",
+        "help.h": "c",
+        "mesinkarakter.h": "c"
     }
 }
