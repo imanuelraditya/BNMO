@@ -315,10 +315,3 @@ int commandWord(Word w) {
 
     return i;
 }
-
-void invalidCommand(Word* w) {
-    while (!EndWord) {
-        ADVCOMMAND();
-    }
-    printf("Command tidak dikenali, silahkan masukkan command yang valid.\n");
-}

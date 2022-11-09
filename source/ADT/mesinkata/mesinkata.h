@@ -148,7 +148,4 @@ int wordToInt(Word w);
 int commandWord(Word w);
 /* Mengembalikan jumlah kata pada command */
 
-void invalidCommand(Word* w);
-/* Menampilkan pesan kesalahan pada command */
-
 #endif

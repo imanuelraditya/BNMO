@@ -6,21 +6,7 @@
 #include "source/ADT/mesinkata/mesinkata.h"
 #include "source/ADT/queue/queue.h"
 #include "source/ADT/queuedinerdash/queue.h"
-#include "source/command/command_lain.h"
-#include "source/command/createGame.h"
-#include "source/command/deletegame.h"
-#include "source/command/dinerdash.h"
-#include "source/command/help.h"
-#include "source/command/list_game.h"
-#include "source/command/load.h"
-#include "source/command/PlayGame.h"
-#include "source/command/queueGame.h"
-#include "source/command/quit.h"
-#include "source/command/rng.h"
-#include "source/command/save.h"
-#include "source/command/skipGame.h"
-#include "source/command/startGame.h"
-#include "source/command/welcome.h"
+#include "source/command/console.h"
 
 int main() {
 
@@ -234,10 +220,7 @@ int main() {
 
 // KOMPILASI PROGRAM
 
-/* gcc main.c source/command/command_lain.c source/command/createGame.c source/command/deletegame.c source/command/dinerdash.c 
-source/command/help.c source/command/list_game.c source/command/load.c source/command/PlayGame.c source/command/queueGame.c 
-source/command/quit.c source/command/rng.c source/command/save.c source/command/skipGame.c source/command/startGame.c 
-source/command/welcome.c source/ADT/queue/queue.c source/ADT/queuedinerdash/queue.c source/ADT/map/map.c 
+/* gcc main.c source/command/console.c source/ADT/queue/queue.c source/ADT/queuedinerdash/queue.c source/ADT/map/map.c 
 source/ADT/mesinkarakter/mesinkarakter.c source/ADT/mesinkata/mesinkata.c source/ADT/array/arraydin.c -o a */
 
 /* .\a */
