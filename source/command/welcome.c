@@ -8,7 +8,7 @@ void loading()
     int i, j, delay;
 
 /* ALGORITMA */
-    printf("loading ");
+    printf("accessing BNMO ");
 
     for(i = 0; i < 10; i++) { // jumlah '>'
         for(j = 0; j < 100000000; j++) { // buat delay prosesnya

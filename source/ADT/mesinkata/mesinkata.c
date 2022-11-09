@@ -320,5 +320,5 @@ void invalidCommand(Word* w) {
     while (!EndWord) {
         ADVCOMMAND();
     }
-    printf("Command tidak valid.\n");
+    printf("Command tidak dikenali, silahkan masukkan command yang valid.\n");
 }

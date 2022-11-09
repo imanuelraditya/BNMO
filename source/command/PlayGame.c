@@ -19,8 +19,7 @@ void playGame (Queue* queueGame)
             rng() ;
         }
         else {
-            wordToString (play) ;
-            printf ("Game %s masih dalam maintenance, belum dapat dimainkan. Silahkan pilih game lain.\n", play) ;
+            printf ("Game %s masih dalam maintenance, belum dapat dimainkan. Silahkan pilih game lain.\n", wordToString(play)) ;
         }
     }
     

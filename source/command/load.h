@@ -4,3 +4,7 @@
 #include "../ADT/mesinkarakter/mesinkarakter.h"
 
 void load (Word filename, ArrayDin* array);
+
+void loadSuceeded();
+
+void loadFailed();

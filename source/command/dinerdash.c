@@ -133,48 +133,82 @@ void dinerdash(){
         char index[4];
         boolean valid = false;
         int countValid = 0;
+        int i;
 
         // Command dan validasi kebenaran inputnya
         while(!valid){
-            if(countValid > 0)
-            {
-                while (!EndWord)
-                {
-                    ADVCOMMAND();
-                }
-                printf("INPUT SALAH!\n");
-            }
-            printf("MASUKKAN COMMAND: ");
-            // scanf("%s %s", &command, &index);
+            printf("COMMAND : ");
             STARTCOMMAND();
-
-            for (int i = 0; i < currentCommand.Length; i++)
-            {
+            
+            for (i = 0; i< currentCommand.Length; i++){
                 command[i] = currentCommand.TabWord[i];
             }
 
-            ADVCOMMAND();
-
-            for (int i = 0; i < currentCommand.Length; i++)
+            if((command[0] == 'C' && command[1] == 'O' && command[2] == 'O' && command[3] == 'K') || (command[0] == 'c' && command[1] == 'o' && command[2] == 'o' && command[3] == 'k'))
             {
-                index[i] = currentCommand.TabWord[i];
-            }
+                ADVCOMMAND();
 
-            if(command[0] == 'C' && command[1] == 'O' && command[2] == 'O' && command[3] == 'K')
-            {
-                if(index[0] == 'M' && idxToInt(index) < QueueIntLength(Order))
-                {
-                    valid = true;
+                if (commandWord(currentCommand) == 1) {
+                    for (i = 0; i< currentCommand.Length; i++){
+                        index[i] = currentCommand.TabWord[i];
+                    }
+
+                    if(index[0] == 'M' && idxToInt(index) < QueueIntLength(Order))
+                    {
+                        valid = true;
+                    }
+                    else
+                    {
+                        printf("M%d tidak ada pada Order!\n", idxToInt(index));
+                    }
+                }
+                else {
+                    invalidCommand(&currentCommand);
                 }
             }
-            if(command[0] == 'S' && command[1] == 'E' && command[2] == 'R' && command[3] == 'V' && command[4] == 'E')
+            else if((command[0] == 'S' && command[1] == 'E' && command[2] == 'R' && command[3] == 'V' && command[4] == 'E') || (command[0] == 's' && command[1] == 'e' && command[2] == 'r' && command[3] == 'v' && command[4] == 'e'))
             {
-                if(index[0] == 'M' && IsMemberMap(Serve, idxToInt(index)))
-                {
-                    valid = true;
+                ADVCOMMAND();
+                
+                if (commandWord(currentCommand) == 1) {
+                    for (i = 0; i< currentCommand.Length; i++){
+                        index[i] = currentCommand.TabWord[i];
+                    }
+
+                    if(index[0] == 'M' && idxToInt(index) < QueueIntLength(Order))
+                    {
+                        valid = true;
+                    }
+                    else
+                    {
+                        printf("M%d tidak ada pada Order!\n", idxToInt(index));
+                    }
+                }
+                else {
+                    invalidCommand(&currentCommand);
                 }
             }
-            countValid++;
+            else if(command[0] == 'S' && command[1] == 'K' && command[2] == 'I' && command[3] == 'P')
+            {
+                if (commandWord(currentCommand) == 1) {
+                    valid = true;
+                    printf("SKIP 1 PUTARAN\n\n");
+                }
+                else {
+                    invalidCommand(&currentCommand);
+                }
+            }
+            else
+            {
+                if (commandWord(currentCommand) <= 2) {
+                    printf("INPUT SALAH!\n\n");
+                }
+                else {
+                    invalidCommand(&currentCommand);
+                }
+
+            }
+            
         }
 
         // Proses Masak
@@ -249,6 +283,8 @@ void dinerdash(){
                     }
                     i++;
                 }
+
+                printf("\nBerhasil mengantar M%d\n", idx);
             }
             else
             {
@@ -263,7 +299,9 @@ void dinerdash(){
         newOrder.price = randomNumber(50000,10000);
         enqueue(&Order, newOrder);
 
-        printf("==========================================================");
+        printf("===========================================================\n");
     }
 
+    printf("                    - DINER DASH OVER -                    \n");
+    printf("\n");
 }

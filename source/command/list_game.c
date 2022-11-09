@@ -14,20 +14,7 @@ void ListGame (ArrayDin array) {
         printf("Tidak ada game yang tersedia.\n");
     } else {
         for (i = 0; i < Length(array); i++) {
-            printf("%d. %s\n", i+1, wordToString(Get(array, i)));
+            printf("%d. %s\n", (i + 1), wordToString(array.A[i]));
         }
     }
 }
-
-// int main() {
-//     ArrayDin array = MakeArrayDin();
-//     InsertFirst(&array, stringToWord("Diner Dash"));
-//     InsertFirst(&array, stringToWord("Fishing Frenzy"));
-//     InsertFirst(&array, stringToWord("Farm Frenzy"));
-//     InsertFirst(&array, stringToWord("Farm Frenzy 2"));
-//     InsertFirst(&array, stringToWord("Insaniquarium"));
-
-//     ListGame(array);
-
-//     return 0;
-// }

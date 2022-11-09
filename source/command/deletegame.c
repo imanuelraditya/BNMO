@@ -8,7 +8,7 @@ void deleteGame (ArrayDin* listGame, Queue Q)
     boolean found;
 
     gameQueue = QNBElmt(Q);
-    i = 0;
+    i = Head(Q);
     found = false;
 
     ListGame(*listGame);
@@ -18,7 +18,7 @@ void deleteGame (ArrayDin* listGame, Queue Q)
     if (commandWord(currentCommand) == 1) {
         nomor = wordToInt(currentCommand);
 
-        while (i < QNBElmt(Q) && !found) {
+        while (i <= Tail(Q) && !found) {
             if (isWordEqual(Q.T[i], Get(*listGame, (nomor - 1)))) {
                 found = true;
             }

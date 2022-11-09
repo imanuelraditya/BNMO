@@ -57,11 +57,11 @@ int main() {
             if (commandWord(currentCommand) == 2) {
                 load(currentCommand, &array);
                 if (Length(array) == 0) {
-                    printf("Load file gagal. File tidak ditemukan.\n");
+                    loadFailed();
                 }
                 else {
                     esc = true;
-                    printf("Save file berhasil dibaca. BNMO berhasil dijalankan.\n");
+                    loadSuceeded();
                 }
             }
             else {
@@ -173,8 +173,46 @@ int main() {
             }
         } else if (isWordEqual(currentCommand, stringToWord("QUIT"))) {
             if (commandWord(currentCommand) == 1) {
-                Quit();
-                esc = true;
+                printf("Apakah anda ingin melakukan SAVE sebelum keluar dari program? (Y/N): ");
+                
+                STARTCOMMAND();
+
+                if (isWordEqual(currentCommand, stringToWord("Y"))) {
+                    if (commandWord(currentCommand) == 1) {
+                        Word namaFile;
+                        
+                        printf("Masukkan nama file: ");
+                        
+                        STARTCOMMAND();
+                        
+                        namaFile = currentCommand;
+
+                        if (commandWord(currentCommand) == 1) {
+                            save(namaFile, &array);
+                            printf("\n");
+                            esc = true;
+                            Quit();
+                        }
+                        else {
+                            invalidCommand(&currentCommand);
+                        }
+                    }
+                    else {
+                        invalidCommand(&currentCommand);
+                    }
+                }
+                else if (isWordEqual(currentCommand, stringToWord("N"))) {
+                    if (commandWord(currentCommand) == 1) {
+                        esc = true;
+                        Quit();
+                    }
+                    else {
+                        invalidCommand(&currentCommand);
+                    }
+                }
+                else {
+                    invalidCommand(&currentCommand);
+                }
             }
             else {
                 invalidCommand(&currentCommand);

@@ -34,12 +34,10 @@ void Insert(Map *M, keytype k, valuetype v)
 {
     if (!IsMapFull(*M))
     {
-        if (!IsMemberMap(*M, k))
-        {
-            M->Count++;
-            M->Elements[M->Count - 1].Key = k;
-            M->Elements[M->Count - 1].Value = v;
-        }
+        M->Count++;
+        M->Elements[M->Count - 1].Key = k;
+        M->Elements[M->Count - 1].Value = v;
+    
     }
 }
 
