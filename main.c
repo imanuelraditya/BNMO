@@ -31,7 +31,7 @@ int main() {
     boolean esc;
 
     array = MakeArrayDin();
-    QCreateEmpty(&Q, 20);
+    QCreateEmpty(&Q, 100);
     esc = false;
 
     // PROGRAM UTAMA

@@ -23,7 +23,12 @@ void deleteGame (ArrayDin* listGame, Queue Q)
                 found = true;
             }
             else {
-                i++;
+                if (i == Tail(Q)) {
+                    i = 0;
+                }
+                else {
+                    i++;
+                }
             }
         }
         
