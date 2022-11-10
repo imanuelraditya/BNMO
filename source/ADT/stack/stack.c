@@ -10,7 +10,7 @@ F.S. Terbentuk Stack kosong
     Count(*S) = 0;
 }
 
-boolean IsEmpty(Stack S)
+boolean IsStackEmpty(Stack S)
 {
 /*  
 Menghasilkan True jika Stack kosong, dan False jika Stack tidak kosong
@@ -79,5 +79,5 @@ F.S. Menampilkan semua Info dari masing-masing elemen dari Stack
         i++;
     }
     for (i = Count(S) - 1; i >= 0; i--)
-        printf("%d ", X[i]);
+        printf("%s\n", wordToString(X[i]));
 }

@@ -4,6 +4,10 @@
 #include "../../boolean.h"
 #include "../mesinkata/mesinkata.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+
 typedef Word InfoType;
 typedef struct tElmStack *Address;
 
@@ -22,7 +26,7 @@ typedef struct {
 #define Top(S) (S).Top
 #define Max(S) (S).Max
 #define Count(S) (S).Count
-#define Nil 0
+#define Nil NULL
 
 void CreateStack(Stack *S);
 /*  
@@ -30,7 +34,7 @@ I.S. Sembarang
 F.S. Terbentuk Stack kosong
 */
 
-boolean IsEmpty(Stack S);
+boolean IsStackEmpty(Stack S);
 /*  
 Menghasilkan True jika Stack kosong, dan False jika Stack tidak kosong
 */
