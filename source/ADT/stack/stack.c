@@ -79,5 +79,5 @@ F.S. Menampilkan semua Info dari masing-masing elemen dari Stack
         i++;
     }
     for (i = Count(S) - 1; i >= 0; i--)
-        printf("%d ", X[i]);
+        printf("%s\n", X[i]);
 }

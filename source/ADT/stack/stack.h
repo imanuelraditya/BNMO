@@ -1,10 +1,12 @@
 # ifndef stackdin_H
 # define stacktdin_H
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "../../boolean.h"
 #include "../mesinkata/mesinkata.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
 
 typedef int InfoType;
 typedef struct tElmStack *Address;
@@ -24,7 +26,7 @@ typedef struct {
 #define Top(S) (S).Top
 #define Max(S) (S).Max
 #define Count(S) (S).Count
-#define Nil 0
+#define Nil NULL
 
 void CreateStack(Stack *S);
 /*  
