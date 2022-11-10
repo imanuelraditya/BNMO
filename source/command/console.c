@@ -749,12 +749,12 @@ void rng(){
     x = randomx();
 
     printf("RNG telah dimulai. Uji keberuntungan Anda dengan menebak angka X.\n");
-    printf("Tebakan: ");
-    scanf("%d", &tebakan);
-
-    do 
+    
+    do
     {
-        ++i; /*Memberikan 8 kesempatan menebak*/
+        ++i;
+        printf("Tebakan: ");
+        scanf("%d", &tebakan);
         if (tebakan==x)
         {
             printf("Ya, X adalah %d\n", x);
@@ -763,18 +763,14 @@ void rng(){
         else if (tebakan>x)
         {
             printf("Lebih kecil\n");
-            printf("Tebakan: ");
-            scanf("%d", &tebakan);
         }
         else
         {
             printf("Lebih besar\n");
-            printf("Tebakan: ");
-            scanf("%d", &tebakan);
         }
-    } while(i!=7);
+    } while(i!=8); /*Memberikan 8 kesempatan menebak*/
 
-    if (i==7)
+    if ((i==8) && (tebakan!=x))
     {
         printf("Kesempatan Anda habis. X yang tepat adalah %d\n", x);
     }
