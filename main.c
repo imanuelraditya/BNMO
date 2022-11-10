@@ -6,6 +6,7 @@
 #include "source/ADT/mesinkata/mesinkata.h"
 #include "source/ADT/queue/queue.h"
 #include "source/ADT/queuedinerdash/queue.h"
+#include "source/ADT/stack/stack.h"
 #include "source/command/console.h"
 
 int main() {
@@ -220,7 +221,7 @@ int main() {
 
 // KOMPILASI PROGRAM
 
-/* gcc main.c source/command/console.c source/ADT/queue/queue.c source/ADT/queuedinerdash/queue.c source/ADT/map/map.c 
+/* gcc main.c source/command/console.c source/ADT/queue/queue.c source/ADT/queuedinerdash/queue.c source/ADT/stack/stack.c source/ADT/map/map.c 
 source/ADT/mesinkarakter/mesinkarakter.c source/ADT/mesinkata/mesinkata.c source/ADT/array/arraydin.c -o a */
 
 /* .\a */

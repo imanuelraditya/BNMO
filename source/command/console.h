@@ -9,6 +9,7 @@
 #include "../ADT/mesinkata/mesinkata.h"
 #include "../ADT/queue/queue.h"
 #include "../ADT/queuedinerdash/queue.h"
+#include "../ADT/stack/stack.h"
 
 #ifndef CONSOLE_H
 #define CONSOLE_H
@@ -46,6 +47,10 @@ void loadSuceeded();
 void loadFailed();
 /* I.S. sembarang */
 /* F.S. mengembalikan output berupa pesan bahwa load gagal */
+
+void randomScore(Word game);
+/* I.S. sembarang */
+/* F.S. mengembalikan output berupa score yang dihasilkan secara random */
 
 void playGame (Queue* queueGame);
 /* I.S. queueGame terdefinisi */
@@ -121,5 +126,15 @@ int randomx();
 void rng();
 /* I.S. sembarang */
 /* F.S. mengembalikan output berupa game RNG */
+
+// BONUS
+
+// TOWER OF HANOI
+
+void displayTower(Stack A, Stack B, Stack C);
+
+boolean checkWin(Stack A, Stack B, Stack C);
+
+void towerOfHanoi();
 
 #endif

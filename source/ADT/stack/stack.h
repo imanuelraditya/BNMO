@@ -1,10 +1,12 @@
 # ifndef stackdin_H
 # define stacktdin_H
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "../../boolean.h"
 #include "../mesinkata/mesinkata.h"
 
-typedef Word InfoType;
+typedef int InfoType;
 typedef struct tElmStack *Address;
 
 typedef struct tElmStack {
@@ -30,7 +32,7 @@ I.S. Sembarang
 F.S. Terbentuk Stack kosong
 */
 
-boolean IsEmpty(Stack S);
+boolean IsStackEmpty(Stack S);
 /*  
 Menghasilkan True jika Stack kosong, dan False jika Stack tidak kosong
 */

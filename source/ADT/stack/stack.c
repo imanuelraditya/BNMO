@@ -10,7 +10,7 @@ F.S. Terbentuk Stack kosong
     Count(*S) = 0;
 }
 
-boolean IsEmpty(Stack S)
+boolean IsStackEmpty(Stack S)
 {
 /*  
 Menghasilkan True jika Stack kosong, dan False jika Stack tidak kosong

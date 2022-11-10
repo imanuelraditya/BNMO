@@ -217,6 +217,33 @@ void loadFailed() {
 
 // PLAY GAME
 
+void randomScore(Word game) {
+    /* I.S. array terdefinisi */
+    /* F.S. Menampilkan score random */
+    /* Proses: Menampilkan score random */
+    
+    /* KAMUS LOKAL */
+        int i, j, delay;
+
+    /* ALGORITMA */
+        printf("LOADNG %s", wordToString(game));
+
+        for(i = 0; i < 10; i++) { // jumlah '>'
+            for(j = 0; j < 100000000; j++) { // buat delay prosesnya
+                delay = j;
+            }
+            printf(" .");
+        }
+
+        printf(" [//GAME OVER//]\n\n");
+
+        for(j = 0; j < 100099999 ; j++) { //delay lagi
+            delay = j;
+            }
+        
+        printf("Score: %d\n", rand() % 100);
+}
+
 void playGame (Queue* queueGame) 
 {
     Word play ;
@@ -235,8 +262,16 @@ void playGame (Queue* queueGame)
             printf ("Loading %s . . .\n\n", wordToString(play)) ;
             rng() ;
         }
-        else {
+        else if (isWordEqual(play, stringToWord("TOWER OF HANOI"))) {
+            printf ("Loading %s . . .\n\n", wordToString(play)) ;
+            towerOfHanoi();
+        }
+        else if (isWordEqual(play, stringToWord("DINOSAUR IN EARTH")) || isWordEqual(play, stringToWord("RISEWOMAN")) || isWordEqual(play, stringToWord("EIFFEL TOWER"))) {
             printf ("Game %s masih dalam maintenance, belum dapat dimainkan. Silahkan pilih game lain.\n", wordToString(play)) ;
+        }
+        
+        else {
+            randomScore(play);
         }
     }
     
@@ -291,7 +326,7 @@ void queueGame(ArrayDin listGame, Queue* Q)
 // QUIT
 
 void Quit(){
-    printf("Anda keluar dari game BNMO\nBye bye ...\n\n");
+    printf("Anda keluar dari game BNMO\nBye bye ...\n");
     exit(0);
 }
 
@@ -777,5 +812,129 @@ void rng(){
     if (i==7)
     {
         printf("Kesempatan Anda habis. X yang tepat adalah %d\n", x);
+    }
+}
+
+// CREATE TOWER OF HANOI
+
+void displayTower(Stack A, Stack B, Stack C) {
+    printf("Tower A: ");
+    ViewStack(A);
+
+    printf("Tower B: ");
+    ViewStack(B);
+
+    printf("Tower C: ");
+    ViewStack(C);
+}
+
+boolean checkWin(Stack A, Stack B, Stack C) {
+    Address P ;
+    int i;
+    boolean win;
+
+    P = Top(C);
+    win = true;
+    i = 1;
+
+    while (P != Nil && win) {
+        if (Info(P) != i) {
+            win = false;
+        }
+        P = Next(P);
+        i++;
+    }
+
+    return win;
+}
+
+void towerOfHanoi()
+{
+    Stack A, B, C;
+    int i, disc, score;
+    Word towerOrigin, towerDestination;
+    InfoType x;
+
+    CreateEmpty(&A);
+    CreateEmpty(&B);
+    CreateEmpty(&C);
+
+    i = 0;
+
+    STARTCOMMAND();
+
+    if (commandWord(currentCommand) == 1) {
+        disc = wordToInt(currentCommand);
+
+        for (i = disc; i >= 1; i--) {
+            x = i;
+            Push(&A, x);
+        }
+
+        printf("TOWER OF HANOI\n\n");
+
+        while ((i <= disc * 2) && !checkWin(A, B, C)) {
+            displayTower(A, B, C);
+
+            printf("Pindahkan disk dari tower: ");
+            
+            STARTCOMMAND();
+
+            if (commandWord(currentCommand) == 1) {
+                towerOrigin = currentCommand;
+
+                printf("Pindahkan disk menuju tower: ");
+
+                STARTCOMMAND();
+
+                if (commandWord(currentCommand) == 1) {
+                    towerDestination = currentCommand;
+
+                    if (isWordEqual(towerOrigin, stringToWord("A"))) {
+                        if (isWordEqual(towerDestination, stringToWord("B"))) {
+                            Pop(&A, &x);
+                            Push(&B, x);
+                        } else if (isWordEqual(towerDestination, stringToWord("C"))) {
+                            Pop(&A, &x);
+                            Push(&C, x);
+                        } else {
+                            printf("Tower tujuan tidak valid\n");
+                        }
+                    }
+                    else if (isWordEqual(towerOrigin, stringToWord("B"))) {
+                        if (isWordEqual(towerDestination, stringToWord("A"))) {
+                            Pop(&B, &x);
+                            Push(&A, x);
+                        } else if (isWordEqual(towerDestination, stringToWord("C"))) {
+                            Pop(&B, &x);
+                            Push(&C, x);
+                        } else {
+                            printf("Tower tujuan tidak valid\n");
+                        }
+                    }
+                    else if (isWordEqual(towerOrigin, stringToWord("C"))) {
+                        if (isWordEqual(towerDestination, stringToWord("A"))) {
+                            Pop(&C, &x);
+                            Push(&A, x);
+                        } else if (isWordEqual(towerDestination, stringToWord("B"))) {
+                            Pop(&C, &x);
+                            Push(&B, x);
+                        } else {
+                            printf("Tower tujuan tidak valid\n");
+                        }
+                    }
+                    else {
+                        printf("Tower asal tidak valid\n");
+                    }
+                }
+                else {
+                    invalidCommand(&currentCommand);
+                }
+            }
+            else {
+                invalidCommand(&currentCommand);
+            }
+        }
+
     }
 }
