@@ -6,7 +6,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 
 typedef Word InfoType;
 typedef struct tElmStack *Address;
