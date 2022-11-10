@@ -37,21 +37,27 @@ boolean IsEOP();
 /* Mengirimkan true jika currentChar = MARK */
 
 void startFromFile(char *str);
-/* I.S. : str terdefinisi
+/* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
+   Karakter pertama yang ada pada pita posisinya adalah pada jendela.
+   Pita baca diambil dari sebuah file yang berasal dari parameter input berupa string nama file.
+   I.S. : sembarang
    F.S. : currentChar adalah karakter pertama pada pita
           Jika currentChar != MARK maka EOP akan padam (false)
-          Jika currentChar = MARK maka EOP akan menyala (true) */
+          Jika currentChar = MARK maka EOP akan menyala (true) 
+          finish bernilai salah karena belum mencapai akhir dari file */
 
 void advTerminal();
-/* I.S. : Karakter pada jendela = currentChar, currentChar != MARK
+/* I.S. : Karakter pada jendela = currentChar, currentChar != ENTER
    F.S. : currentChar adalah karakter berikutnya dari currentChar yang lama,
-          currentChar mungkin = MARK
-          Jika  currentChar = MARK maka EOP akan menyala (true) */
+          currentChar mungkin = ENTER
+          Jika  currentChar = ENTER maka EOP akan menyala (true) */
 
 void advFile();
-/* I.S. : currentChar != MARK
+/* Pita dimajukan satu karakter.
+   I.S. : Karakter pada jendela = currentChar, currentChar != MARK
    F.S. : currentChar adalah karakter berikutnya dari currentChar yang lama,
-          currentChar mungkin = MARK
-          Jika  currentChar = MARK maka EOP akan menyala (true) */
+          proses akan berenti bila sudah mencapai kondisi EOF atau End Of File yang akan
+          menyala ketika sudah terjadi error atau tidak bisa melakukan pembacaan kembali
+          finish bernilai TRUE yang bemakna file sudah selesai dibaca */ 
 
 #endif
