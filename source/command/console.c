@@ -80,7 +80,7 @@ void deleteGame (ArrayDin* listGame, Queue Q)
             else 
             {
                 DeleteAt(listGame, (nomor-1));
-                printf("Game berhasil dihapus.\n");
+                printf("\nGame berhasil dihapus.\n");
             }
         }
     }
@@ -326,7 +326,7 @@ void queueGame(ArrayDin listGame, Queue* Q)
 // QUIT
 
 void Quit(){
-    printf("Anda keluar dari game BNMO\nBye bye ...\n");
+    printf("\nAnda keluar dari game BNMO\nBye bye ...\n");
     exit(0);
 }
 

@@ -169,7 +169,6 @@ int main() {
 
                         if (commandWord(currentCommand) == 1) {
                             save(namaFile, &array);
-                            printf("\n");
                             esc = true;
                             Quit();
                         }
