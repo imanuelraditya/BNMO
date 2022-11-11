@@ -226,7 +226,7 @@ void randomScore(Word game) {
         int i, j, delay;
 
     /* ALGORITMA */
-        printf("LOADNG %s", wordToString(game));
+        printf("PLAYING %s", wordToString(game));
 
         for(i = 0; i < 10; i++) { // jumlah '>'
             for(j = 0; j < 100000000; j++) { // buat delay prosesnya
@@ -907,7 +907,7 @@ void towerOfHanoi() {
             
             step = 0;
 
-            printf("\n===========================================================\n");
+            printf("\n-----------------------------------------------------------\n");
             
             while (Count(Tower[1]) != disk && Count(Tower[2]) != disk) {
                 for (i = 0; i < 3; i++) {
@@ -919,13 +919,13 @@ void towerOfHanoi() {
                 PrintTower(Tower, disk);
                 printf("\n\n");
                 printf("Jumlah langkah: %d\n\n", step);
-                printf("Memindahkan cakram dari tower (1-3): ");
+                printf("Memindahkan cakram dari tower (1 - 3): ");
 
                 STARTCOMMAND();
                 towerOrigin = wordToInt(currentCommand);
 
                 if (commandWord(currentCommand) == 1) {
-                    printf("Ke tower (1-3): ");
+                    printf("Ke tower (1 - 3): ");
 
                     STARTCOMMAND();
                     towerDestination = wordToInt(currentCommand);
@@ -942,7 +942,7 @@ void towerOfHanoi() {
                                         Push(&Tower[towerDestination], P);
                                         step++;              
 
-                                        printf("\n===========================================================\n");
+                                        printf("\n=----------------------------------------------------------\n");
                                     } 
                                     else {
                                         printf("\nCakram tidak dapat dipindahkan ke tower tersebut.\n");
