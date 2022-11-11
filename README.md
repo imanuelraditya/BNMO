@@ -17,3 +17,15 @@ BNMO (dibaca: Binomo) adalah sebuah robot video game console yang dimiliki oleh 
 
 ## Cara Kompilasi Program
 > gcc main.c source/command/console.c source/ADT/queue/queue.c source/ADT/queuedinerdash/queue.c source/ADT/stack/stack.c source/ADT/map/map.c source/ADT/mesinkarakter/mesinkarakter.c source/ADT/mesinkata/mesinkata.c source/ADT/array/arraydin.c -o a
+
+## Configuration File yang Tersedia
+> data/config.txt
+
+## Save File yang Tersedia
+> data/save1.txt
+> data/save2.txt
+> data/save3.txt
+> data/save4.txt
+> data/save5.txt
+> data/save6.txt
+> data/save7.txt
