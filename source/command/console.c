@@ -822,31 +822,36 @@ void rng(){
     
     do
     {
-        ++i;
         printf("Tebakan: ");
         STARTCOMMAND();
         tebakan = wordToInt(currentCommand);
         
-        if (tebakan==x)
-        {
-            printf("Ya, X adalah %d\n", x);
-            printf("Skor Anda: %d\n",180-(20*i));
-            break;
+        if (commandWord(currentCommand) == 1) {
+            ++i;
+            if (tebakan==x)
+            {
+                printf("Ya, X adalah %d\n", x);
+                printf("Skor Anda: %d\n",180-(20*i));
+                break;
+            }
+            else if (tebakan>x)
+            {
+                printf("Lebih kecil\n");
+            }
+            else
+            {
+                printf("Lebih besar\n");
+            }
         }
-        else if (tebakan>x)
-        {
-            printf("Lebih kecil\n");
-        }
-        else
-        {
-            printf("Lebih besar\n");
+        else {
+            invalidCommand(&currentCommand);
         }
     } while(i!=8); /*Memberikan 8 kesempatan menebak*/
 
     if ((i==8) && (tebakan!=x))
     {
         printf("Kesempatan Anda habis. X yang tepat adalah %d\n", x);
-        printf("Skor Anda: 0");
+        printf("Skor Anda: 0\n");
     }
 }
 
