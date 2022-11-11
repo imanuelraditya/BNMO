@@ -1,4 +1,4 @@
-# Tugas Besar 1
+# Tugas Besar 1 ── BNMO
 ## IF2111 Algoritma dan Struktur Data STI
 
 > Program membantu Indra dan Doni untuk memprogram 
