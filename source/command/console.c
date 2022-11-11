@@ -760,11 +760,11 @@ void dinerdash(){
         newOrder.price = randomNumber(50000,10000);
         enqueue(&Order, newOrder);
 
-        printf("===========================================================\n");
-        printf("Skor Anda : %d\n", saldo);
-        printf("===========================================================\n");
+        printf("===========================================================\n");   
     }
 
+    printf("Skor Anda : %d\n", saldo);
+    printf("===========================================================\n");
     printf("                    - DINER DASH OVER -                    \n");
     printf("\n");
 }
@@ -979,7 +979,7 @@ void towerOfHanoi() {
             printf("\n\n");
             printf("Jumlah langkah: %d\n", step);
             printf("\nSelamat, Anda berhasil menyelesaikan Tower of Hanoi!\n");
-            printf("Skor Anda: %d\n", (step/maxScore)*100);
+            printf("Skor Anda: %d\n", (maxScore/step)*100);
 
             while (!IsStackEmpty(Tower[0])) {
                 Pop(&Tower[0], &P);
