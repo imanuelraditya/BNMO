@@ -34,8 +34,8 @@ void STARTWORD();
 
 void startWFile(char * file);
 /* I.S. : currentChar dalam file sembarang
-   F.S. : EndWord = true, dan currentChar = MARK;
-          atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
+   F.S. : Finish = true;
+          atau Finish = false, currentWord adalah kata yang sudah diakuisisi,
           currentChar karakter pertama sesudah karakter terakhir kata */
 
 void copywFile();
@@ -46,7 +46,7 @@ void copywFile();
 void igBlankFile();
 /* Mengabaikan satu atau beberapa BLANK pada file
    I.S. : currentChar sembarang
-   F.S. : currentChar ≠ BLANK atau currentChar = MARK */
+   F.S. : currentChar ≠ BLANK */
 
 void advNewlineFile();
 /* I.S. : currentChar sembarang

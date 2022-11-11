@@ -22,7 +22,7 @@ void IgnoreDots() {
     }
 }
 
-void startWFile(char * file) //trialnya rr
+void startWFile(char * file)
 /* */
 {
     finish = false;
@@ -30,7 +30,7 @@ void startWFile(char * file) //trialnya rr
     copywFile();
 }
 
-void copywFile() //trialnya rr
+void copywFile()
 /* */
 {
     int i = 0;
@@ -48,7 +48,7 @@ void copywFile() //trialnya rr
     }
 }
 
-void igBlankFile() //trialnya rr
+void igBlankFile()
 /* */
 {
     while(currentChar == BLANK) {
@@ -56,7 +56,7 @@ void igBlankFile() //trialnya rr
     }
 }
 
-void advNewlineFile() //trialnya rr
+void advNewlineFile()
 {
     Word EMPTY = {"", 0};
     currentWord = EMPTY;
@@ -67,13 +67,13 @@ void advNewlineFile() //trialnya rr
     }
 }
 
-void STARTWORD(char* file)
+void STARTWORD()
 /* I.S. : currentChar sembarang
    F.S. : EndWord = true, dan currentChar = MARK;
           atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
           currentChar karakter pertama sesudah karakter terakhir kata */
 {
-    startFromFile(file);
+    START();
     IgnoreBlanks() ;
     if (currentChar == MARK) {
             EndWord = true;
