@@ -979,7 +979,7 @@ void towerOfHanoi() {
             printf("\n\n");
             printf("Jumlah langkah: %d\n", step);
             printf("\nSelamat, Anda berhasil menyelesaikan Tower of Hanoi!\n");
-            printf("Skor Anda: %d\n", (maxScore/step)*100);
+            printf("Skor Anda: %d\n", (maxScore * 100) / step);
 
             while (!IsStackEmpty(Tower[0])) {
                 Pop(&Tower[0], &P);
