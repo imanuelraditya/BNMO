@@ -830,7 +830,7 @@ void rng(){
         if (tebakan==x)
         {
             printf("Ya, X adalah %d\n", x);
-            printf("Skor Anda: %d\n",180-(20*i);
+            printf("Skor Anda: %d\n",180-(20*i));
             break;
         }
         else if (tebakan>x)
