@@ -143,17 +143,29 @@ void load(Word filename, ArrayDin *array) {
 
     char* maindir;
     int count, i;
+    Word format;
 
     maindir = "data/";
     i = 0;
 
-    startWFile(wordToString(concatWord(stringToWord(maindir), filename)));
+    format.Length = 4;
 
-    count = wordToInt(currentWord);
+    for (i = 0; i < 4; i++) {
+        format.TabWord[i] = filename.TabWord[filename.Length - 4 + i];
+    }
 
-    for (i = 0; i < count; i++) {
-        advNewlineFile();
-        InsertLast(array, currentWord);
+    if (isWordEqual(format, StringToWord(".txt")) || isWordEqual(format, StringToWord(".TXT"))) {
+        startWFile(wordToString(concatWord(stringToWord(maindir), filename)));
+
+        count = wordToInt(currentWord);
+
+        for (i = 0; i < count; i++) {
+            advNewlineFile();
+            InsertLast(array, currentWord);
+        }
+    }
+    else {
+        printf("Format file tidak valid.\n");
     }
 }
 
@@ -335,25 +347,38 @@ void Quit(){
 void save(Word filename, ArrayDin* listGame) {
     FILE *fpointer;
     char* maindir;
+    Word format;
     int i;
 
     maindir = "data/";
 
-    fpointer = fopen(wordToString(concatWord(stringToWord(maindir), filename)), "w");
+    format.Length = 4;
 
-    if (fpointer == NULL) {
-        printf("Tidak ada nama file yang tercantum. Silakan coba lagi.\n");
+    for (i = 0; i < 4; i++) {
+        format.TabWord[i] = filename.TabWord[filename.Length - 4 + i];
     }
-    else {
-        fprintf(fpointer, "%d\n", Length(*listGame));
-        for (i = 0; i < Length(*listGame); i++)
-        {
-            fprintf(fpointer, "%s\n", wordToString(Get(*listGame, i)));
+
+    if (isWordEqual(format, stringToWord(".txt")) || isWordEqual(format, stringToWord(".TXT"))) {
+        fpointer = fopen(wordToString(concatWord(stringToWord(maindir), filename)), "w");
+
+        if (fpointer == NULL) {
+            printf("Tidak ada nama file yang tercantum. Silakan coba lagi.\n");
         }
-        fclose(fpointer);
+        else  {
+            fprintf(fpointer, "%d\n", Length(*listGame));
+            for (i = 0; i < Length(*listGame); i++)
+            {
+                fprintf(fpointer, "%s\n", wordToString(Get(*listGame, i)));
+            }
+            fclose(fpointer);
+        }
+
+        printf("Save file berhasil disimpan\n");
     }
 
-    printf("Save file berhasil disimpan\n");
+    else {
+        printf("Format file tidak valid. Silakan coba lagi.\n");
+    }
 }
 
 // SKIP GAME <n>
