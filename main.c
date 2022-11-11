@@ -152,14 +152,27 @@ int main() {
 
                 if (isWordEqual(currentCommand, stringToWord("Y"))) {
                     if (commandWord(currentCommand) == 1) {
-                        Word namaFile;
+                        Word namaFile, format;
                         
                         printf("Masukkan nama file: ");
                         
+                        do {
                         STARTCOMMAND();
                         
                         namaFile = currentCommand;
 
+                        format.Length = 4;
+
+                        for (int i = 0; i < 4; i++) {
+                            format.TabWord[i] = namaFile.TabWord[namaFile.Length - 4 + i];
+                        }
+
+                        if (!isWordEqual(format, stringToWord(".txt")) && !isWordEqual(format, stringToWord(".TXT"))) {
+                            printf("Format file tidak valid. Silakan coba lagi.\n\n");
+                            printf("Masukkan nama file: ");
+                        }
+                        } while (!isWordEqual(format, stringToWord(".txt")) && !isWordEqual(format, stringToWord(".TXT")));
+                        
                         if (commandWord(currentCommand) == 1) {
                             save(namaFile, &array);
                             esc = true;
