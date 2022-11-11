@@ -614,7 +614,7 @@ void dinerdash(){
                         index[i] = currentCommand.TabWord[i];
                     }
 
-                    if(index[0] == 'M' && idxToInt(index) < QueueIntLength(Order))
+                    if(index[0] == 'M' && idxToInt(index) < (QueueIntLength(Order) + serveCount))
                     {
                         valid = true;
                     }
@@ -763,7 +763,7 @@ void dinerdash(){
         printf("===========================================================\n");   
     }
 
-    printf("Skor Anda : %d\n", saldo);
+    printf("Total saldo yang Anda peroleh : %d\n", saldo);
     printf("===========================================================\n");
     printf("                    - DINER DASH OVER -                    \n");
     printf("\n");
@@ -825,30 +825,24 @@ void PrintTower(Stack S[3], int n) {
     Address P;
     InfoType X[3][n];
 
-    for (i = 0; i < 3; i++)
-    {
+    for (i = 0; i < 3; i++) {
         for (j = 0; j < n - Count(S[i]); j++) {
             X[i][j] = 0;
         }
-        for (P = Top(S[i]); P != Nil; P = Next(P))
-        {
+        for (P = Top(S[i]); P != Nil; P = Next(P)) {
             X[i][j] = Info(P);
             j++;
         }
     }
     
-    for (i = 0; i < n; i++)
-    {
-        for (j = 0; j < 3; j++)
-        {
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < 3; j++) {
             printf(" ");
-            if (X[j][i] == 0)
-            {
+            if (X[j][i] == 0) {
                 for (k = 0; k < 2 * n - 1; k++)
                 printf(" ");
             }
-            else
-            {
+            else {
                 for (k = 0; k < n - X[j][i]; k++) {
                     printf(" ");
                 }
@@ -863,8 +857,7 @@ void PrintTower(Stack S[3], int n) {
         printf("\n");
     }
 
-    for (i = 1; i <= 3; i++)
-    {
+    for (i = 1; i <= 3; i++) {
         printf(" ");
         for (j = 0; j < n - 1; j++) {
             printf(" ");
