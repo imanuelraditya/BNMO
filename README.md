@@ -22,13 +22,9 @@ BNMO (dibaca: Binomo) adalah sebuah robot video game console yang dimiliki oleh 
 > data/config.txt
 
 ## Save File yang Tersedia
-> data/save1.txt
+> data/save.txt
 > data/save2.txt
-> data/save3.txt
-> data/save4.txt
-> data/save5.txt
 > data/save6.txt
-> data/save7.txt
 
 ## Struktur Program
 ```
@@ -40,8 +36,9 @@ BNMO (dibaca: Binomo) adalah sebuah robot video game console yang dimiliki oleh 
 │   ├─── bnmo.txt 			# file berisi banner yang akan dibaca sebagai welcome page
 │   ├─── config.txt			# file konfigurasi awal yang akan dibaca pada START
 │   ├─── drivermesinkata.txt		# file yang akan dibaca pada driver mesin kata
-│   ├─── save1.txt			# file yang disimpan oleh user 1
-│   └─── save2.txt			# file yang disimpan oleh user 2
+│   ├─── save.txt			# file yang disimpan oleh user 1
+│   ├─── save2.txt			# file yang disimpan oleh user 2
+│   └─── save6.txt            # file yang disimpan oleh user 3
 │ 
 ├── source
 │   ├─── boolean.h
@@ -87,7 +84,7 @@ BNMO (dibaca: Binomo) adalah sebuah robot video game console yang dimiliki oleh 
 │
 │
 └── docs 
-     ├─── 
-     ├───
-     └───
+     ├─── Spesifikasi Tugas Besar 1 IF2111 2022_2023.docx
+     ├─── IF2111_TB1_02_08.pdf
+     └─── Form Asistensi Tugas Besar_TB1_02_08.pdf
  ```
