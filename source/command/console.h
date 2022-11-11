@@ -131,9 +131,11 @@ void rng();
 
 // TOWER OF HANOI
 
-void displayTower(Stack A, Stack B, Stack C);
-
-boolean checkWin(Stack A, Stack B, Stack C);
+void PrintTower(Stack S[3], int n);
+/*
+I.S. Sembarang
+F.S. Menampilkan semua Info dari masing-masing elemen dari Stack
+*/
 
 void towerOfHanoi();
 

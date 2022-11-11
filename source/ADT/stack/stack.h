@@ -6,7 +6,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 
 typedef int InfoType;
 typedef struct tElmStack *Address;
@@ -26,7 +25,7 @@ typedef struct {
 #define Top(S) (S).Top
 #define Max(S) (S).Max
 #define Count(S) (S).Count
-#define Nil NULL
+#define NIL NULL
 
 void CreateStack(Stack *S);
 /*  

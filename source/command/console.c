@@ -73,7 +73,7 @@ void deleteGame (ArrayDin* listGame, Queue Q)
             printf("\nGame gagal dihapus.\n");
         }
         else {
-            if (nomor == 1 || nomor == 2 || nomor == 3 || nomor == 4 || nomor == 5)
+            if (nomor == 1 || nomor == 2 || nomor == 3 || nomor == 4 || nomor == 5 || nomor == 6)
             {
                 printf("\nGame gagal dihapus.\n");
             }
@@ -761,6 +761,8 @@ void dinerdash(){
         enqueue(&Order, newOrder);
 
         printf("===========================================================\n");
+        printf("Skor Anda : %d\n", saldo);
+        printf("===========================================================\n");
     }
 
     printf("                    - DINER DASH OVER -                    \n");
@@ -813,124 +815,187 @@ void rng(){
 
 // CREATE TOWER OF HANOI
 
-void displayTower(Stack A, Stack B, Stack C) {
-    printf("Tower A: ");
-    ViewStack(A);
+void PrintTower(Stack S[3], int n) {
+    /*  
+    I.S. Sembarang
+    F.S. Menampilkan semua Info dari masing-masing elemen dari Stack
+    */
+    
+    int i, j, k;
+    Address P;
+    InfoType X[3][n];
 
-    printf("Tower B: ");
-    ViewStack(B);
-
-    printf("Tower C: ");
-    ViewStack(C);
-}
-
-boolean checkWin(Stack A, Stack B, Stack C) {
-    Address P ;
-    int i;
-    boolean win;
-
-    P = Top(C);
-    win = true;
-    i = 1;
-
-    while (P != Nil && win) {
-        if (Info(P) != i) {
-            win = false;
+    for (i = 0; i < 3; i++)
+    {
+        for (j = 0; j < n - Count(S[i]); j++) {
+            X[i][j] = 0;
         }
-        P = Next(P);
-        i++;
+        for (P = Top(S[i]); P != Nil; P = Next(P))
+        {
+            X[i][j] = Info(P);
+            j++;
+        }
+    }
+    
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < 3; j++)
+        {
+            printf(" ");
+            if (X[j][i] == 0)
+            {
+                for (k = 0; k < 2 * n - 1; k++)
+                printf(" ");
+            }
+            else
+            {
+                for (k = 0; k < n - X[j][i]; k++) {
+                    printf(" ");
+                }
+                for (k = 0; k < 2 * X[j][i] - 1; k++) {
+                    printf("=");
+                }
+                for (k = 0; k < n - X[j][i]; k++) {
+                    printf(" ");
+                }
+            }
+        }
+        printf("\n");
     }
 
-    return win;
+    for (i = 1; i <= 3; i++)
+    {
+        printf(" ");
+        for (j = 0; j < n - 1; j++) {
+            printf(" ");
+        }
+        printf("%d", i);
+        for (j = 0; j < n - 1; j++) {
+            printf(" ");
+        }
+    }
+    printf("\n");
 }
 
-void towerOfHanoi()
-{
-    Stack A, B, C;
-    int i, disc, score;
-    Word towerOrigin, towerDestination;
-    InfoType x;
+void towerOfHanoi() {
+    int disk, towerOrigin, towerDestination, step, i, maxScore;
+    Stack Tower[3];
+    Address P;
 
-    CreateEmpty(&A);
-    CreateEmpty(&B);
-    CreateEmpty(&C);
+    for(int i = 0; i < 3; i++) {
+        CreateStack(&Tower[i]);
+    }
 
-    i = 0;
+    printf("===========================================================\n");
+    printf("                    - TOWER OF HANOI -                     \n");
+    printf("===========================================================\n\n");
+
+    do {
+    printf("Masukkan jumlah cakram: ");
 
     STARTCOMMAND();
+    disk = wordToInt(currentCommand);
+    } while(disk < 1);
+
+    maxScore = pow(2, disk) - 1;
 
     if (commandWord(currentCommand) == 1) {
-        disc = wordToInt(currentCommand);
-
-        for (i = disc; i >= 1; i--) {
-            x = i;
-            Push(&A, x);
-        }
-
-        printf("TOWER OF HANOI\n\n");
-
-        while ((i <= disc * 2) && !checkWin(A, B, C)) {
-            displayTower(A, B, C);
-
-            printf("Pindahkan disk dari tower: ");
+        if (disk > 0) {
+            for (i = 0; i < disk; i++) {
+                Push(&Tower[0], Allocate(disk - i));
+            }
             
-            STARTCOMMAND();
+            step = 0;
 
-            if (commandWord(currentCommand) == 1) {
-                towerOrigin = currentCommand;
+            printf("\n===========================================================\n");
+            
+            while (Count(Tower[1]) != disk && Count(Tower[2]) != disk) {
+                for (i = 0; i < 3; i++) {
+                    printf("\nTower %d: ", i + 1);
+                    ViewStack(Tower[i]);
+                }
 
-                printf("Pindahkan disk menuju tower: ");
+                printf("\n\n");
+                PrintTower(Tower, disk);
+                printf("\n\n");
+                printf("Jumlah langkah: %d\n\n", step);
+                printf("Memindahkan cakram dari tower (1-3): ");
 
                 STARTCOMMAND();
+                towerOrigin = wordToInt(currentCommand);
 
                 if (commandWord(currentCommand) == 1) {
-                    towerDestination = currentCommand;
+                    printf("Ke tower (1-3): ");
 
-                    if (isWordEqual(towerOrigin, stringToWord("A"))) {
-                        if (isWordEqual(towerDestination, stringToWord("B"))) {
-                            Pop(&A, &x);
-                            Push(&B, x);
-                        } else if (isWordEqual(towerDestination, stringToWord("C"))) {
-                            Pop(&A, &x);
-                            Push(&C, x);
-                        } else {
-                            printf("Tower tujuan tidak valid\n");
-                        }
-                    }
-                    else if (isWordEqual(towerOrigin, stringToWord("B"))) {
-                        if (isWordEqual(towerDestination, stringToWord("A"))) {
-                            Pop(&B, &x);
-                            Push(&A, x);
-                        } else if (isWordEqual(towerDestination, stringToWord("C"))) {
-                            Pop(&B, &x);
-                            Push(&C, x);
-                        } else {
-                            printf("Tower tujuan tidak valid\n");
-                        }
-                    }
-                    else if (isWordEqual(towerOrigin, stringToWord("C"))) {
-                        if (isWordEqual(towerDestination, stringToWord("A"))) {
-                            Pop(&C, &x);
-                            Push(&A, x);
-                        } else if (isWordEqual(towerDestination, stringToWord("B"))) {
-                            Pop(&C, &x);
-                            Push(&B, x);
-                        } else {
-                            printf("Tower tujuan tidak valid\n");
-                        }
-                    }
+                    STARTCOMMAND();
+                    towerDestination = wordToInt(currentCommand);
+
+                    if (commandWord(currentCommand) == 1) {
+                        towerOrigin--;
+                        towerDestination--;
+
+                        if (towerOrigin >= 0 && towerOrigin <= 2 && towerDestination >= 0 && towerDestination <= 2) {\
+                            if (towerOrigin != towerDestination) {
+                                if (!IsStackEmpty(Tower[towerOrigin])) {
+                                    if (IsStackEmpty(Tower[towerDestination]) || Info(Top(Tower[towerOrigin])) < Info(Top(Tower[towerDestination]))) {
+                                        Pop(&Tower[towerOrigin], &P);
+                                        Push(&Tower[towerDestination], P);
+                                        step++;              
+
+                                        printf("\n===========================================================\n");
+                                    } 
+                                    else {
+                                        printf("\nCakram tidak dapat dipindahkan ke tower tersebut.\n");
+                                    }
+                                } 
+                                else {
+                                    printf("\nTower tidak memiliki cakram.\n");
+                                }
+                            }
+                            else {
+                                printf("\nTower asal dan tujuan tidak boleh sama.\n");
+                            }
+                        } 
+                        else {
+                            printf("\nTower tidak valid\n");                        }
+                        
+                    } 
                     else {
-                        printf("Tower asal tidak valid\n");
+                        invalidCommand(&currentCommand);
                     }
-                }
+                } 
                 else {
                     invalidCommand(&currentCommand);
                 }
             }
-            else {
-                invalidCommand(&currentCommand);
-            }
-        }
 
+            for (i = 0; i < 3; i++) {
+                printf("\nTower %d: ", i + 1);
+                ViewStack(Tower[i]);
+            }
+
+            printf("\n\n");
+            PrintTower(Tower, disk);
+            printf("\n\n");
+            printf("Jumlah langkah: %d\n", step);
+            printf("\nSelamat, Anda berhasil menyelesaikan Tower of Hanoi!\n");
+            printf("Skor Anda: %d\n", (step/maxScore)*100);
+
+            while (!IsStackEmpty(Tower[0])) {
+                Pop(&Tower[0], &P);
+                DeAllocate(P);
+            }
+
+            while (!IsStackEmpty(Tower[1])) {
+                Pop(&Tower[1], &P);
+                DeAllocate(P);
+            }
+
+        } else {
+            printf("Jumlah cakram tidak valid\n");
+        }
+    }
+    else {
+        invalidCommand(&currentCommand);
     }
 }

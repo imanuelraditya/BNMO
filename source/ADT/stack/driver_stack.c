@@ -5,9 +5,9 @@ int main() {
     Address P ;
     CreateStack(&s) ;
     if (IsStackEmpty(s)) {
-        Push (&s, Allocate(stringToWord("DINER DASH"))) ;
-        Push (&s, Allocate(stringToWord("RNG"))) ;
-        Push (&s, Allocate(stringToWord("MOBILE LEGEND"))) ;
+        Push (&s, Allocate(1)) ;
+        Push (&s, Allocate(2)) ;
+        Push (&s, Allocate(3)) ;
 
         Pop (&s, &P) ;
 

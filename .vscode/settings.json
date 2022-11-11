@@ -12,6 +12,8 @@
         "list_game.h": "c",
         "help.h": "c",
         "mesinkarakter.h": "c",
-        "conio.h": "c"
+        "conio.h": "c",
+        "console.h": "c",
+        "map.h": "c"
     }
 }
