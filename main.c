@@ -35,14 +35,7 @@ int main() {
             }
         } else if (isWordEqual(currentCommand, stringToWord("LOAD"))) {
             if (commandWord(currentCommand) == 2) {
-                load(currentCommand, &array);
-                if (Length(array) == 0) {
-                    loadFailed();
-                }
-                else {
-                    esc = true;
-                    loadSuceeded();
-                }
+                load(currentCommand, &array, &esc);
             }
             else {
                 invalidCommand(&currentCommand);

@@ -36,7 +36,7 @@ void ListGame (ArrayDin array);
 /* I.S. array terdefinisi */
 /* F.S. mengembalikan output berupa daftar game yang ada dalam array */
 
-void load (Word filename, ArrayDin* array);
+void load (Word filename, ArrayDin* array, boolean* esc);
 /* I.S. array kosong */
 /* F.S. array terisi dengan list nama game yang ada dalam file eksternal yang disimpan */
 

@@ -136,7 +136,7 @@ void ListGame (ArrayDin array) {
 
 // LOAD <filename.txt>
 
-void load(Word filename, ArrayDin *array) {
+void load(Word filename, ArrayDin *array, boolean* esc) {
     /* LOAD merupakan salah satu command yang dimasukkan pertama kali oleh pemain ke BNMO. 
     Memiliki satu argumen yaitu filename yang merepresentasikan suatu save file yang ingin dibuka. 
     Setelah menekan Enter, akan dibaca save file <filename> yang berisi list game yang dapat dimainkan */
@@ -154,7 +154,7 @@ void load(Word filename, ArrayDin *array) {
         format.TabWord[i] = filename.TabWord[filename.Length - 4 + i];
     }
 
-    if (isWordEqual(format, StringToWord(".txt")) || isWordEqual(format, StringToWord(".TXT"))) {
+    if (isWordEqual(format, stringToWord(".txt")) || isWordEqual(format, stringToWord(".TXT"))) {
         startWFile(wordToString(concatWord(stringToWord(maindir), filename)));
 
         count = wordToInt(currentWord);
@@ -162,6 +162,14 @@ void load(Word filename, ArrayDin *array) {
         for (i = 0; i < count; i++) {
             advNewlineFile();
             InsertLast(array, currentWord);
+        }
+
+        if (Length(*array) == 0) {
+            loadFailed();
+        }
+        else {
+            loadSuceeded();
+            (*esc) = true;
         }
     }
     else {
