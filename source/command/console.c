@@ -814,7 +814,7 @@ int randomx()
 }
 
 void rng(){
-    int tebakan, x, i;
+    int tebakan, x, i, skor;
     i = 0;
     x = randomx();
 
@@ -824,10 +824,13 @@ void rng(){
     {
         ++i;
         printf("Tebakan: ");
-        scanf("%d", &tebakan);
+        STARTCOMMAND();
+        tebakan = wordToInt(currentCommand);
+        
         if (tebakan==x)
         {
             printf("Ya, X adalah %d\n", x);
+            printf("Skor Anda: %d\n",160-(20*i);
             break;
         }
         else if (tebakan>x)
@@ -843,6 +846,7 @@ void rng(){
     if ((i==8) && (tebakan!=x))
     {
         printf("Kesempatan Anda habis. X yang tepat adalah %d\n", x);
+        printf("Skor Anda: 0");
     }
 }
 
