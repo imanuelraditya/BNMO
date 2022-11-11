@@ -161,26 +161,27 @@ int main() {
                         
                         namaFile = currentCommand;
 
-                        format.Length = 4;
-
-                        for (int i = 0; i < 4; i++) {
-                            format.TabWord[i] = namaFile.TabWord[namaFile.Length - 4 + i];
-                        }
-
-                        if (!isWordEqual(format, stringToWord(".txt")) && !isWordEqual(format, stringToWord(".TXT"))) {
-                            printf("Format file tidak valid. Silakan coba lagi.\n\n");
-                            printf("Masukkan nama file: ");
-                        }
-                        } while (!isWordEqual(format, stringToWord(".txt")) && !isWordEqual(format, stringToWord(".TXT")));
-                        
                         if (commandWord(currentCommand) == 1) {
-                            save(namaFile, &array);
-                            esc = true;
-                            Quit();
+                            format.Length = 4;
+
+                            for (int i = 0; i < 4; i++) {
+                                format.TabWord[i] = namaFile.TabWord[namaFile.Length - 4 + i];
+                            }
+
+                            if (!isWordEqual(format, stringToWord(".txt")) && !isWordEqual(format, stringToWord(".TXT"))) {
+                                printf("Format file tidak valid. Silakan coba lagi.\n\n");
+                                printf("Masukkan nama file: ");
+                            }
                         }
                         else {
                             invalidCommand(&currentCommand);
+                            printf("\nMasukkan nama file: ");
                         }
+                        } while (!isWordEqual(format, stringToWord(".txt")) && !isWordEqual(format, stringToWord(".TXT")));
+                        
+                        save(namaFile, &array);
+                        esc = true;
+                        Quit();
                     }
                     else {
                         invalidCommand(&currentCommand);
@@ -218,9 +219,3 @@ int main() {
 
     return 0;
 }
-
-// KOMPILASI PROGRAM
-
-/* gcc main.c source/command/console.c source/ADT/queue/queue.c source/ADT/queuedinerdash/queue.c source/ADT/stack/stack.c source/ADT/map/map.c source/ADT/mesinkarakter/mesinkarakter.c source/ADT/mesinkata/mesinkata.c source/ADT/array/arraydin.c -o a */
-
-/* .\a */
