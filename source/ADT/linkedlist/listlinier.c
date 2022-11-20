@@ -29,7 +29,7 @@ void CreateEmpty (List *L) {
 /* F.S. Terbentuk list kosong */
 
 /****************** Manajemen Memori ******************/
-address Alokasi (infotype X) {
+address Alokasi (elementtype X) {
     address P;
     P = (ElmtList *) malloc(sizeof(ElmtList));
     if (P!= Nil) {
@@ -50,7 +50,7 @@ void Dealokasi (address *P) {
 /* Melakukan dealokasi/pengembalian address P */
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
-address Search (List L, infotype X){
+address Search (List L, elementtype X){
 	address P;
 	P = First(L);
 	if (IsEmptyList(L)){
@@ -69,7 +69,7 @@ address Search (List L, infotype X){
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void InsVFirst (List *L, infotype X) {
+void InsVFirst (List *L, elementtype X) {
     address P;
 
     P = Alokasi(X);
@@ -81,7 +81,7 @@ void InsVFirst (List *L, infotype X) {
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */
-void InsVLast (List *L, infotype X) {
+void InsVLast (List *L, elementtype X) {
     address P;
 
     P = Alokasi(X);
@@ -95,7 +95,7 @@ void InsVLast (List *L, infotype X) {
 /* bernilai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
 /*** PENGHAPUSAN ELEMEN ***/
-void DelVFirst (List *L, infotype *X) {
+void DelVFirst (List *L, elementtype *X) {
     address P;
 
     DelFirst(L, &P);
@@ -105,7 +105,7 @@ void DelVFirst (List *L, infotype *X) {
 /* I.S. List L tidak kosong  */
 /* F.S. Elemen pertama list dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen pertama di-dealokasi */
-void DelVLast (List *L, infotype *X) {
+void DelVLast (List *L, elementtype *X) {
     address P;
 
     DelLast(L, &P);
@@ -159,7 +159,7 @@ void DelFirst (List *L, address *P) {
 /* F.S. P adalah alamat elemen pertama list sebelum penghapusan */
 /*      Elemen list berkurang satu (mungkin menjadi kosong) */
 /* First element yg baru adalah suksesor elemen pertama yang lama */
-void DelP (List *L, infotype X) {
+void DelP (List *L, elementtype X) {
     address P = Search(*L, X);
 
     if (P != Nil){   // Found
@@ -275,15 +275,6 @@ int NbElmt (List L) {
 }
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
 
-
-address AdrMax (List L) {
-    Search(L, Max(L));
-}
-/* Mengirimkan address P, dengan info(P) yang bernilai maksimum */
-address AdrMin (List L) {
-    Search(L, Min(L));
-}
-/* Mengirimkan address P, dengan info(P) yang bernilai minimum */
 
 /****************** PROSES TERHADAP LIST ******************/
 

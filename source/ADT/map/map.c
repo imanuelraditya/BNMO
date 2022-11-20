@@ -84,7 +84,7 @@ boolean IsMemberMap(Map M, keytype k)
 Map UnionMap(Map m1, Map m2, boolean key_based )
 {
 	Map m3;
-	CreateEmpty(&m3);
+	CreateMapEmpty(&m3);
 	for(int i=0; i<m1.Count ; i++){
 		Insert(&m3,m1.Elements[i].Key,m1.Elements[i].Value);
 	}
@@ -95,7 +95,7 @@ Map UnionMap(Map m1, Map m2, boolean key_based )
 		for (int k=0 ; k<m3.Count-1 ; k++){
 			for (int l=k+1; l<m3.Count ; l++){	
 				if (m3.Elements[k].Key>m3.Elements[l].Key){
-					infotype temp;
+					info temp;
 					temp=m3.Elements[k];
 					m3.Elements[k]=m3.Elements[l];
 					m3.Elements[l]=temp;
@@ -107,14 +107,14 @@ Map UnionMap(Map m1, Map m2, boolean key_based )
 		for (int k=0 ; k<m3.Count-1 ; k++){
 			for (int l=k+1; l<m3.Count ; l++){	
 				if (m3.Elements[k].Value>m3.Elements[l].Value){
-					infotype temp;
+					info temp;
 					temp=m3.Elements[k];
 					m3.Elements[k]=m3.Elements[l];
 					m3.Elements[l]=temp;
 				}
 				else if (m3.Elements[k].Value==m3.Elements[l].Value) {
 					if (m3.Elements[k].Key>m3.Elements[l].Key){
-						infotype temp;
+						info temp;
 						temp=m3.Elements[k];
 						m3.Elements[k]=m3.Elements[l];
 						m3.Elements[l]=temp;

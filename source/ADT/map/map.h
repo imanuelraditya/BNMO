@@ -21,10 +21,10 @@ typedef int address;
 typedef struct {
 	keytype Key;
 	valuetype Value;
-} infotype;
+} info;
 
 typedef struct {
-	infotype Elements[MaxEl];
+	info Elements[MaxEl];
 	address Count;
 } Map;
 
