@@ -81,14 +81,51 @@ void belok(char x, List *s){
     p = Last(*s);
     printf("tes\n");
     if((x) == 'w'){
-        if(Posisiy(First(*s))-1 >= 0) {
+        if ((Posisiy(First(*s)) == 0) || (Posisiy(First(*s)) > Posisiy(Next(First(*s))))) {
+            printf("Kamu menabrak dinding\n");
+        }
+        else {
             while(p != First(*s)){
                 Posisi(p) = Posisi(Prev(p));
                 p = Prev(p);
             }
             Posisiy(First(*s)) -= 1;
-        } else {
+        }
+    }
+    else if ((x) == 's') {
+        if ((Posisiy(First(*s)) == 4) || (Posisiy(First(*s)) < Posisiy(Next(First(*s))))) {
             printf("Kamu menabrak dinding\n");
+        }
+        else {
+            while(p != First(*s)){
+                Posisi(p) = Posisi(Prev(p));
+                p = Prev(p);
+            }
+            Posisiy(First(*s)) += 1;
+        }
+    }
+    else if ((x) == 'a') {
+        if ((Posisix(First(*s)) == 0) || (Posisix(First(*s)) > Posisix(Next(First(*s))))) {
+            printf("Kamu menabrak dinding\n");
+        }
+        else {
+            while(p != First(*s)){
+                Posisi(p) = Posisi(Prev(p));
+                p = Prev(p);
+            }
+            Posisix(First(*s)) -= 1;
+        }
+    }
+    else if ((x) == 'd') {
+        if ((Posisix(First(*s)) == 4) || (Posisix(First(*s)) < Posisix(Next(First(*s))))) {
+            printf("Kamu menabrak dinding\n");
+        }
+        else {
+            while(p != First(*s)){
+                Posisi(p) = Posisi(Prev(p));
+                p = Prev(p);
+            }
+            Posisix(First(*s)) += 1;
         }
     }
 }
@@ -96,19 +133,18 @@ void belok(char x, List *s){
 int main(){
     List snake;
     char trial;
+    boolean suka = false;
 
     CreateEmpty(&snake);
     initsnake(&snake);
 
     printpetak(snake);
+    while (suka = true) {
+        printf("Mau kemana ularnya? : ") ;
+        scanf ("%c", &trial) ;
+        belok(trial, &snake);
+        printpetak(snake);
+    }
     
-    trial = 'w';
-    //scanf("%c", trial); kalo dari scanf ko gabisa ya.....
-    belok(trial, &snake);
-    
-    
-    printpetak(snake);
     return(0);
 }
-
-/*GARA GARA PAKE MATRIKS JADINYA KEBALIK POSISI X SAMA YNYA, MAKA NANTI INPUTNYA DITUKER*/
