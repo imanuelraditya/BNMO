@@ -16,9 +16,9 @@ void printpetak(List snake){
             if(j == 0){
                 printf("|");
             }
-            if(Search(snake, i, j) != Nil){
+            if(Search(snake, j, i) != Nil){
             //if(p != Nil && Posisix(p) == j && Posisiy(p) == i) {
-                p = Search(snake, i, j);
+                p = Search(snake, j, i);
                 printf("  %c  |", Info(p));
                 //p = Next(p);    
             } else {
@@ -67,16 +67,16 @@ void initsnake(List * snake ){
     InsVLast(snake, 'H', a, b);
     p = First(*snake);
     while(i < 2){
-        if(Posisiy(p) -1 >= 0){
-            InsVLast(snake, x+1, Posisix(p), Posisiy(p)-1);
-        } else if(Posisiy(p)-1 < 0 && Posisix(p)-1 >= 0 && i == 0){
+        if(Posisix(p) -1 >= 0){
             InsVLast(snake, x+1, Posisix(p)-1, Posisiy(p));
-        }  else if(Posisiy(p)-1 < 0 && Posisix(p)-1 >= 0 && i == 1 && Posisix(p)-1 != Posisix(temp)){
-            InsVLast(snake, x+1, Posisix(p)-1, Posisiy(p)); 
-        } else if(Posisiy(p)-1 < 0 && Posisix(p)-1 >= 0 && i == 1 && Posisix(p)-1 == Posisix(temp)){
-            InsVLast(snake, x+1, Posisix(p)+1, Posisiy(p)); 
-        } else if (Posisiy(p)-1 < 0 && Posisix(p)-1 < 0 ){
-            InsVLast(snake, x+1, Posisix(p) + 1, Posisiy(p));
+        } else if(Posisix(p)-1 < 0 && Posisiy(p)-1 >= 0 && i == 0){
+            InsVLast(snake, x+1, Posisix(p), Posisiy(p)-1);
+        }  else if(Posisix(p)-1 < 0 && Posisiy(p)-1 >= 0 && i == 1 && Posisiy(p)-1 != Posisiy(temp)){
+            InsVLast(snake, x+1, Posisix(p), Posisiy(p)-1); 
+        } else if(Posisix(p)-1 < 0 && Posisiy(p)-1 >= 0 && i == 1 && Posisiy(p)-1 == Posisiy(temp)){
+            InsVLast(snake, x+1, Posisix(p), Posisiy(p)+1); 
+        } else if (Posisix(p)-1 < 0 && Posisiy(p)-1 < 0 ){
+            InsVLast(snake, x+1, Posisix(p), Posisiy(p) + 1);
         }
         temp = p;
         p = Next(p);
@@ -111,7 +111,7 @@ void belok(char x, List *s){
             for(i = 0; i < 2; i++){
                 Posisix(p) = Posisix(temp);
                 Posisiy(p) = Posisiy(temp);
-                printf("%c %d %d\n", Info(p), Posisiy(temp), Posisix(temp));
+                printf("%c %d %d\n", Info(p), Posisix(temp), Posisiy(temp));
                 temp = Next(temp);
                 p =Next(p);
             }
@@ -133,7 +133,7 @@ int main(){
     
     trial = 'w';
     printf("%c\n", Info(First(snake)));
-    printpetak(snake);
+    //printpetak(snake);
     belok(trial, &snake);
     
     
