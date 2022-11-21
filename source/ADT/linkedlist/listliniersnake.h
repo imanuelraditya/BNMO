@@ -3,8 +3,8 @@
 /* Representasi address dengan pointer */
 /* elementtype adalah point */
 
-#ifndef listliniersnake_H
-#define listliniersnake_H
+#ifndef listlinier_H
+#define listlinier_H
 
 #include "../../boolean.h"
 
