@@ -4,7 +4,7 @@
 
 /* PROTOTYPE */
 /****************** TEST LIST KOSONG ******************/
-boolean IsEmpty (List L) 
+boolean IsEmptyList (List L) 
 {
     return ((First(L)==Nil)&&(Last(L)==Nil));
 }
@@ -49,7 +49,7 @@ void Dealokasi (address P)
 /* Melakukan dealokasi/pengembalian address P */
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
-address Search (List L, elmntype X, int a, int b) 
+address Search (List L, int a, int b) 
 {
     address P;
     boolean found = false;
@@ -101,21 +101,25 @@ void InsVLast (List *L, elmntype X, int a, int b)
 /* bernilai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
 /*** PENGHAPUSAN ELEMEN ***/
-void DelVFirst (List *L, elmntype *X) 
+void DelVFirst (List *L, elmntype *X, int * a, int * b) 
 {
     address P;
     DelFirst(L,&P);
     *X=Info(P);
+    *a = Posisix(P);
+    *b = Posisiy(P);
     Dealokasi(P);
 }
 /* I.S. List L tidak kosong  */
 /* F.S. Elemen pertama list dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen pertama di-dealokasi */
-void DelVLast (List *L, elmntype *X) 
+void DelVLast (List *L, elmntype *X,  int * a, int * b) 
 {
     address P;
     DelLast(L,&P);
     *X=Info(P);
+    *a = Posisix(P);
+    *b = Posisiy(P);
     Dealokasi(P);
 }
 /* I.S. list tidak kosong */
@@ -126,7 +130,7 @@ void DelVLast (List *L, elmntype *X)
 /*** PENAMBAHAN ELEMEN BERDASARKAN ALAMAT ***/
 void InsertFirst (List *L, address P) 
 {
-    if(IsEmpty(*L)){
+    if(IsEmptyList(*L)){
         First(*L)=P;
         Last(*L)=P;
     }
@@ -138,7 +142,7 @@ void InsertFirst (List *L, address P)
 /* F.S. Menambahkan elemen ber-address P sebagai elemen pertama */
 void InsertLast (List *L, address P) 
 {
-    if(IsEmpty(*L)){
+    if(IsEmptyList(*L)){
         InsertFirst(L,P);
     }
     else {
@@ -215,7 +219,7 @@ void DelLast (List *L, address *P)
 /* Last element baru adalah predesesor elemen pertama yg lama, jika ada */
 void DelP (List *L, elmntype X, int a, int b) 
 {
-    address cari=Search(*L,X, a, b);
+    address cari=Search(*L, a, b);
     if(cari!=Nil){
         address P=First(*L),prec=Nil;
         while (P!=cari){
@@ -273,7 +277,7 @@ void DelBefore (List *L, address *Pdel, address Succ)
 /****************** PROSES SEMUA ELEMEN LIST ******************/
 void PrintForward (List L) 
 {
-    if (IsEmpty(L)){
+    if (IsEmptyList(L)){
         printf("[]");
     }
     else{
@@ -299,7 +303,7 @@ void PrintForward (List L)
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
 void PrintBackward (List L) 
 {
-    if (IsEmpty(L)){
+    if (IsEmptyList(L)){
         printf("[]");
     }
     else{

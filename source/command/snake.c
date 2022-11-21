@@ -39,19 +39,6 @@ int random()
     return a;
 }
 
-/*void initSnake(List snake){
-    address p;
-
-    CreateEmpty(&snake);
-    InsVLast(&snake, 'H', random(), random());
-
-    p = First(snake);
-    if(Posisiy(p) -1 >= 0){
-        Insv
-    }
-    
-}*/
-
 void initsnake(List * snake ){
     //List snake;
     address p;
@@ -83,43 +70,27 @@ void initsnake(List * snake ){
         i++;
         x++;
     }
-    // printf("%d\n", Posisix(p)-1);
-    // if(Posisix(p)-1 >= 0){
-    //     InsVLast(&snake, '1', Posisix(p)-1, Posisiy(p));
-    //     InsVLast(&snake, '2', Posisix(p)-2, Posisiy(p));
-    // }
-    //printpetak(snake);
-    //return(snake);
-    //return(0);
 }
 
 void belok(char x, List *s){
     address p;
     address temp;
     int i = 0;
+    int tempx, tempy;
 
-    p = First(*s);
+    p = Last(*s);
     printf("tes\n");
     if((x) == 'w'){
-        if(Posisix(p)-1 >= 0) {
-            temp = p;
-            Posisix(p) = Posisix(p)-1;
-            //printf("%d %d\n", Posisix(p), Posisiy(p));
-            p = Next(p);
-            //printf()
-
-            for(i = 0; i < 2; i++){
-                Posisix(p) = Posisix(temp);
-                Posisiy(p) = Posisiy(temp);
-                printf("%c %d %d\n", Info(p), Posisix(temp), Posisiy(temp));
-                temp = Next(temp);
-                p =Next(p);
+        if(Posisiy(First(*s))-1 >= 0) {
+            while(p != First(*s)){
+                Posisi(p) = Posisi(Prev(p));
+                p = Prev(p);
             }
+            Posisiy(First(*s)) -= 1;
         } else {
             printf("Kamu menabrak dinding\n");
         }
     }
-    //return(s);
 }
 
 int main(){
@@ -128,12 +99,11 @@ int main(){
 
     CreateEmpty(&snake);
     initsnake(&snake);
-    //printf("%c", Info(First(snake)));
+
     printpetak(snake);
     
     trial = 'w';
-    printf("%c\n", Info(First(snake)));
-    //printpetak(snake);
+    //scanf("%c", trial); kalo dari scanf ko gabisa ya.....
     belok(trial, &snake);
     
     

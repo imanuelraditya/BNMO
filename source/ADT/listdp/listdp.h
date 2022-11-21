@@ -6,7 +6,7 @@
 #ifndef listdp_H
 #define listdp_H
 
-#include "boolean.h"
+#include "../../boolean.h"
 
 #define Nil NULL
 
@@ -42,10 +42,11 @@ typedef struct {
 #define Last(L) ((L).Last)
 #define Posisix(P) (P)->posisi.x
 #define Posisiy(P) (P)->posisi.y
+#define Posisi(P) (P)->posisi
 
 /* PROTOTYPE */
 /****************** TEST LIST KOSONG ******************/
-boolean IsEmpty (List L);
+boolean IsEmptyList (List L);
 /* Mengirim true jika list kosong. Lihat definisi di atas. */
 
 /****************** PEMBUATAN LIST KOSONG ******************/
@@ -65,7 +66,7 @@ void Dealokasi (address P);
 /* Melakukan dealokasi/pengembalian address P */
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
-address Search (List L, elmntype X, int a, int b);
+address Search (List L, int a, int b);
 /* Mencari apakah ada elemen list dengan Info(P)=X */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
@@ -83,11 +84,11 @@ void InsVLast (List *L, elmntype X, int a, int b) ;
 /* bernilai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
 /*** PENGHAPUSAN ELEMEN ***/
-void DelVFirst (List *L, elmntype *X);
+void DelVFirst (List *L, elmntype *X, int * a, int * b);
 /* I.S. List L tidak kosong  */
 /* F.S. Elemen pertama list dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen pertama di-dealokasi */
-void DelVLast (List *L, elmntype *X);
+void DelVLast (List *L, elmntype *X, int * a, int * b);
 /* I.S. list tidak kosong */
 /* F.S. Elemen terakhir list dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen terakhir di-dealokasi */
@@ -118,7 +119,7 @@ void DelLast (List *L, address *P);
 /* F.S. P adalah alamat elemen terakhir list sebelum penghapusan  */
 /*      Elemen list berkurang satu (mungkin menjadi kosong) */
 /* Last element baru adalah predesesor elemen pertama yg lama, jika ada */
-void DelP (List *L, elmntype X);
+void DelP (List *L,  elmntype X, int a, int b);
 /* I.S. Sembarang */
 /* F.S. Jika ada elemen list beraddress P, dengan Info(P)=X  */
 /* maka P dihapus dari list dan didealokasi */
