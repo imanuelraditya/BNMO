@@ -79,7 +79,7 @@ void belok(char x, List *s){
     int tempx, tempy;
 
     p = Last(*s);
-    printf("tes\n");
+    printf("Hasil\n");
     if((x) == 'w'){
         if ((Posisiy(First(*s)) == 0) || (Posisiy(First(*s)) > Posisiy(Next(First(*s))))) {
             printf("Kamu menabrak dinding\n");
@@ -128,6 +128,9 @@ void belok(char x, List *s){
             Posisix(First(*s)) += 1;
         }
     }
+    else {
+        printf("Arah tidak dikenali") ;
+    }
 }
 
 int main(){
@@ -142,8 +145,13 @@ int main(){
     while (suka = true) {
         printf("Mau kemana ularnya? : ") ;
         scanf ("%c", &trial) ;
-        belok(trial, &snake);
-        printpetak(snake);
+        if (trial != 'a' && trial != 'w' && trial != 'd' && trial != 's') {
+            printf("Tidak bisa") ;
+        }
+        else {
+            belok(trial, &snake);
+            printpetak(snake);
+        }
     }
     
     return(0);
