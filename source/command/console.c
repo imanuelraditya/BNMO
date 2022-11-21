@@ -136,7 +136,7 @@ void ListGame (ArrayDin array) {
 
 // LOAD <filename.txt>
 
-void load(Word filename, ArrayDin *array, boolean* esc) {
+void load(Word filename, ArrayDin* arrayGame, ArrayDin* arrayHistory, boolean* esc) {
     /* LOAD merupakan salah satu command yang dimasukkan pertama kali oleh pemain ke BNMO. 
     Memiliki satu argumen yaitu filename yang merepresentasikan suatu save file yang ingin dibuka. 
     Setelah menekan Enter, akan dibaca save file <filename> yang berisi list game yang dapat dimainkan */
@@ -161,10 +161,19 @@ void load(Word filename, ArrayDin *array, boolean* esc) {
 
         for (i = 0; i < count; i++) {
             advNewlineFile();
-            InsertLast(array, currentWord);
+            InsertLast(arrayGame, currentWord);
         }
 
-        if (Length(*array) == 0) {
+        advNewlineFile();
+        
+        count = wordToInt(currentWord);
+
+        for (i = 0; i < count; i++) {
+            advNewlineFile();
+            InsertLast(arrayHistory, currentWord);
+        }
+
+        if (Length(*arrayGame) == 0) {
             loadFailed();
         }
         else {
@@ -264,7 +273,7 @@ void randomScore(Word game) {
         printf("Score: %d\n", rand() % 100);
 }
 
-void playGame (Queue* queueGame) 
+void playGame (Queue* queueGame, ArrayDin* arrayHistory) 
 {
     Word play ;
     ListQueueGame (*queueGame) ; 
@@ -293,6 +302,8 @@ void playGame (Queue* queueGame)
         else {
             randomScore(play);
         }
+
+        InsertLast(arrayHistory, play);
     }
     
     else {
@@ -352,7 +363,7 @@ void Quit(){
 
 // SAVE <filename.txt>
 
-void save(Word filename, ArrayDin* listGame) {
+void save(Word filename, ArrayDin* listGame, ArrayDin* arrayHistory) {
     FILE *fpointer;
     char* maindir;
     Word format;
@@ -378,6 +389,13 @@ void save(Word filename, ArrayDin* listGame) {
             {
                 fprintf(fpointer, "%s\n", wordToString(Get(*listGame, i)));
             }
+
+            fprintf(fpointer, "%d\n", Length(*arrayHistory));
+            for (i = 0; i < Length(*arrayHistory); i++)
+            {
+                fprintf(fpointer, "%s\n", wordToString(Get(*arrayHistory, i)));
+            }
+
             fclose(fpointer);
         }
 
@@ -391,7 +409,7 @@ void save(Word filename, ArrayDin* listGame) {
 
 // SKIP GAME <n>
 
-void skipGame(Queue * Q, int n) 
+void skipGame(Queue * Q, ArrayDin* arrayHistory, int n) 
 /* melewatkan permainan sebanyak n yang terdapat pada antrian game pribadi */
 /* I.S. - game telah dijalankan
         - Queue game bisa kosong
@@ -420,7 +438,7 @@ void skipGame(Queue * Q, int n)
             printf("Tidak ada permainan lagi di dalam daftar game-mu\n");
         }
         else {
-            playGame(Q);
+            playGame(Q, arrayHistory);
         }
     }
 }
@@ -493,6 +511,52 @@ void welcome() // baru bisa di jalanin kalo NMax di mesinkata diganti jadi 100
     }
 }
 
+// LIST HISTORY
+
+void listHistory(ArrayDin array, int n) {
+    int i;
+
+    printf("Berikut adalah daftar Game yang telah dimainkan:\n");
+
+    if (n > Length(array)) {
+        n = Length(array);
+    }
+
+    if (n == 0) {
+        printf("Tidak ada permainan yang pernah dimainkan\n");
+    }
+    else {
+        for (i = 0; i < n; i++) {
+            printf("%d. %s\n", i+1, wordToString(Get(array, i)));
+        }
+    }
+}
+
+// RESET HISTORY
+
+void resetHistory(ArrayDin * arrayHistory) {
+    (*arrayHistory) = MakeArrayDin();
+    printf("\nHistory berhasil di-reset.\n");
+}
+
+// SCOREBOARD
+
+void displayScoreboard(Map M) {
+    printf("| NAMA   \t| SKOR   |\t\n");
+
+    if (IsEmptyMap(M)) {
+        printf("--SCOREBOARD KOSONG--\n");
+    }
+    else {
+        printf("|----------|---------|\n");
+        for (int i = 0; i < M.Count; i++) {
+            printf("| %s\t| %d\t|\n", M.Elements[i].Key, M.Elements[i].Value);
+        }
+    }
+
+    printf("\n");
+}
+
 /* LIST FUNGSI PROSEDUR GAME */
 
 // DINER DASH
@@ -519,7 +583,7 @@ void displayCook(Map C)
         int i = 0;
         for(i; i <= C.Count - 1; i++)
         {
-            printf("M%d\t|\t%d\n", C.Elements[i].Key, C.Elements[i].Value);
+            printf("M%d\t|\t%d\n", wordToInt(C.Elements[i].Key), C.Elements[i].Value);
         }
     }
     else
@@ -539,7 +603,7 @@ void displayServe(Map C)
         int i = 0;
         for(i; i <= C.Count - 1; i++)
         {
-            printf("M%d\t|\t%d\n", C.Elements[i].Key, C.Elements[i].Value);
+            printf("M%d\t|\t%d\n", wordToInt(C.Elements[i].Key), C.Elements[i].Value);
         }
     }
     else
@@ -716,15 +780,13 @@ void dinerdash(){
                     Cook.Elements[i].Value--;
                 }
             }
-            while(Cook.Elements[0].Value == 0 && Cook.Count > 0)
+            
+            while (Cook.Elements[0].Value == 0 && Cook.Count > 0)
             {
-                keytype k = Cook.Elements[0].Key;
-                valuetype v = Order.buffer[k].expTime + 1;
-                Insert(&Serve, k, v);
-                Delete(&Cook, k);
-                printf("\nMakanan M%d telah selesai dimasak\n", k);
+                printf("Makanan M%d selesai dimasak!\n", wordToInt(Cook.Elements[0].Key));
+                Insert(&Serve, Cook.Elements[0].Key, Order.buffer[0].expTime + 1);
+                Delete(&Cook, Cook.Elements[0].Key);
             }
-
         }
 
         // Proses Serve
@@ -742,7 +804,7 @@ void dinerdash(){
             {
                 keytype k = Serve.Elements[0].Key;
                 Delete(&Serve, k);
-                printf("\nMakanan M%d telah expired\n", k);
+                printf("\nMakanan M%d telah expired\n", wordToInt(k));
             }
         }
 
@@ -751,7 +813,7 @@ void dinerdash(){
         {
             // Insert Order to Cook
             int idx = idxToInt(index);
-            Insert(&Cook, idx, Order.buffer[idx].cookTime);
+            Insert(&Cook, intToWord(idx), Order.buffer[idx].cookTime);
             printf("\nBerhasil memasak M%d\n", idx);
         }
 
@@ -767,7 +829,7 @@ void dinerdash(){
                 boolean found = false;
                 while(!found)
                 {
-                    if(idx == Serve.Elements[i].Key)
+                    if(idx == wordToInt(Serve.Elements[i].Key))
                     {
                         Delete(&Serve, Serve.Elements[i].Key);
                         dequeue(&Order, &el);

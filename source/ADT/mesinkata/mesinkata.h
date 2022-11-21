@@ -145,6 +145,9 @@ char* wordToString(Word w);
 int wordToInt(Word w);
 /* Mengubah kata menjadi integer */
 
+Word intToWord(int n);
+/* Mengubah integer menjadi kata */
+
 int commandWord(Word w);
 /* Mengembalikan jumlah kata pada command */
 

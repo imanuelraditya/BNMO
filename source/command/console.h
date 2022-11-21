@@ -36,7 +36,7 @@ void ListGame (ArrayDin array);
 /* I.S. array terdefinisi */
 /* F.S. mengembalikan output berupa daftar game yang ada dalam array */
 
-void load (Word filename, ArrayDin* array, boolean* esc);
+void load (Word filename, ArrayDin* arrayGame, ArrayDin* arrayHistory, boolean* esc);
 /* I.S. array kosong */
 /* F.S. array terisi dengan list nama game yang ada dalam file eksternal yang disimpan */
 
@@ -52,8 +52,8 @@ void randomScore(Word game);
 /* I.S. sembarang */
 /* F.S. mengembalikan output berupa score yang dihasilkan secara random */
 
-void playGame (Queue* queueGame);
-/* I.S. queueGame terdefinisi */
+void playGame (Queue* queueGame, ArrayDin* arrayHistory);
+/* I.S. queueGame terdefinisi, arrayHistory mungkin kosong atau sudah terdefinisi */
 /* F.S. game yang berada pada head akan dimainkan dan queueGame berkurang */
 
 void queueGame(ArrayDin listGame, Queue* Q);
@@ -64,11 +64,11 @@ void Quit();
 /* I.S. sembarang */
 /* F.S. keluar dari program utama */
 
-void save (Word filename, ArrayDin* array);
+void save (Word filename, ArrayDin* array, ArrayDin* arrayHistory);
 /* I.S. array terdefinisi */
 /* F.S. array disimpan dalam file eksternal */
 
-void skipGame(Queue * Q, int n);
+void skipGame(Queue * Q, ArrayDin* arrayHistory, int n);
 /* I.S. Q terdefinisi */
 /* F.S. Q berkurang sebanyak n */
 
@@ -84,6 +84,17 @@ void welcome();
 /* I.S. sembarang */
 /* F.S. mengembalikan output berupa welcoming page BNMO */
 
+void listHistory(ArrayDin array, int n);
+/* I.S. array terdefinisi */
+/* F.S. mengembalikan output berupa daftar game yang ada dalam array history */
+
+void resetHistory(ArrayDin * arrayHistory);
+/* I.S. arrayHistory terdefinisi */
+/* F.S. arrayHistory kosong */
+
+void displayScoreboard(Map M);
+/* I.S. M terdefinisi */
+/* F.S. mengembalikan output berupa scoreboard */
 
 // LIST HEADER GAME
 

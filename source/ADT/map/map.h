@@ -1,6 +1,7 @@
 #ifndef map_H
 #define map_H
 #include <stdio.h>
+#include "../mesinkata/mesinkata.h"
 #include "../../boolean.h"
 
 /* MODUL Map
@@ -14,7 +15,7 @@ Deklarasi stack yang dengan implementasi array eksplisit-statik rata kiri
 #define Undefined -999
 
 // typedef int bool;
-typedef int keytype;
+typedef Word keytype;
 typedef int valuetype;
 typedef int address;
 

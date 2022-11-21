@@ -21,7 +21,7 @@ valuetype Value(Map M, keytype k)
     int i = 0;
     while (i < M.Count)
     {
-        if (M.Elements[i].Key == k)
+        if (isWordEqual(M.Elements[i].Key, k))
         {
             return M.Elements[i].Value;
         }
@@ -52,7 +52,7 @@ void Delete(Map *M, keytype k)
         if (IsMemberMap(*M, k))
         {
             int i = 0;
-            while (i < M->Count && M->Elements[i].Key != k)
+            while (i < M->Count && !isWordEqual(M->Elements[i].Key, k))
             {
                 i++;
             }
@@ -72,7 +72,7 @@ boolean IsMemberMap(Map M, keytype k)
     int i = 0;
     while (i < M.Count)
     {
-        if (M.Elements[i].Key == k)
+        if (isWordEqual(M.Elements[i].Key, k))
         {
             return true;
         }
@@ -94,7 +94,7 @@ Map UnionMap(Map m1, Map m2, boolean key_based )
 	if (key_based) {
 		for (int k=0 ; k<m3.Count-1 ; k++){
 			for (int l=k+1; l<m3.Count ; l++){	
-				if (m3.Elements[k].Key>m3.Elements[l].Key){
+				if (wordToInt(m3.Elements[k].Key) > wordToInt(m3.Elements[l].Key)){
 					info temp;
 					temp=m3.Elements[k];
 					m3.Elements[k]=m3.Elements[l];
@@ -113,7 +113,7 @@ Map UnionMap(Map m1, Map m2, boolean key_based )
 					m3.Elements[l]=temp;
 				}
 				else if (m3.Elements[k].Value==m3.Elements[l].Value) {
-					if (m3.Elements[k].Key>m3.Elements[l].Key){
+					if (wordToInt(m3.Elements[k].Key) > wordToInt(m3.Elements[l].Key)){
 						info temp;
 						temp=m3.Elements[k];
 						m3.Elements[k]=m3.Elements[l];

@@ -303,6 +303,30 @@ int wordToInt(Word word) {
     return num;
 }
 
+Word intToWord(int n) {
+    Word word;
+    int i, j, temp;
+    
+    i = 0;
+    temp = n;
+
+    while (temp != 0)
+    {
+        temp /= 10;
+        i++;
+    }
+
+    word.Length = i;
+
+    for (j = i - 1; j >= 0; j--)
+    {
+        word.TabWord[j] = (n % 10) + '0';
+        n /= 10;
+    }
+
+    return word;
+}
+
 int commandWord(Word w) {
     int i;
 
