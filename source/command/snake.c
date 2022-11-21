@@ -79,7 +79,9 @@ void belok(char x, List *s){
     int tempx, tempy;
 
     p = Last(*s);
-    printf("Hasil\n");
+    printf("\n");
+    printf("Berhasil bergerak!\n");
+    printf("Berikut merupakan peta permainan:\n");
     if((x) == 'w'){
         if ((Posisiy(First(*s)) == 0) || (Posisiy(First(*s)) > Posisiy(Next(First(*s))))) {
             printf("Kamu menabrak dinding\n");
@@ -137,16 +139,18 @@ int main(){
     List snake;
     char trial;
     boolean suka = false;
+    int test = 0;
 
     CreateEmpty(&snake);
     initsnake(&snake);
 
     printpetak(snake);
     while (suka = true) {
-        printf("Mau kemana ularnya? : ") ;
+        printf("Silahkan masukkan command anda: ") ;
         scanf ("%c", &trial) ;
         if (trial != 'a' && trial != 'w' && trial != 'd' && trial != 's') {
-            printf("Tidak bisa") ;
+            printf("\n");
+            printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n") ;
         }
         else {
             belok(trial, &snake);

@@ -3,6 +3,6 @@
 #include <stdlib.h>
 #include "../boolean.h"
 
-void printpetak(List l);
+void printpetak(List snake);
 void initsnake(List * snake );
 void belok(char x, List *s);
