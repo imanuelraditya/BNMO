@@ -1061,6 +1061,7 @@ void dinerdash(Map* M){
     
     if (commandWord(currentCommand) == 1) {
        Insert(M, currentCommand, saldo);
+       sortMapDesc(M);
     }
     else {
         invalidCommand(&currentCommand);
@@ -1133,6 +1134,7 @@ void rng(Map* M){
 
     if (commandWord(currentCommand) == 1) {
         Insert(M, currentCommand, skor);
+        sortMapDesc(M);
     }
     else {
         invalidCommand(&currentCommand);
