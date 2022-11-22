@@ -42,7 +42,7 @@ int main() {
             }
         } else if (isWordEqual(currentCommand, stringToWord("LOAD"))) {
             if (commandWord(currentCommand) == 2) {
-                load(currentCommand, &arrayGame, &arrayHistory, &esc);
+                load(currentCommand, &arrayGame, &arrayHistory, &ScoreRNG, &ScoreDinerDash, &ScoreTowerOfHanoi, &ScoreHangman, &ScoreSnakeOnMeteor, &esc);
             }
             else {
                 invalidCommand(&currentCommand);
@@ -66,7 +66,7 @@ int main() {
 
         if (isWordEqual(currentCommand, stringToWord("SAVE"))) {
             if (commandWord(currentCommand) == 2) {
-                save(currentCommand, &arrayGame, &arrayHistory);
+                save(currentCommand, &arrayGame, &arrayHistory, &ScoreRNG, &ScoreDinerDash, &ScoreTowerOfHanoi, &ScoreHangman, &ScoreSnakeOnMeteor);
             }
             else {
                 invalidCommand(&currentCommand);
@@ -127,7 +127,7 @@ int main() {
             ADVCOMMAND();
             if (isWordEqual(currentCommand, stringToWord("GAME"))) {
                 if (commandWord(currentCommand) == 1) {
-                    playGame(&Q, &arrayHistory);
+                    playGame(&Q, &arrayHistory, &ScoreRNG, &ScoreDinerDash, &ScoreTowerOfHanoi, &ScoreHangman, &ScoreSnakeOnMeteor);
                 }
                 else {
                     invalidCommand(&currentCommand);
@@ -142,7 +142,7 @@ int main() {
             if (isWordEqual(currentCommand, stringToWord("GAME"))) {
                 ADVCOMMAND();
                 if (commandWord(currentCommand) == 1) {
-                    skipGame(&Q, &arrayHistory, wordToInt(currentCommand));
+                    skipGame(&Q, &arrayHistory, &ScoreRNG, &ScoreDinerDash, &ScoreTowerOfHanoi, &ScoreHangman, &ScoreSnakeOnMeteor, wordToInt(currentCommand));
                 }
                 else {
                     invalidCommand(&currentCommand);
@@ -186,7 +186,7 @@ int main() {
                         }
                         } while (!isWordEqual(format, stringToWord(".txt")) && !isWordEqual(format, stringToWord(".TXT")));
                         
-                        save(namaFile, &arrayGame, &arrayHistory);
+                        save(namaFile, &arrayGame, &arrayHistory, &ScoreRNG, &ScoreDinerDash, &ScoreTowerOfHanoi, &ScoreHangman, &ScoreSnakeOnMeteor);
                         esc = true;
                         Quit();
                     }
@@ -256,6 +256,95 @@ int main() {
                 else {
                     invalidCommand(&currentCommand);
                 }
+            }
+            else if (isWordEqual(currentCommand, stringToWord("SCOREBOARD"))) {
+                if (commandWord(currentCommand) == 1) {
+                    printf("\nDaftar scoreboard:\n0. ALL\n1. RNG\n2. DINER DASH\n3. TOWER OF HANOI\n4. HANGMAN\n5. SNAKE ON METEOR\n\n");
+  
+                    printf("\nScoreboard yang ingin dihapus: ");
+
+                    STARTCOMMAND();
+
+                    if (commandWord(currentCommand) == 1) {
+                        int num = wordToInt(currentCommand);
+
+                        printf("Apakah anda yakin ingin melakukan reset scoreboard? (Y/N): ");
+
+                        STARTCOMMAND();
+
+                        if (isWordEqual(currentCommand, stringToWord("Y"))) {
+                            if (commandWord(currentCommand) == 1) {
+                                if (num == 0) {
+                                    CreateMapEmpty(&ScoreRNG);
+                                    CreateMapEmpty(&ScoreDinerDash);
+                                    CreateMapEmpty(&ScoreTowerOfHanoi);
+                                    CreateMapEmpty(&ScoreHangman);
+                                    CreateMapEmpty(&ScoreSnakeOnMeteor);
+                                    printf("\nScoreboard berhasil di-reset.\n");
+                                }
+                                else if (num == 1) {
+                                    CreateMapEmpty(&ScoreRNG);
+                                    printf("\nScoreboard berhasil di-reset.\n");
+                                }
+                                else if (num == 2) {
+                                    CreateMapEmpty(&ScoreDinerDash);
+                                    printf("\nScoreboard berhasil di-reset.\n");
+                                }
+                                else if (num == 3) {
+                                    CreateMapEmpty(&ScoreTowerOfHanoi);
+                                    printf("\nScoreboard berhasil di-reset.\n");
+                                }
+                                else if (num == 4) {
+                                    CreateMapEmpty(&ScoreHangman);
+                                    printf("\nScoreboard berhasil di-reset.\n");
+                                }
+                                else if (num == 5) {
+                                    CreateMapEmpty(&ScoreSnakeOnMeteor);
+                                    printf("\nScoreboard berhasil di-reset.\n");
+                                }
+                                else {
+                                    printf("\nInput tidak valid.\n");
+                                }
+                            }
+                            else {
+                                invalidCommand(&currentCommand);
+                            }
+                        }
+                        else if (isWordEqual(currentCommand, stringToWord("N"))) {
+                            if (commandWord(currentCommand) == 1) {
+                                printf("\nScoreboard tidak jadi di-reset.\n");
+                            }
+                            else {
+                                invalidCommand(&currentCommand);
+                            }
+                        }
+                        else {
+                            invalidCommand(&currentCommand);
+                        }
+                    }
+                    else {
+                        invalidCommand(&currentCommand);
+                    }
+                } else {
+                    invalidCommand(&currentCommand);
+                }
+            }
+            else {
+                invalidCommand(&currentCommand);
+            }
+        } else if (isWordEqual(currentCommand, stringToWord("SCOREBOARD"))) {
+            if (commandWord(currentCommand) == 1) {
+                printf("**** SCOREBOARD GAME RNG ****\n");
+                displayScoreboard(ScoreRNG);
+                printf("\n**** SCOREBOARD GAME DINER DASH ****\n");
+                displayScoreboard(ScoreDinerDash);
+                printf("\n**** SCOREBOARD GAME TOWER OF HANOI ****\n");
+                displayScoreboard(ScoreTowerOfHanoi);
+                printf("\n**** SCOREBOARD GAME HANGMAN ****\n");
+                displayScoreboard(ScoreHangman);
+                printf("\n**** SCOREBOARD GAME SNAKE ON METEOR ****\n");
+                displayScoreboard(ScoreSnakeOnMeteor);
+                printf("\n");
             }
             else {
                 invalidCommand(&currentCommand);

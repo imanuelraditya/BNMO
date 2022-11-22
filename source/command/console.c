@@ -136,14 +136,14 @@ void ListGame (ArrayDin array) {
 
 // LOAD <filename.txt>
 
-void load(Word filename, ArrayDin* arrayGame, ArrayDin* arrayHistory, boolean* esc) {
+void load(Word filename, ArrayDin* arrayGame, ArrayDin* arrayHistory, Map* Map_RNG, Map* Map_DinerDash, Map* Map_TowerOfHanoi, Map* Map_Hangman, Map* Map_SnakeOnMeteor, boolean* esc) {
     /* LOAD merupakan salah satu command yang dimasukkan pertama kali oleh pemain ke BNMO. 
     Memiliki satu argumen yaitu filename yang merepresentasikan suatu save file yang ingin dibuka. 
     Setelah menekan Enter, akan dibaca save file <filename> yang berisi list game yang dapat dimainkan */
 
     char* maindir;
-    int count, i;
-    Word format;
+    int count, i, j;
+    Word format, gameName, gameScore;
 
     maindir = "data/";
     i = 0;
@@ -171,6 +171,146 @@ void load(Word filename, ArrayDin* arrayGame, ArrayDin* arrayHistory, boolean* e
         for (i = 0; i < count; i++) {
             advNewlineFile();
             InsertLast(arrayHistory, currentWord);
+        }
+
+        advNewlineFile();
+
+        count = wordToInt(currentWord);
+
+        for (i = 0; i < count; i++) {
+            advNewlineFile();
+            j = 0;
+
+            while (currentWord.TabWord[j] != BLANK) {
+                gameName.TabWord[j] = currentWord.TabWord[j];
+                j++;
+                gameName.Length++;
+            }
+
+            j++;
+
+            while (j < currentWord.Length) {
+                gameScore.TabWord[j - (gameName.Length + 1)] = currentWord.TabWord[j];
+                j++;
+                gameScore.Length++;
+            }
+
+            Insert(Map_RNG, gameName, wordToInt(gameScore));
+
+            gameName.Length = 0;
+            gameScore.Length = 0;
+        }
+
+        advNewlineFile();
+
+        count = wordToInt(currentWord);
+
+        for (i = 0; i < count; i++) {
+            advNewlineFile();
+            j = 0;
+
+            while (currentWord.TabWord[j] != BLANK) {
+                gameName.TabWord[j] = currentWord.TabWord[j];
+                j++;
+                gameName.Length++;
+            }
+
+            j++;
+
+            while (j < currentWord.Length) {
+                gameScore.TabWord[j - (gameName.Length + 1)] = currentWord.TabWord[j];
+                j++;
+                gameScore.Length++;
+            }
+
+            Insert(Map_DinerDash, gameName, wordToInt(gameScore));
+
+            gameName.Length = 0;
+            gameScore.Length = 0;
+        }
+
+        advNewlineFile();
+
+        count = wordToInt(currentWord);
+
+        for (i = 0; i < count; i++) {
+            advNewlineFile();
+            j = 0;
+
+            while (currentWord.TabWord[j] != BLANK) {
+                gameName.TabWord[j] = currentWord.TabWord[j];
+                j++;
+                gameName.Length++;
+            }
+
+            j++;
+
+            while (j < currentWord.Length) {
+                gameScore.TabWord[j - (gameName.Length + 1)] = currentWord.TabWord[j];
+                j++;
+                gameScore.Length++;
+            }
+
+            Insert(Map_TowerOfHanoi, gameName, wordToInt(gameScore));
+
+            gameName.Length = 0;
+            gameScore.Length = 0;
+        }
+
+        advNewlineFile();
+
+        count = wordToInt(currentWord);
+
+        for (i = 0; i < count; i++) {
+            advNewlineFile();
+            j = 0;
+
+            while (currentWord.TabWord[j] != BLANK) {
+                gameName.TabWord[j] = currentWord.TabWord[j];
+                j++;
+                gameName.Length++;
+            }
+
+            j++;
+
+            while (j < currentWord.Length) {
+                gameScore.TabWord[j - (gameName.Length + 1)] = currentWord.TabWord[j];
+                j++;
+                gameScore.Length++;
+            }
+
+            Insert(Map_Hangman, gameName, wordToInt(gameScore));
+
+            gameName.Length = 0;
+            gameScore.Length = 0;
+        }
+
+        advNewlineFile();
+
+        count = wordToInt(currentWord);
+
+        for (i = 0; i < count; i++) {
+            advNewlineFile();
+            j = 0;
+
+            while (currentWord.TabWord[j] != BLANK) {
+                gameName.TabWord[j] = currentWord.TabWord[j];
+                j++;
+                gameName.Length++;
+            }
+
+            j++;
+
+            while (j < currentWord.Length) {
+                gameScore.TabWord[j - (gameName.Length + 1)] = currentWord.TabWord[j];
+                j++;
+                gameScore.Length++;
+            }
+
+            Insert(Map_SnakeOnMeteor, gameName, wordToInt(gameScore));
+
+            gameName.Length = 0;
+            gameScore.Length = 0;
         }
 
         if (Length(*arrayGame) == 0) {
@@ -273,7 +413,7 @@ void randomScore(Word game) {
         printf("Score: %d\n", rand() % 100);
 }
 
-void playGame (Queue* queueGame, ArrayDin* arrayHistory) 
+void playGame (Queue* queueGame, ArrayDin* arrayHistory, Map* Map_RNG, Map* Map_DinerDash, Map* Map_TowerOfHanoi, Map* Map_Hangman, Map* Map_SnakeOnMeteor)
 {
     Word play ;
     ListQueueGame (*queueGame) ; 
@@ -285,15 +425,15 @@ void playGame (Queue* queueGame, ArrayDin* arrayHistory)
 
         if (isWordEqual(play, stringToWord("DINER DASH"))) {
             printf ("Loading %s . . .\n\n", wordToString(play)) ;
-            dinerdash() ;
+            dinerdash(Map_DinerDash);
         }
         else if (isWordEqual(play, stringToWord("RNG"))) {
             printf ("Loading %s . . .\n\n", wordToString(play)) ;
-            rng() ;
+            rng(Map_RNG) ;
         }
         else if (isWordEqual(play, stringToWord("TOWER OF HANOI"))) {
             printf ("Loading %s . . .\n\n", wordToString(play)) ;
-            towerOfHanoi();
+            towerOfHanoi(Map_TowerOfHanoi);
         }
         else if (isWordEqual(play, stringToWord("DINOSAUR IN EARTH")) || isWordEqual(play, stringToWord("RISEWOMAN")) || isWordEqual(play, stringToWord("EIFFEL TOWER"))) {
             printf ("Game %s masih dalam maintenance, belum dapat dimainkan. Silahkan pilih game lain.\n", wordToString(play)) ;
@@ -363,7 +503,7 @@ void Quit(){
 
 // SAVE <filename.txt>
 
-void save(Word filename, ArrayDin* listGame, ArrayDin* arrayHistory) {
+void save(Word filename, ArrayDin* listGame, ArrayDin* arrayHistory, Map* Map_RNG, Map* Map_DinerDash, Map* Map_TowerOfHanoi, Map* Map_Hangman, Map* Map_SnakeOnMeteor) {
     FILE *fpointer;
     char* maindir;
     Word format;
@@ -396,6 +536,41 @@ void save(Word filename, ArrayDin* listGame, ArrayDin* arrayHistory) {
                 fprintf(fpointer, "%s\n", wordToString(Get(*arrayHistory, i)));
             }
 
+            fprintf(fpointer, "%d\n", (*Map_RNG).Count);
+            for (i = 0; i < (*Map_RNG).Count; i++)
+            {
+                fprintf(fpointer, "%s ", wordToString((*Map_RNG).Elements[i].Key));
+                fprintf(fpointer, "%d\n", (*Map_RNG).Elements[i].Value);
+            }
+
+            fprintf(fpointer, "%d\n", (*Map_DinerDash).Count);
+            for (i = 0; i < (*Map_DinerDash).Count; i++)
+            {
+                fprintf(fpointer, "%s ", wordToString((*Map_DinerDash).Elements[i].Key));
+                fprintf(fpointer, "%d\n", (*Map_DinerDash).Elements[i].Value);
+            }
+
+            fprintf(fpointer, "%d\n", (*Map_TowerOfHanoi).Count);
+            for (i = 0; i < (*Map_TowerOfHanoi).Count; i++)
+            {
+                fprintf(fpointer, "%s ", wordToString((*Map_TowerOfHanoi).Elements[i].Key));
+                fprintf(fpointer, "%d\n", (*Map_TowerOfHanoi).Elements[i].Value);
+            }
+
+            fprintf(fpointer, "%d\n", (*Map_Hangman).Count);
+            for (i = 0; i < (*Map_Hangman).Count; i++)
+            {
+                fprintf(fpointer, "%s ", wordToString((*Map_Hangman).Elements[i].Key));
+                fprintf(fpointer, "%d\n", (*Map_Hangman).Elements[i].Value);
+            }
+
+            fprintf(fpointer, "%d\n", (*Map_SnakeOnMeteor).Count);
+            for (i = 0; i < (*Map_SnakeOnMeteor).Count; i++)
+            {
+                fprintf(fpointer, "%s ", wordToString((*Map_SnakeOnMeteor).Elements[i].Key));
+                fprintf(fpointer, "%d\n", (*Map_SnakeOnMeteor).Elements[i].Value);
+            }
+
             fclose(fpointer);
         }
 
@@ -409,7 +584,7 @@ void save(Word filename, ArrayDin* listGame, ArrayDin* arrayHistory) {
 
 // SKIP GAME <n>
 
-void skipGame(Queue * Q, ArrayDin* arrayHistory, int n) 
+void skipGame(Queue * Q, ArrayDin* arrayHistory, Map* Map_RNG, Map* Map_DinerDash, Map* Map_TowerOfHanoi, Map* Map_Hangman, Map* Map_SnakeOnMeteor, int n) 
 /* melewatkan permainan sebanyak n yang terdapat pada antrian game pribadi */
 /* I.S. - game telah dijalankan
         - Queue game bisa kosong
@@ -438,7 +613,7 @@ void skipGame(Queue * Q, ArrayDin* arrayHistory, int n)
             printf("Tidak ada permainan lagi di dalam daftar game-mu\n");
         }
         else {
-            playGame(Q, arrayHistory);
+            playGame(Q, arrayHistory, Map_RNG, Map_DinerDash, Map_TowerOfHanoi, Map_Hangman, Map_SnakeOnMeteor);
         }
     }
 }
@@ -542,15 +717,15 @@ void resetHistory(ArrayDin * arrayHistory) {
 // SCOREBOARD
 
 void displayScoreboard(Map M) {
-    printf("| NAMA   \t| SKOR   |\t\n");
+    printf("| NAMA   \t| SKOR   |\n");
 
-    if (IsEmptyMap(M)) {
-        printf("--SCOREBOARD KOSONG--\n");
+    if (IsMapEmpty(M)) {
+        printf("----SCOREBOARD  KOSONG----\n");
     }
     else {
-        printf("|----------|---------|\n");
+        printf("|---------------|--------|\n");
         for (int i = 0; i < M.Count; i++) {
-            printf("| %s\t| %d\t|\n", M.Elements[i].Key, M.Elements[i].Value);
+            printf("| %s\t| %d\t|\n", wordToString(M.Elements[i].Key), M.Elements[i].Value);
         }
     }
 
@@ -629,7 +804,7 @@ int idxToInt(char *idx){
     return index;
 }
 
-void sortMap(Map *Map){
+void sortMapAsc(Map *Map){
     // Algoritma Bubble Sort
     int i = 1;
     int j = 0;
@@ -648,7 +823,27 @@ void sortMap(Map *Map){
     }
 }
 
-void dinerdash(){
+void sortMapDesc(Map *Map){
+    // Algoritma Bubble Sort
+    int i, j;
+    int count;
+    
+    count = Map->Count;
+    for(i = count - 1; i >= 1; i--)
+    {
+        for(j = count - 2; j >= 0; j--)
+        {
+            if(Map->Elements[j].Value < Map->Elements[j+1].Value)
+            {
+                info temp = Map->Elements[j];
+                Map->Elements[j] = Map->Elements[j+1];
+                Map->Elements[j+1] = temp;
+            }
+        }
+    }
+}
+
+void dinerdash(Map* M){
     // Deklarasi ADT
     QueueInt Order;
     Map Cook;
@@ -771,7 +966,7 @@ void dinerdash(){
 
         // Proses Masak
         if(Cook.Count >0){
-            sortMap(&Cook);
+            sortMapAsc(&Cook);
             int i = 0;
             for(i; i < Cook.Count; i++)
             {
@@ -859,6 +1054,18 @@ void dinerdash(){
     }
 
     printf("Total saldo yang Anda peroleh : %d\n", saldo);
+
+    printf("\nMasukkan username anda: ");
+
+    STARTCOMMAND();
+    
+    if (commandWord(currentCommand) == 1) {
+       Insert(M, currentCommand, saldo);
+    }
+    else {
+        invalidCommand(&currentCommand);
+    }
+
     printf("===========================================================\n");
     printf("                    - DINER DASH OVER -                    \n");
     printf("\n");
@@ -875,7 +1082,7 @@ int randomx()
     return a;
 }
 
-void rng(){
+void rng(Map* M){
     int tebakan, x, i, skor;
     i = 0;
     x = randomx();
@@ -893,7 +1100,6 @@ void rng(){
             if (tebakan==x)
             {
                 printf("Ya, X adalah %d\n", x);
-                printf("Skor Anda: %d\n",180-(20*i));
                 break;
             }
             else if (tebakan>x)
@@ -910,10 +1116,26 @@ void rng(){
         }
     } while(i!=8); /*Memberikan 8 kesempatan menebak*/
 
-    if ((i==8) && (tebakan!=x))
+    if ((tebakan!=x) && (i==8))
     {
         printf("Kesempatan Anda habis. X yang tepat adalah %d\n", x);
-        printf("Skor Anda: 0\n");
+        skor = 0;
+    }
+    else {
+        skor = 180 - (20*i);
+    }
+    
+    printf("Skor Anda: %d\n", skor);
+
+    printf("\nMasukkan username anda: ");
+
+    STARTCOMMAND();
+
+    if (commandWord(currentCommand) == 1) {
+        Insert(M, currentCommand, skor);
+    }
+    else {
+        invalidCommand(&currentCommand);
     }
 }
 
@@ -951,7 +1173,7 @@ void PrintTower(Stack S[3], int n) {
                     printf(" ");
                 }
                 for (k = 0; k < 2 * X[j][i] - 1; k++) {
-                    printf("=");
+                    printf("*");
                 }
                 for (k = 0; k < n - X[j][i]; k++) {
                     printf(" ");
@@ -974,8 +1196,8 @@ void PrintTower(Stack S[3], int n) {
     printf("\n");
 }
 
-void towerOfHanoi() {
-    int disk, towerOrigin, towerDestination, step, i, maxScore;
+void towerOfHanoi(Map* M) {
+    int disk, towerOrigin, towerDestination, step, i, maxScore, score;
     Stack Tower[3];
     Address P;
 
@@ -1006,7 +1228,7 @@ void towerOfHanoi() {
 
             printf("\n-----------------------------------------------------------\n");
             
-            while (Count(Tower[1]) != disk && Count(Tower[2]) != disk) {
+            while (Count(Tower[2]) != disk) {
                 for (i = 0; i < 3; i++) {
                     printf("\nTower %d: ", i + 1);
                     ViewStack(Tower[i]);
@@ -1076,7 +1298,9 @@ void towerOfHanoi() {
             printf("\n\n");
             printf("Jumlah langkah: %d\n", step);
             printf("\nSelamat, Anda berhasil menyelesaikan Tower of Hanoi!\n");
-            printf("Skor Anda: %d\n", (maxScore * 100) / step);
+
+            score = disk + ((maxScore * 5) / step);
+            printf("Skor Anda: %d\n", score);
 
             while (!IsStackEmpty(Tower[0])) {
                 Pop(&Tower[0], &P);
@@ -1086,6 +1310,18 @@ void towerOfHanoi() {
             while (!IsStackEmpty(Tower[1])) {
                 Pop(&Tower[1], &P);
                 DeAllocate(P);
+            }
+
+            printf("\nMasukkan username anda: ");
+
+            STARTCOMMAND();
+
+            if (commandWord(currentCommand) == 1) {
+                Insert(M, currentCommand, score);
+                sortMapDesc(M);
+            }
+            else {
+                invalidCommand(&currentCommand);
             }
 
         } else {
