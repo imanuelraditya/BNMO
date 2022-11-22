@@ -3,7 +3,7 @@
 #include <math.h>
 #include <time.h>
 
-void printpetak(List snake, List food){
+void printpetak(List snake, List food, List meteor){
     int i =0;
     int j = 0;
     address p;
@@ -25,6 +25,9 @@ void printpetak(List snake, List food){
             //if(p != Nil && Posisix(p) == j && Posisiy(p) == i) {
                 p = Search(food, j, i);
                 printf("  %c  |", Info(p));
+            } else if(Search(meteor, j, i) != Nil){
+                p = Search(meteor, j, i);
+                printf("  %c  |", Info(p));
             } else {
                 printf("     |");
             }
@@ -43,7 +46,7 @@ int random()
     return a;
 }
 
-void initsnake(List * snake ){
+void initsnake(List * snake){
     //List snake;
     address p;
     address temp;
@@ -87,8 +90,23 @@ void dropfood(List*snake, List* food){
         x = random();
         y = random();
     }
-    printf("%d %d\n", x, y);
+    printf("food : %d %d\n", x, y);
     InsVLast(food, 'O', x, y);
+}
+
+void dropmeteor(List* food, List* meteor){
+    int x;
+    int y;
+
+    x = random();
+    y = random();
+
+    while(Search((*food), x, y) != Nil){
+        x = random();
+        y = random();
+    }
+    printf("meteor : %d %d\n", x, y);
+    InsVLast(meteor, 'M', x, y);
 }
 
 void belok(char x, List *s){
@@ -157,51 +175,52 @@ void belok(char x, List *s){
 int main(){
     List snake;
     List food;
+    List meteor;
     char command;
-    boolean suka = false;
+    boolean validasicommand = false;
+    boolean menang = false;
     boolean done = false;
     boolean eat = false;
     int test = 0;
+    int turn = 1;
 
     CreateEmpty(&food);
     CreateEmpty(&snake);
+    CreateEmpty(&meteor);
     initsnake(&snake);
 
-    printpetak(snake, food);
-    while (suka = true) {
+    printf("\nSelamat datang di snake on meteor!\n");
+    printf("\nMengenerate peta, snake dan makanan\n");
+    printf("\nBerhasil digenerate!\n");
+
+    printf("\n----------------------------------\n\n");
+    printpetak(snake, food, meteor);
+    while (!menang) {
+        printf("\nTURN %d\n", turn);
         printf("Silahkan masukkan command anda: ") ;
         //scanf ("%c", &trial) ;
         STARTCOMMAND();
-        if(currentCommand.Length > 1 || commandWord(currentCommand) > 1){  // ini udah bisa, tapi kalo misal ngetik commandnya lebih dari satu kata, kaya halo halo halo, nanti pemberitahuan
-            printf("\n");                                                   // command tidak validnya juga ke print 3 kali :)
+        if(currentCommand.Length > 1 || commandWord(currentCommand) > 1){  
+            printf("\n");                                                   
             printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n");
         } else{
             command = currentCommand.TabWord[0];
             if (command != 'a' && command != 'w' && command != 'd' && command != 's') {
                 printf("\n");
-                printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n") ;
+                printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n\n") ;
             }
             else {
+                validasicommand = true;
                 belok(command, &snake);
-                printpetak(snake, food);
+                printpetak(snake, food, meteor);
+                turn++;
             }
         }
         if(!done && !eat){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
             dropfood(&snake, &food);
+            dropmeteor(&food, &meteor);
             done = true;
-        }
+        } 
     }    
-
-        // if (trial != 'a' && trial != 'w' && trial != 'd' && trial != 's') {
-        //     printf("\n");
-        //     printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n") ;
-        // }
-        // else {
-        //     belok(trial, &snake);
-        //     printpetak(snake);
-        // }
-    
-    
-    
     return(0);
 }
