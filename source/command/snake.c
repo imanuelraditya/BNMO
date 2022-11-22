@@ -3,7 +3,7 @@
 #include <math.h>
 #include <time.h>
 
-void printpetak(List snake){
+void printpetak(List snake, List food){
     int i =0;
     int j = 0;
     address p;
@@ -21,6 +21,10 @@ void printpetak(List snake){
                 p = Search(snake, j, i);
                 printf("  %c  |", Info(p));
                 //p = Next(p);    
+            } else if(Search(food, j, i) != Nil){
+            //if(p != Nil && Posisix(p) == j && Posisiy(p) == i) {
+                p = Search(food, j, i);
+                printf("  %c  |", Info(p));
             } else {
                 printf("     |");
             }
@@ -50,7 +54,7 @@ void initsnake(List * snake ){
 
     a = random();
     b = random();
-    printf("%d %d\n", a, b);
+    //printf("%d %d\n", a, b);
     InsVLast(snake, 'H', a, b);
     p = First(*snake);
     while(i < 2){
@@ -70,6 +74,21 @@ void initsnake(List * snake ){
         i++;
         x++;
     }
+}
+
+void dropfood(List*snake, List* food){
+    int x;
+    int y;
+
+    x = random();
+    y = random();
+
+    while(Search((*snake), x, y) != Nil){
+        x = random();
+        y = random();
+    }
+    printf("%d %d\n", x, y);
+    InsVLast(food, 'O', x, y);
 }
 
 void belok(char x, List *s){
@@ -137,26 +156,52 @@ void belok(char x, List *s){
 
 int main(){
     List snake;
-    char trial;
+    List food;
+    char command;
     boolean suka = false;
+    boolean done = false;
+    boolean eat = false;
     int test = 0;
 
+    CreateEmpty(&food);
     CreateEmpty(&snake);
     initsnake(&snake);
 
-    printpetak(snake);
+    printpetak(snake, food);
     while (suka = true) {
         printf("Silahkan masukkan command anda: ") ;
-        scanf ("%c", &trial) ;
-        if (trial != 'a' && trial != 'w' && trial != 'd' && trial != 's') {
-            printf("\n");
-            printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n") ;
+        //scanf ("%c", &trial) ;
+        STARTCOMMAND();
+        if(currentCommand.Length > 1 || commandWord(currentCommand) > 1){  // ini udah bisa, tapi kalo misal ngetik commandnya lebih dari satu kata, kaya halo halo halo, nanti pemberitahuan
+            printf("\n");                                                   // command tidak validnya juga ke print 3 kali :)
+            printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n");
+        } else{
+            command = currentCommand.TabWord[0];
+            if (command != 'a' && command != 'w' && command != 'd' && command != 's') {
+                printf("\n");
+                printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n") ;
+            }
+            else {
+                belok(command, &snake);
+                printpetak(snake, food);
+            }
         }
-        else {
-            belok(trial, &snake);
-            printpetak(snake);
+        if(!done && !eat){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
+            dropfood(&snake, &food);
+            done = true;
         }
-    }
+    }    
+
+        // if (trial != 'a' && trial != 'w' && trial != 'd' && trial != 's') {
+        //     printf("\n");
+        //     printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n") ;
+        // }
+        // else {
+        //     belok(trial, &snake);
+        //     printpetak(snake);
+        // }
+    
+    
     
     return(0);
 }
