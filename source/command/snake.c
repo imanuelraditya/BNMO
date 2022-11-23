@@ -90,7 +90,7 @@ void dropfood(List*snake, List* food){
         x = random();
         y = random();
     }
-    printf("food : %d %d\n", x, y);
+    //printf("food : %d %d\n", x, y);
     InsVLast(food, 'O', x, y);
 }
 
@@ -107,6 +107,40 @@ void dropmeteor(List* food, List* meteor){
     }
     printf("meteor : %d %d\n", x, y);
     InsVLast(meteor, 'M', x, y);
+}
+
+void makan(List * snake, List * food){
+    elmntype tempInfo;
+    int tempx, tempy;
+
+    if((Posisix(First(*food)) == Posisix(First(*snake))) && (Posisiy(First(*food)) == Posisiy(First(*snake)))) {
+        DelVLast(food, &tempInfo, &tempx, &tempy);
+        // if(First(*food) != Nil){    
+        //     printf("%c %d %d", Info(First(*food)), Posisix(First(*food)), Posisiy(First(*food)));
+        // } else{
+        //     printf("kosong\n");
+        // }
+
+        if(Posisix(Last(*snake)) != 0){
+            if(Posisix(Prev(Last(*snake))) != Posisix(Last(*snake))-1) {
+                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake))-1, Posisiy(Last(*snake)));
+            } else if(Posisix(Last(*snake)) != 4){
+                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake))+1, Posisiy(Last(*snake)));
+            } else if(Posisix(Last(*snake)) == 4 && Posisiy(Last(*snake)) != 0 ){
+                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake)), Posisiy(Last(*snake))-1);
+            } else if(Posisix(Last(*snake)) == 4 && Posisiy(Last(*snake)) == 0 ){
+                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake)), Posisiy(Last(*snake))+1);
+            }
+        } else if(Posisix(Last(*snake)) == 0){
+            if(Posisix(Prev(Last(*snake))) != Posisix(Last(*snake))+1) {
+                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake))+1, Posisiy(Last(*snake)));
+            } else if(Posisiy(Last(*snake)) != 0){
+                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake)), Posisiy(Last(*snake))-1);
+            } else if(Posisiy(Last(*snake)) == 0) {
+                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake)), Posisiy(Last(*snake)) + 1);
+            }
+        }
+    }
 }
 
 void belok(char x, List *s){
@@ -180,7 +214,6 @@ int main(){
     boolean validasicommand = false;
     boolean menang = false;
     boolean done = false;
-    boolean eat = false;
     int test = 0;
     int turn = 1;
 
@@ -196,6 +229,11 @@ int main(){
     printf("\n----------------------------------\n\n");
     printpetak(snake, food, meteor);
     while (!menang) {
+        if(!done){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
+            dropfood(&snake, &food);
+            //dropmeteor(&food, &meteor);
+            done = true;
+        }
         printf("\nTURN %d\n", turn);
         printf("Silahkan masukkan command anda: ") ;
         //scanf ("%c", &trial) ;
@@ -212,15 +250,27 @@ int main(){
             else {
                 validasicommand = true;
                 belok(command, &snake);
+                if((Posisix(First(food)) == Posisix(First(snake))) && (Posisiy(First(food)) == Posisiy(First(snake)))) {
+                    makan(&snake, &food);
+                    done = false;
+                    //char temp[3];
+                    //int num = 17;
+
+                    //itoa(num, temp, 10); // convert int to string
+
+                    //printf("%s\n", temp);
+                }
+                if(!done){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
+                    dropfood(&snake, &food);
+                    dropmeteor(&food, &meteor);
+                    done = true;
+                }
                 printpetak(snake, food, meteor);
                 turn++;
             }
-        }
-        if(!done && !eat){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
-            dropfood(&snake, &food);
-            dropmeteor(&food, &meteor);
-            done = true;
         } 
     }    
     return(0);
 }
+
+//gcc source/command/snake.c source/ADT/listdp/listdp.c source/ADT/mesinkarakter/mesinkarakter.c source/ADT/mesinkata/mesinkata.c -o s
