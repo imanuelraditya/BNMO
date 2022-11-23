@@ -214,7 +214,6 @@ int main(){
     boolean validasicommand = false;
     boolean menang = false;
     boolean donef = false;
-    boolean donem = false;
     int test = 0;
     int turn = 1;
 
@@ -253,6 +252,12 @@ int main(){
             else {
                 validasicommand = true;
                 belok(command, &snake);
+                elmntype tempInfo;
+                int tempx, tempy;
+
+                if(!IsEmptyList(meteor)){
+                    DelVLast(&meteor, &tempInfo, &tempx, &tempy);
+                }
                 if((Posisix(First(food)) == Posisix(First(snake))) && (Posisiy(First(food)) == Posisiy(First(snake)))) {
                     makan(&snake, &food);
                     donef = false;
@@ -273,10 +278,7 @@ int main(){
                     //dropmeteor(&food, &meteor);
                     donef = true;
                 }
-                if(!donem){
-                    dropmeteor(&food, &meteor);
-                    donem = true;
-                }
+                dropmeteor(&food, &meteor);
                 printpetak(snake, food, meteor);
                 turn++;
             }
