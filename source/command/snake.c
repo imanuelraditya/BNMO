@@ -19,15 +19,30 @@ void printpetak(List snake, List food, List meteor){
             if(Search(snake, j, i) != Nil){
             //if(p != Nil && Posisix(p) == j && Posisiy(p) == i) {
                 p = Search(snake, j, i);
-                printf("  %s  |", Info(p));
+                if(stringLength(Info(p)) > 1){
+                    printf(" ");
+                } else {
+                    printf("  ");
+                }
+                printf("%s  |", Info(p));
                 //p = Next(p);    
             } else if(Search(food, j, i) != Nil){
             //if(p != Nil && Posisix(p) == j && Posisiy(p) == i) {
                 p = Search(food, j, i);
-                printf("  %s  |", Info(p));
+                if(stringLength(Info(p)) > 1){
+                    printf(" ");
+                } else {
+                    printf("  ");
+                }
+                printf("%s  |", Info(p));
             } else if(Search(meteor, j, i) != Nil){
                 p = Search(meteor, j, i);
-                printf("  %s  |", Info(p));
+                if(stringLength(Info(p)) > 1){
+                    printf(" ");
+                } else {
+                    printf("  ");
+                }
+                printf("%s  |", Info(p));
             } else {
                 printf("     |");
             }
@@ -122,22 +137,22 @@ void makan(List * snake, List * food){
         // }
 
         if(Posisix(Last(*snake)) != 0){
-            if(Posisix(Prev(Last(*snake))) != Posisix(Last(*snake))-1) {
+            if(Search((*snake), Posisix(Last(*snake))-1, Posisiy(Last(*snake))) == Nil) {
                 InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake))-1, Posisiy(Last(*snake)));
-            } else if(Posisix(Last(*snake)) != 4){
-                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake))+1, Posisiy(Last(*snake)));
-            } else if(Posisix(Last(*snake)) == 4 && Posisiy(Last(*snake)) != 0 ){
+            } else if(Posisiy(Last(*snake)) != 0 && Search((*snake), Posisix(Last(*snake)), Posisiy(Last(*snake))-1) == Nil){
                 InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)), Posisiy(Last(*snake))-1);
-            } else if(Posisix(Last(*snake)) == 4 && Posisiy(Last(*snake)) == 0 ){
+            } else if(Search((*snake), Posisix(Last(*snake)), Posisiy(Last(*snake))+1) == Nil){
                 InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)), Posisiy(Last(*snake))+1);
+            } else if(Search((*snake), Posisix(Last(*snake))+1, Posisiy(Last(*snake))) == Nil){
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)) + 1, Posisiy(Last(*snake)));
             }
         } else if(Posisix(Last(*snake)) == 0){
-            if(Posisix(Prev(Last(*snake))) != Posisix(Last(*snake))+1) {
-                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake))+1, Posisiy(Last(*snake)));
-            } else if(Posisiy(Last(*snake)) != 0){
+            if(Posisiy(Last(*snake)) != 0 && Search((*snake), Posisix(Last(*snake)), Posisiy(Last(*snake))-1) == Nil){
                 InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)), Posisiy(Last(*snake))-1);
-            } else if(Posisiy(Last(*snake)) == 0) {
+            } else if(Search((*snake), Posisix(Last(*snake)), Posisiy(Last(*snake))+1) == Nil) {
                 InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)), Posisiy(Last(*snake)) + 1);
+            } else if(Posisiy(Last(*snake)) == 0 && Posisiy(Prev(Last(*snake))) == Posisiy(Last(*snake)) + 1) {
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)) + 1, Posisiy(Last(*snake)));
             }
         }
     }
