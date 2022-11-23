@@ -213,7 +213,8 @@ int main(){
     char command;
     boolean validasicommand = false;
     boolean menang = false;
-    boolean done = false;
+    boolean donef = false;
+    boolean donem = false;
     int test = 0;
     int turn = 1;
 
@@ -227,12 +228,14 @@ int main(){
     printf("\nBerhasil digenerate!\n");
 
     printf("\n----------------------------------\n\n");
+    dropfood(&snake, &food);
+    donef = true;
     printpetak(snake, food, meteor);
     while (!menang) {
-        if(!done){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
+        if(!donef){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
             dropfood(&snake, &food);
             //dropmeteor(&food, &meteor);
-            done = true;
+            donef = true;
         }
         printf("\nTURN %d\n", turn);
         printf("Silahkan masukkan command anda: ") ;
@@ -252,7 +255,7 @@ int main(){
                 belok(command, &snake);
                 if((Posisix(First(food)) == Posisix(First(snake))) && (Posisiy(First(food)) == Posisiy(First(snake)))) {
                     makan(&snake, &food);
-                    done = false;
+                    donef = false;
                     //char temp[3];
                     //int num = 17;
 
@@ -260,10 +263,19 @@ int main(){
 
                     //printf("%s\n", temp);
                 }
-                if(!done){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
+                /*if(){
+                    kondisional search posisinya meteor sama kaya posisinya snakenya apa engga
+                    hit(&snake, &meteor);
+                    donem = true; //biar ke random lagi
+                }*/
+                if(!donef){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
                     dropfood(&snake, &food);
+                    //dropmeteor(&food, &meteor);
+                    donef = true;
+                }
+                if(!donem){
                     dropmeteor(&food, &meteor);
-                    done = true;
+                    donem = true;
                 }
                 printpetak(snake, food, meteor);
                 turn++;
