@@ -19,15 +19,15 @@ void printpetak(List snake, List food, List meteor){
             if(Search(snake, j, i) != Nil){
             //if(p != Nil && Posisix(p) == j && Posisiy(p) == i) {
                 p = Search(snake, j, i);
-                printf("  %c  |", Info(p));
+                printf("  %s  |", Info(p));
                 //p = Next(p);    
             } else if(Search(food, j, i) != Nil){
             //if(p != Nil && Posisix(p) == j && Posisiy(p) == i) {
                 p = Search(food, j, i);
-                printf("  %c  |", Info(p));
+                printf("  %s  |", Info(p));
             } else if(Search(meteor, j, i) != Nil){
                 p = Search(meteor, j, i);
-                printf("  %c  |", Info(p));
+                printf("  %s  |", Info(p));
             } else {
                 printf("     |");
             }
@@ -50,7 +50,7 @@ void initsnake(List * snake){
     //List snake;
     address p;
     address temp;
-    int x = 48;
+    int x = 0;
     int i = 0;
     int a;
     int b;
@@ -58,19 +58,19 @@ void initsnake(List * snake){
     a = random();
     b = random();
     //printf("%d %d\n", a, b);
-    InsVLast(snake, 'H', a, b);
+    InsVLast(snake, "H", a, b);
     p = First(*snake);
     while(i < 2){
         if(Posisix(p) -1 >= 0){
-            InsVLast(snake, x+1, Posisix(p)-1, Posisiy(p));
+            InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p)-1, Posisiy(p));
         } else if(Posisix(p)-1 < 0 && Posisiy(p)-1 >= 0 && i == 0){
-            InsVLast(snake, x+1, Posisix(p), Posisiy(p)-1);
+            InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p), Posisiy(p)-1);
         }  else if(Posisix(p)-1 < 0 && Posisiy(p)-1 >= 0 && i == 1 && Posisiy(p)-1 != Posisiy(temp)){
-            InsVLast(snake, x+1, Posisix(p), Posisiy(p)-1); 
+            InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p), Posisiy(p)-1); 
         } else if(Posisix(p)-1 < 0 && Posisiy(p)-1 >= 0 && i == 1 && Posisiy(p)-1 == Posisiy(temp)){
-            InsVLast(snake, x+1, Posisix(p), Posisiy(p)+1); 
+            InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p), Posisiy(p)+1); 
         } else if (Posisix(p)-1 < 0 && Posisiy(p)-1 < 0 ){
-            InsVLast(snake, x+1, Posisix(p), Posisiy(p) + 1);
+            InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p), Posisiy(p) + 1);
         }
         temp = p;
         p = Next(p);
@@ -91,7 +91,7 @@ void dropfood(List*snake, List* food){
         y = random();
     }
     //printf("food : %d %d\n", x, y);
-    InsVLast(food, 'O', x, y);
+    InsVLast(food, "O", x, y);
 }
 
 void dropmeteor(List* food, List* meteor){
@@ -106,7 +106,7 @@ void dropmeteor(List* food, List* meteor){
         y = random();
     }
     printf("meteor : %d %d\n", x, y);
-    InsVLast(meteor, 'M', x, y);
+    InsVLast(meteor, "M", x, y);
 }
 
 void makan(List * snake, List * food){
@@ -123,21 +123,21 @@ void makan(List * snake, List * food){
 
         if(Posisix(Last(*snake)) != 0){
             if(Posisix(Prev(Last(*snake))) != Posisix(Last(*snake))-1) {
-                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake))-1, Posisiy(Last(*snake)));
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake))-1, Posisiy(Last(*snake)));
             } else if(Posisix(Last(*snake)) != 4){
-                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake))+1, Posisiy(Last(*snake)));
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake))+1, Posisiy(Last(*snake)));
             } else if(Posisix(Last(*snake)) == 4 && Posisiy(Last(*snake)) != 0 ){
-                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake)), Posisiy(Last(*snake))-1);
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)), Posisiy(Last(*snake))-1);
             } else if(Posisix(Last(*snake)) == 4 && Posisiy(Last(*snake)) == 0 ){
-                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake)), Posisiy(Last(*snake))+1);
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)), Posisiy(Last(*snake))+1);
             }
         } else if(Posisix(Last(*snake)) == 0){
             if(Posisix(Prev(Last(*snake))) != Posisix(Last(*snake))+1) {
-                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake))+1, Posisiy(Last(*snake)));
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake))+1, Posisiy(Last(*snake)));
             } else if(Posisiy(Last(*snake)) != 0){
-                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake)), Posisiy(Last(*snake))-1);
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)), Posisiy(Last(*snake))-1);
             } else if(Posisiy(Last(*snake)) == 0) {
-                InsVLast(snake, Info(Last(*snake)) + 1, Posisix(Last(*snake)), Posisiy(Last(*snake)) + 1);
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)), Posisiy(Last(*snake)) + 1);
             }
         }
     }
