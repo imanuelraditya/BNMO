@@ -4,6 +4,7 @@
 #include <math.h>
 #include "../boolean.h"
 #include "../ADT/array/arraydin.h"
+#include "../ADT/array/arraymap.h"
 #include "../ADT/map/map.h"
 #include "../ADT/mesinkarakter/mesinkarakter.h"
 #include "../ADT/mesinkata/mesinkata.h"
@@ -16,11 +17,11 @@
 
 // LIST HEADER COMMAND
 
-void CreateGame (ArrayDin* listGame);
+void CreateGame (ArrayDin* listGame, ArrayMap* listScoreboard);
 /* I.S. listGame sembarang */
 /* F.S. listGame bertambah dengan nama game yang diinput */
 
-void deleteGame (ArrayDin* listGame, Queue Q);
+void deleteGame (ArrayDin* listGame, ArrayDin* listHistory, ArrayMap* listScoreboard, Queue Q);
 /* I.S. listGame terdefinisi */
 /* F.S. listGame berkurang dengan nama game yang diinput */
 
@@ -36,7 +37,7 @@ void ListGame (ArrayDin array);
 /* I.S. array terdefinisi */
 /* F.S. mengembalikan output berupa daftar game yang ada dalam array */
 
-void load (Word filename, ArrayDin* arrayGame, ArrayDin* arrayHistory, Map* Map_RNG, Map* Map_DinerDash, Map* Map_TowerOfHanoi, Map* Map_Hangman, Map* Map_SnakeOnMeteor, boolean* esc);
+void load (Word filename, ArrayDin* arrayGame, ArrayDin* arrayHistory, ArrayMap* arrayMap, boolean* esc);
 /* I.S. array kosong */
 /* F.S. array terisi dengan list nama game yang ada dalam file eksternal yang disimpan */
 
@@ -48,11 +49,11 @@ void loadFailed();
 /* I.S. sembarang */
 /* F.S. mengembalikan output berupa pesan bahwa load gagal */
 
-void randomScore(Word game);
+void randomScore(Word game, int* score);
 /* I.S. sembarang */
 /* F.S. mengembalikan output berupa score yang dihasilkan secara random */
 
-void playGame (Queue* queueGame, ArrayDin* arrayHistory, Map* Map_RNG, Map* Map_DinerDash, Map* Map_TowerOfHanoi, Map* Map_Hangman, Map* Map_SnakeOnMeteor);
+void playGame (Queue* queueGame, ArrayDin arrayGame, ArrayDin* arrayHistory, ArrayMap* arrayMap);
 /* I.S. queueGame terdefinisi, arrayHistory mungkin kosong atau sudah terdefinisi */
 /* F.S. game yang berada pada head akan dimainkan dan queueGame berkurang */
 
@@ -64,15 +65,15 @@ void Quit();
 /* I.S. sembarang */
 /* F.S. keluar dari program utama */
 
-void save (Word filename, ArrayDin* array, ArrayDin* arrayHistory, Map* Map_RNG, Map* Map_DinerDash, Map* Map_TowerOfHanoi, Map* Map_Hangman, Map* Map_SnakeOnMeteor);
+void save (Word filename, ArrayDin array, ArrayDin arrayHistory, ArrayMap arrayMap);
 /* I.S. array terdefinisi */
 /* F.S. array disimpan dalam file eksternal */
 
-void skipGame(Queue * Q, ArrayDin* arrayHistory, Map* Map_RNG, Map* Map_DinerDash, Map* Map_TowerOfHanoi, Map* Map_Hangman, Map* Map_SnakeOnMeteor, int n);
+void skipGame(Queue * Q, ArrayDin arrayGame, ArrayDin* arrayHistory, ArrayMap* arrayMap, int n);
 /* I.S. Q terdefinisi */
 /* F.S. Q berkurang sebanyak n */
 
-void startGame(ArrayDin * arr);
+void startGame(ArrayDin * arr, ArrayMap* arrayMap);
 /* I.S. arr kosong */
 /* F.S. arr terisi dengan list nama game yang ada pada file config */
 
@@ -92,9 +93,11 @@ void resetHistory(ArrayDin * arrayHistory);
 /* I.S. arrayHistory terdefinisi */
 /* F.S. arrayHistory kosong */
 
-void displayScoreboard(Map M);
+void displayScoreboard(ArrayDin arrayGame, ArrayMap arrayMap);
 /* I.S. M terdefinisi */
 /* F.S. mengembalikan output berupa scoreboard */
+
+void resetScoreboard(ArrayMap* arrayMap, int n);
 
 // LIST HEADER GAME
 
@@ -128,7 +131,7 @@ void sortMapDesc(Map *Map);
 /* I.S. Map terdefinisi */
 /* F.S. Map terurut berdasarkan indeks */
 
-void dinerdash(Map *M);
+void dinerdash(int* score);
 /* I.S. sembarang */
 /* F.S. mengembalikan output berupa game Diner Dash */
 
@@ -138,7 +141,7 @@ int randomx();
 /* I.S. sembarang */
 /* F.S. mengembalikan output berupa angka random dari 1 sampai 500 */
 
-void rng(Map* M);
+void rng(int* score);
 /* I.S. sembarang */
 /* F.S. mengembalikan output berupa game RNG */
 
@@ -152,6 +155,6 @@ I.S. Sembarang
 F.S. Menampilkan semua Info dari masing-masing elemen dari Stack
 */
 
-void towerOfHanoi(Map* M);
+void towerOfHanoi(int* score);
 
 #endif
