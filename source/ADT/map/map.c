@@ -72,7 +72,7 @@ boolean IsMemberMap(Map M, keytype k)
     int i = 0;
     while (i < M.Count)
     {
-        if (isWordEqual(M.Elements[i].Key, k))
+        if (isWordEqual(lowerWord(M.Elements[i].Key), lowerWord(k)))
         {
             return true;
         }

@@ -339,3 +339,20 @@ int commandWord(Word w) {
 
     return i;
 }
+
+Word lowerWord (Word w) {
+    Word lower;
+    int i;
+
+    lower.Length = w.Length;
+
+    for (i = 0; i < w.Length; i++) {
+        if (w.TabWord[i] >= 'A' && w.TabWord[i] <= 'Z') {
+            lower.TabWord[i] = w.TabWord[i] + 32;
+        } else {
+            lower.TabWord[i] = w.TabWord[i];
+        }
+    }
+
+    return lower;
+}

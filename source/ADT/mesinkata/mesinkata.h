@@ -151,4 +151,7 @@ Word intToWord(int n);
 int commandWord(Word w);
 /* Mengembalikan jumlah kata pada command */
 
+Word lowerWord(Word w);
+/* Mengubah kata menjadi huruf kecil */
+
 #endif

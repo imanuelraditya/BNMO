@@ -368,7 +368,7 @@ void playGame (Queue* queueGame, ArrayDin arrayGame, ArrayDin* arrayHistory, Arr
             }
 
             while (IsMemberMap(arrayMap->Tab[i], username)) {
-                printf("Username sudah digunakan. Masukkan username lain: ");
+                printf("Username sudah digunakan. \n\nMasukkan username lain: ");
                 STARTCOMMAND();
 
                 if (commandWord(currentCommand) == 1) {
@@ -379,7 +379,7 @@ void playGame (Queue* queueGame, ArrayDin arrayGame, ArrayDin* arrayHistory, Arr
                     invalidCommand(&currentCommand);
                 }
             }
-
+        
             Insert(&arrayMap->Tab[i], username, score);
             sortMapDesc(&arrayMap->Tab[i]);
         }
@@ -685,7 +685,7 @@ void displayScoreboard(ArrayDin arrayGame, ArrayMap arrayMap) {
                     printf(" ");
                 }
 
-                printf("| %s", wordToString(intToWord((arrayMap.Tab[i]).Elements[j].Value)));
+                printf("| %d", arrayMap.Tab[i].Elements[j].Value);
 
                 for (int k = 0; k < maxscore + 7 - intToWord((arrayMap.Tab[i]).Elements[j].Value).Length; k++) {
                     printf(" ");
