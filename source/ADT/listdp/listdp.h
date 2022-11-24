@@ -7,6 +7,7 @@
 #define listdp_H
 
 #include "../../boolean.h"
+#include "../mesinkata/mesinkata.h"
 
 #define Nil NULL
 
@@ -16,10 +17,10 @@ typedef struct tPOINT {
 	int y;
 } POINT;
 typedef POINT location;
-typedef char elmntype;
+typedef char* elmntype;
 typedef struct tElmtlist *address;
-typedef struct tElmtlist { 
-	elmntype info;
+typedef struct tElmtlist {
+	elmntype info; 
     location posisi;
 	address next;
 	address prev;

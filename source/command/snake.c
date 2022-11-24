@@ -3,7 +3,7 @@
 #include <math.h>
 #include <time.h>
 
-void printpetak(List snake, List food){
+void printpetak(List snake, List food, List meteor){
     int i =0;
     int j = 0;
     address p;
@@ -19,12 +19,30 @@ void printpetak(List snake, List food){
             if(Search(snake, j, i) != Nil){
             //if(p != Nil && Posisix(p) == j && Posisiy(p) == i) {
                 p = Search(snake, j, i);
-                printf("  %c  |", Info(p));
+                if(stringLength(Info(p)) > 1){
+                    printf(" ");
+                } else {
+                    printf("  ");
+                }
+                printf("%s  |", Info(p));
                 //p = Next(p);    
             } else if(Search(food, j, i) != Nil){
             //if(p != Nil && Posisix(p) == j && Posisiy(p) == i) {
                 p = Search(food, j, i);
-                printf("  %c  |", Info(p));
+                if(stringLength(Info(p)) > 1){
+                    printf(" ");
+                } else {
+                    printf("  ");
+                }
+                printf("%s  |", Info(p));
+            } else if(Search(meteor, j, i) != Nil){
+                p = Search(meteor, j, i);
+                if(stringLength(Info(p)) > 1){
+                    printf(" ");
+                } else {
+                    printf("  ");
+                }
+                printf("%s  |", Info(p));
             } else {
                 printf("     |");
             }
@@ -43,11 +61,11 @@ int random()
     return a;
 }
 
-void initsnake(List * snake ){
+void initsnake(List * snake){
     //List snake;
     address p;
     address temp;
-    int x = 48;
+    int x = 0;
     int i = 0;
     int a;
     int b;
@@ -55,19 +73,19 @@ void initsnake(List * snake ){
     a = random();
     b = random();
     //printf("%d %d\n", a, b);
-    InsVLast(snake, 'H', a, b);
+    InsVLast(snake, "H", a, b);
     p = First(*snake);
     while(i < 2){
         if(Posisix(p) -1 >= 0){
-            InsVLast(snake, x+1, Posisix(p)-1, Posisiy(p));
+            InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p)-1, Posisiy(p));
         } else if(Posisix(p)-1 < 0 && Posisiy(p)-1 >= 0 && i == 0){
-            InsVLast(snake, x+1, Posisix(p), Posisiy(p)-1);
+            InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p), Posisiy(p)-1);
         }  else if(Posisix(p)-1 < 0 && Posisiy(p)-1 >= 0 && i == 1 && Posisiy(p)-1 != Posisiy(temp)){
-            InsVLast(snake, x+1, Posisix(p), Posisiy(p)-1); 
+            InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p), Posisiy(p)-1); 
         } else if(Posisix(p)-1 < 0 && Posisiy(p)-1 >= 0 && i == 1 && Posisiy(p)-1 == Posisiy(temp)){
-            InsVLast(snake, x+1, Posisix(p), Posisiy(p)+1); 
+            InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p), Posisiy(p)+1); 
         } else if (Posisix(p)-1 < 0 && Posisiy(p)-1 < 0 ){
-            InsVLast(snake, x+1, Posisix(p), Posisiy(p) + 1);
+            InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p), Posisiy(p) + 1);
         }
         temp = p;
         p = Next(p);
@@ -87,8 +105,57 @@ void dropfood(List*snake, List* food){
         x = random();
         y = random();
     }
-    printf("%d %d\n", x, y);
-    InsVLast(food, 'O', x, y);
+    //printf("food : %d %d\n", x, y);
+    InsVLast(food, "O", x, y);
+}
+
+void dropmeteor(List* food, List* meteor){
+    int x;
+    int y;
+
+    x = random();
+    y = random();
+
+    while(Search((*food), x, y) != Nil){
+        x = random();
+        y = random();
+    }
+    printf("meteor : %d %d\n", x, y);
+    InsVLast(meteor, "M", x, y);
+}
+
+void makan(List * snake, List * food){
+    elmntype tempInfo;
+    int tempx, tempy;
+
+    if((Posisix(First(*food)) == Posisix(First(*snake))) && (Posisiy(First(*food)) == Posisiy(First(*snake)))) {
+        DelVLast(food, &tempInfo, &tempx, &tempy);
+        // if(First(*food) != Nil){    
+        //     printf("%c %d %d", Info(First(*food)), Posisix(First(*food)), Posisiy(First(*food)));
+        // } else{
+        //     printf("kosong\n");
+        // }
+
+        if(Posisix(Last(*snake)) != 0){
+            if(Search((*snake), Posisix(Last(*snake))-1, Posisiy(Last(*snake))) == Nil) {
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake))-1, Posisiy(Last(*snake)));
+            } else if(Posisiy(Last(*snake)) != 0 && Search((*snake), Posisix(Last(*snake)), Posisiy(Last(*snake))-1) == Nil){
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)), Posisiy(Last(*snake))-1);
+            } else if(Search((*snake), Posisix(Last(*snake)), Posisiy(Last(*snake))+1) == Nil){
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)), Posisiy(Last(*snake))+1);
+            } else if(Search((*snake), Posisix(Last(*snake))+1, Posisiy(Last(*snake))) == Nil){
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)) + 1, Posisiy(Last(*snake)));
+            }
+        } else if(Posisix(Last(*snake)) == 0){
+            if(Posisiy(Last(*snake)) != 0 && Search((*snake), Posisix(Last(*snake)), Posisiy(Last(*snake))-1) == Nil){
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)), Posisiy(Last(*snake))-1);
+            } else if(Search((*snake), Posisix(Last(*snake)), Posisiy(Last(*snake))+1) == Nil) {
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)), Posisiy(Last(*snake)) + 1);
+            } else if(Posisiy(Last(*snake)) == 0 && Posisiy(Prev(Last(*snake))) == Posisiy(Last(*snake)) + 1) {
+                InsVLast(snake, wordToString(intToWord(wordToInt(stringToWord(Info(Last(*snake)))) + 1)), Posisix(Last(*snake)) + 1, Posisiy(Last(*snake)));
+            }
+        }
+    }
 }
 
 void belok(char x, List *s){
@@ -157,51 +224,82 @@ void belok(char x, List *s){
 int main(){
     List snake;
     List food;
+    List meteor;
     char command;
-    boolean suka = false;
-    boolean done = false;
-    boolean eat = false;
+    boolean validasicommand = false;
+    boolean menang = false;
+    boolean donef = false;
     int test = 0;
+    int turn = 1;
 
     CreateEmpty(&food);
     CreateEmpty(&snake);
+    CreateEmpty(&meteor);
     initsnake(&snake);
 
-    printpetak(snake, food);
-    while (suka = true) {
+    printf("\nSelamat datang di snake on meteor!\n");
+    printf("\nMengenerate peta, snake dan makanan\n");
+    printf("\nBerhasil digenerate!\n");
+
+    printf("\n----------------------------------\n\n");
+    dropfood(&snake, &food);
+    donef = true;
+    printpetak(snake, food, meteor);
+    while (!menang) {
+        if(!donef){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
+            dropfood(&snake, &food);
+            //dropmeteor(&food, &meteor);
+            donef = true;
+        }
+        printf("\nTURN %d\n", turn);
         printf("Silahkan masukkan command anda: ") ;
         //scanf ("%c", &trial) ;
         STARTCOMMAND();
-        if(currentCommand.Length > 1 || commandWord(currentCommand) > 1){  // ini udah bisa, tapi kalo misal ngetik commandnya lebih dari satu kata, kaya halo halo halo, nanti pemberitahuan
-            printf("\n");                                                   // command tidak validnya juga ke print 3 kali :)
+        if(currentCommand.Length > 1 || commandWord(currentCommand) > 1){  
+            printf("\n");                                                   
             printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n");
         } else{
             command = currentCommand.TabWord[0];
             if (command != 'a' && command != 'w' && command != 'd' && command != 's') {
                 printf("\n");
-                printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n") ;
+                printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n\n") ;
             }
             else {
+                validasicommand = true;
                 belok(command, &snake);
-                printpetak(snake, food);
-            }
-        }
-        if(!done && !eat){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
-            dropfood(&snake, &food);
-            done = true;
-        }
-    }    
+                elmntype tempInfo;
+                int tempx, tempy;
 
-        // if (trial != 'a' && trial != 'w' && trial != 'd' && trial != 's') {
-        //     printf("\n");
-        //     printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n") ;
-        // }
-        // else {
-        //     belok(trial, &snake);
-        //     printpetak(snake);
-        // }
-    
-    
-    
+                if(!IsEmptyList(meteor)){
+                    DelVLast(&meteor, &tempInfo, &tempx, &tempy);
+                }
+                if((Posisix(First(food)) == Posisix(First(snake))) && (Posisiy(First(food)) == Posisiy(First(snake)))) {
+                    makan(&snake, &food);
+                    donef = false;
+                    //char temp[3];
+                    //int num = 17;
+
+                    //itoa(num, temp, 10); // convert int to string
+
+                    //printf("%s\n", temp);
+                }
+                /*if(){
+                    kondisional search posisinya meteor sama kaya posisinya snakenya apa engga
+                    hit(&snake, &meteor);
+                    donem = true; //biar ke random lagi
+                }*/
+                if(!donef){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
+                    dropfood(&snake, &food);
+                    //dropmeteor(&food, &meteor);
+                    donef = true;
+                }
+                dropmeteor(&food, &meteor);
+                printpetak(snake, food, meteor);
+                turn++;
+            }
+        } 
+    }    
     return(0);
 }
+
+//gcc source/command/snake.c source/ADT/listdp/listdp.c source/ADT/mesinkarakter/mesinkarakter.c source/ADT/mesinkata/mesinkata.c -o s
