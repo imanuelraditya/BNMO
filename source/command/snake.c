@@ -197,7 +197,7 @@ void belok(char x, List *s, List * posPanas, boolean * gagal){
         } else if ((Posisiy(First(*s)) == 0)) {
             printf("Kamu menabrak dinding\n");
             *gagal = true;
-        } else if ((Posisiy(First(*s)) > Posisiy(Next(First(*s))))) {
+        } else if (Posisiy(Next(First(*s))) == Posisiy(First(*s))-1 && Posisix(Next(First(*s))) == Posisix(First(*s))) {
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
         } else {
@@ -219,7 +219,7 @@ void belok(char x, List *s, List * posPanas, boolean * gagal){
         else if ((Posisiy(First(*s)) == 4)) {
             printf("Kamu menabrak dinding\n");
             *gagal = true;
-        } else if((Posisiy(First(*s)) < Posisiy(Next(First(*s))))){
+        } else if(Posisiy(Next(First(*s))) == Posisiy(First(*s))+1 && Posisix(Next(First(*s))) == Posisix(First(*s))){
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
         }
@@ -242,7 +242,7 @@ void belok(char x, List *s, List * posPanas, boolean * gagal){
         else if ((Posisix(First(*s)) == 0)) {
             printf("Kamu menabrak dinding\n");
             *gagal = true;
-        } else if((Posisix(First(*s)) > Posisix(Next(First(*s))))){
+        } else if(Posisix(Next(First(*s))) == Posisix(First(*s))-1 && Posisiy(Next(First(*s))) == Posisiy(First(*s))){
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
         }
@@ -265,7 +265,7 @@ void belok(char x, List *s, List * posPanas, boolean * gagal){
         else if ((Posisix(First(*s)) == 4)) {
             printf("Kamu menabrak dinding\n");
             *gagal = true;
-        } else if((Posisix(First(*s)) < Posisix(Next(First(*s))))){
+        } else if(Posisix(Next(First(*s))) == Posisix(First(*s))+1 && Posisiy(Next(First(*s))) == Posisiy(First(*s))){
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
         }
