@@ -191,7 +191,7 @@ void belok(char x, List *s, List * posPanas, boolean * gagal, boolean * menang){
     printf("\n");
 
     if((x) == 'w'){
-        if( Search((*posPanas), Posisix(First(*s)), Posisiy(First(*s))-1) != Nil){
+        if(Search((*posPanas), Posisix(First(*s)), Posisiy(First(*s))-1) != Nil){
             printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
             *gagal = true;
         } else if ((Posisiy(First(*s)) == 0)) {
@@ -202,14 +202,18 @@ void belok(char x, List *s, List * posPanas, boolean * gagal, boolean * menang){
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
         } else {
-            printf("Berhasil bergerak!\n");
-            printf("Berikut merupakan peta permainan:\n");
-            while(p != First(*s)){
-                Posisi(p) = Posisi(Prev(p));
-                p = Prev(p);
+            if (Search((*s), Posisix(First(*s)), Posisiy(First(*s))-1) != Nil){
+                *menang = true;
+            } else {
+                printf("Berhasil bergerak!\n");
+                printf("Berikut merupakan peta permainan:\n");
+                while(p != First(*s)){
+                    Posisi(p) = Posisi(Prev(p));
+                    p = Prev(p);
+                }
+                Posisiy(First(*s)) -= 1;
+                *gagal = false;
             }
-            Posisiy(First(*s)) -= 1;
-            *gagal = false;
         }
     }
     else if ((x) == 's') {
@@ -226,14 +230,18 @@ void belok(char x, List *s, List * posPanas, boolean * gagal, boolean * menang){
             *gagal = true;
         }
         else {
-            printf("Berhasil bergerak!\n");
-            printf("Berikut merupakan peta permainan:\n");
-            while(p != First(*s)){
-                Posisi(p) = Posisi(Prev(p));
-                p = Prev(p);
+            if (Search((*s), Posisix(First(*s)), Posisiy(First(*s))+1) != Nil){
+                *menang = true;
+            } else {
+                printf("Berhasil bergerak!\n");
+                printf("Berikut merupakan peta permainan:\n");
+                while(p != First(*s)){
+                    Posisi(p) = Posisi(Prev(p));
+                    p = Prev(p);
+                }
+                Posisiy(First(*s)) += 1;
+                *gagal = false;
             }
-            Posisiy(First(*s)) += 1;
-            *gagal = false;
         }
     }
     else if ((x) == 'a') {
@@ -250,14 +258,18 @@ void belok(char x, List *s, List * posPanas, boolean * gagal, boolean * menang){
             *gagal = true;
         }
         else {
-            printf("Berhasil bergerak!\n");
-            printf("Berikut merupakan peta permainan:\n");
-            while(p != First(*s)){
-                Posisi(p) = Posisi(Prev(p));
-                p = Prev(p);
+            if (Search((*s), Posisix(First(*s))-1, Posisiy(First(*s))) != Nil){
+                *menang = true;
+            } else {
+                printf("Berhasil bergerak!\n");
+                printf("Berikut merupakan peta permainan:\n");
+                while(p != First(*s)){
+                    Posisi(p) = Posisi(Prev(p));
+                    p = Prev(p);
+                }
+                Posisix(First(*s)) -= 1;
+                *gagal = false;
             }
-            Posisix(First(*s)) -= 1;
-            *gagal = false;
         }
     }
     else if ((x) == 'd') {
@@ -274,14 +286,18 @@ void belok(char x, List *s, List * posPanas, boolean * gagal, boolean * menang){
             *gagal = true;
         }
         else {
-            printf("Berhasil bergerak!\n");
-            printf("Berikut merupakan peta permainan:\n");
-            while(p != First(*s)){
-                Posisi(p) = Posisi(Prev(p));
-                p = Prev(p);
+            if (Search((*s), Posisix(First(*s))+1, Posisiy(First(*s))) != Nil){
+                *menang = true;
+            } else {
+                printf("Berhasil bergerak!\n");
+                printf("Berikut merupakan peta permainan:\n");
+                while(p != First(*s)){
+                    Posisi(p) = Posisi(Prev(p));
+                    p = Prev(p);
+                }
+                Posisix(First(*s)) += 1;
+                *gagal = false;
             }
-            Posisix(First(*s)) += 1;
-            *gagal = false;
         }
     }
     else {
@@ -343,68 +359,70 @@ int main(){
             else {
                 validasicommand = true;
                 belok(command, &snake, &posPanas, &gagal, &menang);
-                if(gagal == true){
+                if (!menang) {
+                    if(gagal == true ){
                     printf("Silahkan masukkan command lainnya\n");
-                } else {
-                    elmntype tempInfo;
-                    int tempx, tempy;
+                    } else {
+                        elmntype tempInfo;
+                        int tempx, tempy;
 
-                    if(!IsEmptyList(meteor) && !gagal){
-                        DelVLast(&meteor, &tempInfo, &tempx, &tempy);
-                    }
-                    if((Posisix(First(food)) == Posisix(First(snake))) && (Posisiy(First(food)) == Posisiy(First(snake))) && !gagal) {
-                        makan(&snake, &food);
-                        donef = false;
-                        //char temp[3];
-                        //int num = 17;
-
-                        //itoa(num, temp, 10); // convert int to string
-
-                        //printf("%s\n", temp);
-                    }
-                    if(!donef){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
-                        dropfood(&snake, &food, &posPanas);
-                        //dropmeteor(&food, &meteor);
-                        donef = true;
-                    }
-                
-                    dropmeteor(&food, &meteor);
-
-                    if(Search(snake, Posisix(First(meteor)), Posisiy(First(meteor))) != Nil){
-                        //kondisional search posisinya meteor sama kaya posisinya snakenya apa engga
-                        if(Search(snake, Posisix(First(meteor)), Posisiy(First(meteor))) == First(snake)){
-                            elmntype temphead;
-                            int headx;
-                            int heady;
-                            DelVFirst(&snake, &temphead, &headx, &heady);
-                            menang = true;
-                            kenakepala = true;
-                        } else {
-                            hit(&snake, &meteor);
-                            kena = true;
-                            InsVLast(&posPanas, wordToString(intToWord(turn)), Posisix(First(meteor)), Posisiy(First(meteor)));
-                            
-                            //printf("%d %d\n", posPanas.x, posPanas.y);
+                        if(!IsEmptyList(meteor) && !gagal){
+                            DelVLast(&meteor, &tempInfo, &tempx, &tempy);
                         }
-                    }      
-                    
-                    printpetak(snake, food, meteor);
-                    if (kena) {
-                        printf("Anda terkena meteor\n");
-                        printf("Berikut merupakan peta permainan sekarang:\n");
-                        printpetak(snake, food, meteor);
-                        printf("Silahkan lanjutkan permainan\n");
-                    }
+                        if((Posisix(First(food)) == Posisix(First(snake))) && (Posisiy(First(food)) == Posisiy(First(snake))) && !gagal) {
+                            makan(&snake, &food);
+                            donef = false;
+                            //char temp[3];
+                            //int num = 17;
 
-                    if (kenakepala){
-                        printf("Kepala snake terkena meteor\n");
-                    }
-                    turn++;
-                    if(!IsEmptyList(posPanas)){
-                        if(wordToInt(stringToWord(Info(First(posPanas)))) + 2 == turn ){
-                            elmntype temppanas;
-                            int px, py;
-                            DelVFirst(&posPanas, &temppanas, &px, &py);
+                            //itoa(num, temp, 10); // convert int to string
+
+                            //printf("%s\n", temp);
+                        }
+                        if(!donef){ // dropfoodnya kalo belum di drop dan makanan sebelumnya belum di makan
+                            dropfood(&snake, &food, &posPanas);
+                            //dropmeteor(&food, &meteor);
+                            donef = true;
+                        }
+                
+                        dropmeteor(&food, &meteor);
+
+                        if(Search(snake, Posisix(First(meteor)), Posisiy(First(meteor))) != Nil){
+                            //kondisional search posisinya meteor sama kaya posisinya snakenya apa engga
+                            if(Search(snake, Posisix(First(meteor)), Posisiy(First(meteor))) == First(snake)){
+                                elmntype temphead;
+                                int headx;
+                                int heady;
+                                DelVFirst(&snake, &temphead, &headx, &heady);
+                                menang = true;
+                                kenakepala = true;
+                            } else {
+                                hit(&snake, &meteor);
+                                kena = true;
+                                InsVLast(&posPanas, wordToString(intToWord(turn)), Posisix(First(meteor)), Posisiy(First(meteor)));
+                            
+                                //printf("%d %d\n", posPanas.x, posPanas.y);
+                            }
+                        }      
+                    
+                        printpetak(snake, food, meteor);
+                        if (kena) {
+                            printf("Anda terkena meteor\n");
+                            printf("Berikut merupakan peta permainan sekarang:\n");
+                            printpetak(snake, food, meteor);
+                            printf("Silahkan lanjutkan permainan\n");
+                        }
+
+                        if (kenakepala){
+                            printf("Kepala snake terkena meteor\n");
+                        }
+                        turn++;
+                        if(!IsEmptyList(posPanas)){
+                            if(wordToInt(stringToWord(Info(First(posPanas)))) + 2 == turn ){
+                                elmntype temppanas;
+                                int px, py;
+                                DelVFirst(&posPanas, &temppanas, &px, &py);
+                            }
                         }
                     }
                 }
