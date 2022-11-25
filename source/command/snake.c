@@ -296,6 +296,8 @@ int main(){
     boolean menang = false;
     boolean donef = false;
     boolean gagal = false;
+    boolean kena = false;
+    boolean kenakepala = false;
     int test = 0;
     int turn = 1;
     //location posPanas;
@@ -372,8 +374,10 @@ int main(){
                             int heady;
                             DelVFirst(&snake, &temphead, &headx, &heady);
                             menang = true;
+                            kenakepala = true;
                         } else {
                             hit(&snake, &meteor);
+                            kena = true;
                             InsVLast(&posPanas, wordToString(intToWord(turn)), Posisix(First(meteor)), Posisiy(First(meteor)));
                             
                             //printf("%d %d\n", posPanas.x, posPanas.y);
@@ -381,6 +385,16 @@ int main(){
                     }      
                     
                     printpetak(snake, food, meteor);
+                    if (kena) {
+                        printf("Anda terkena meteor\n");
+                        printf("Berikut merupakan peta permainan sekarang:\n");
+                        printpetak(snake, food, meteor);
+                        printf("Silahkan lanjutkan permainan\n");
+                    }
+
+                    if (kenakepala){
+                        printf("Kepala snake terkena meteor\n");
+                    }
                     turn++;
                     if(!IsEmptyList(posPanas)){
                         if(wordToInt(stringToWord(Info(First(posPanas)))) + 2 == turn ){
