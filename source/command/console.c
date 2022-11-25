@@ -324,6 +324,7 @@ void playGame (Queue* queueGame, ArrayDin arrayGame, ArrayDin* arrayHistory, Arr
     Word play, username;
     int score, i;
     Map M;
+    boolean namevalid;
 
     ListQueueGame (*queueGame) ; 
 
@@ -353,35 +354,44 @@ void playGame (Queue* queueGame, ArrayDin arrayGame, ArrayDin* arrayHistory, Arr
         }
 
         InsertFirst(arrayHistory, play);
-
-        printf("\nMasukkan username anda: ");
-
-        STARTCOMMAND();
-
-        if (commandWord(currentCommand) == 1) {
-            username = currentCommand;
-            
-            i = 0;
-
-            while (!isWordEqual(play, arrayGame.A[i])) {
-                i++;
-            }
-
-            while (IsMemberMap(arrayMap->Tab[i], username)) {
-                printf("Username sudah digunakan. \n\nMasukkan username lain: ");
-                STARTCOMMAND();
-
-                if (commandWord(currentCommand) == 1) {
-                    username = currentCommand;
-                }
-
-                else {
-                    invalidCommand(&currentCommand);
-                }
-            }
         
-            Insert(&arrayMap->Tab[i], username, score);
-            sortMapDesc(&arrayMap->Tab[i]);
+        namevalid = false;
+
+        while (!namevalid) {
+            printf("\nMasukkan username anda: ");
+
+            STARTCOMMAND();
+
+            if (commandWord(currentCommand) == 1) {
+                namevalid = true;
+
+                username = currentCommand;
+                
+                i = 0;
+
+                while (!isWordEqual(play, arrayGame.A[i])) {
+                    i++;
+                }
+
+                while (IsMemberMap(arrayMap->Tab[i], username)) {
+                    printf("Username sudah digunakan. \n\nMasukkan username lain: ");
+                    STARTCOMMAND();
+
+                    if (commandWord(currentCommand) == 1) {
+                        username = currentCommand;
+                    }
+
+                    else {
+                        invalidCommand(&currentCommand);
+                    }
+                }
+            
+                Insert(&arrayMap->Tab[i], username, score);
+                sortMapDesc(&arrayMap->Tab[i]);
+            }
+            else {
+                printf("Username hanya boleh terdiri atas satu kata, silahkan masukkan username yang valid.\n");
+            }
         }
     }
     
@@ -687,8 +697,15 @@ void displayScoreboard(ArrayDin arrayGame, ArrayMap arrayMap) {
 
                 printf("| %d", arrayMap.Tab[i].Elements[j].Value);
 
-                for (int k = 0; k < maxscore + 7 - intToWord((arrayMap.Tab[i]).Elements[j].Value).Length; k++) {
-                    printf(" ");
+                if (arrayMap.Tab[i].Elements[j].Value == 0) {
+                    for (int k = 0; k < maxscore + 6 - intToWord((arrayMap.Tab[i]).Elements[j].Value).Length; k++) {
+                        printf(" ");
+                    }
+                }
+                else {
+                    for (int k = 0; k < maxscore + 7 - intToWord((arrayMap.Tab[i]).Elements[j].Value).Length; k++) {
+                        printf(" ");
+                    }
                 }
 
                 printf("|\n");
