@@ -6,6 +6,7 @@
 
 void printpetak(List snake, List food, List meteor);
 void initsnake(List * snake);
-void dropfood(List * snake, List * food);
+void dropfood(List * snake, List * food, List * posPanas);
 void dropmeteor(List * food, List * meteor);
-void belok(char x, List *s);
+void belok(char x, List *s, List * posPanas, boolean * gagal);
+void hit(List * snake, List * meteor);
