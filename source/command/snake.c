@@ -181,7 +181,7 @@ void panas(){
 
 }
 
-void belok(char x, List *s, List * posPanas, boolean * gagal){
+void belok(char x, List *s, List * posPanas, boolean * gagal, boolean * menang){
     address p;
     address temp;
     int i = 0;
@@ -197,6 +197,7 @@ void belok(char x, List *s, List * posPanas, boolean * gagal){
         } else if ((Posisiy(First(*s)) == 0)) {
             printf("Kamu menabrak dinding\n");
             *gagal = true;
+            *menang = true;
         } else if (Posisiy(Next(First(*s))) == Posisiy(First(*s))-1 && Posisix(Next(First(*s))) == Posisix(First(*s))) {
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
@@ -219,6 +220,7 @@ void belok(char x, List *s, List * posPanas, boolean * gagal){
         else if ((Posisiy(First(*s)) == 4)) {
             printf("Kamu menabrak dinding\n");
             *gagal = true;
+            *menang = true;
         } else if(Posisiy(Next(First(*s))) == Posisiy(First(*s))+1 && Posisix(Next(First(*s))) == Posisix(First(*s))){
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
@@ -242,6 +244,7 @@ void belok(char x, List *s, List * posPanas, boolean * gagal){
         else if ((Posisix(First(*s)) == 0)) {
             printf("Kamu menabrak dinding\n");
             *gagal = true;
+            *menang = true;
         } else if(Posisix(Next(First(*s))) == Posisix(First(*s))-1 && Posisiy(Next(First(*s))) == Posisiy(First(*s))){
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
@@ -265,6 +268,7 @@ void belok(char x, List *s, List * posPanas, boolean * gagal){
         else if ((Posisix(First(*s)) == 4)) {
             printf("Kamu menabrak dinding\n");
             *gagal = true;
+            *menang = true;
         } else if(Posisix(Next(First(*s))) == Posisix(First(*s))+1 && Posisiy(Next(First(*s))) == Posisiy(First(*s))){
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
@@ -338,7 +342,7 @@ int main(){
             }
             else {
                 validasicommand = true;
-                belok(command, &snake, &posPanas, &gagal);
+                belok(command, &snake, &posPanas, &gagal, &menang);
                 if(gagal == true){
                     printf("Silahkan masukkan command lainnya\n");
                 } else {
