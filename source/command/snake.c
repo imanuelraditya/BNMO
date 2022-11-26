@@ -161,6 +161,7 @@ void makan(List * snake, List * food){
     }
 }
 
+
 void hit(List * snake, List * meteor){
     address p;
     elmntype temp;
@@ -316,7 +317,7 @@ int main(){
     boolean menang = false;
     boolean donef = false;
     boolean gagal = false;
-    boolean kena = false;
+    boolean kenabadan = false;
     boolean kenakepala = false;
     int test = 0;
     int turn = 1;
@@ -397,24 +398,29 @@ int main(){
                                 menang = true;
                                 kenakepala = true;
                             } else {
-                                hit(&snake, &meteor);
-                                kena = true;
+                                kenabadan = true;
                                 InsVLast(&posPanas, wordToString(intToWord(turn)), Posisix(First(meteor)), Posisiy(First(meteor)));
-                            
+                                
                                 //printf("%d %d\n", posPanas.x, posPanas.y);
                             }
                         }      
-                    
-                        printpetak(snake, food, meteor);
-                        if (kena) {
-                            printf("Anda terkena meteor\n");
-                            printf("Berikut merupakan peta permainan sekarang:\n");
+                        
+                        if (kenabadan == true){
+                            hit(&snake, &meteor);
+                            printpetak(snake, food, meteor);
+                            printf("Anda terkena meteor!\nBerikut merupakan peta permainan sekarang:\n");
+                            hit(&snake, &meteor);
                             printpetak(snake, food, meteor);
                             printf("Silahkan lanjutkan permainan\n");
-                        }
-
-                        if (kenakepala){
-                            printf("Kepala snake terkena meteor\n");
+                            kenabadan = false;
+                        } else {
+                            if (kenakepala == true){
+                                printpetak(snake, food, meteor);
+                                printf("Kepala snake terkena meteor\n");
+                                menang = true;
+                            } else {
+                                printpetak(snake, food, meteor);
+                            }
                         }
                         turn++;
                         if(!IsEmptyList(posPanas)){
