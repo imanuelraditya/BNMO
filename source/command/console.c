@@ -20,7 +20,7 @@ void CreateGame (ArrayDin* listGame, ArrayMap* listScoreboard) {
     STARTGAMENAME();
 
     while (i < Length(*listGame) && !found) {
-        if (isWordEqual(currentCommand, (*listGame).A[i])) {
+        if (isWordEqual(lowerWord(currentCommand), lowerWord((*listGame).A[i]))) {
             found = true;
         }
         else {
@@ -82,14 +82,14 @@ void deleteGame (ArrayDin* listGame, ArrayDin* listHistory, ArrayMap* listScoreb
             }
             else 
             {
-                DeleteAt(listGame, (nomor-1));
-                DeleteMapAt(listScoreboard, (nomor-1));
-
                 for (i = 0; i < Length(*listHistory); i++) {
                     if (isWordEqual(Get(*listHistory, i), Get(*listGame, (nomor-1)))) {
                         DeleteAt(listHistory, i);
                     }
                 }
+                
+                DeleteAt(listGame, (nomor-1));
+                DeleteMapAt(listScoreboard, (nomor-1));
 
                 printf("\nGame berhasil dihapus.\n");
             }
