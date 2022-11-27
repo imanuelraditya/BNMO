@@ -82,16 +82,21 @@ void deleteGame (ArrayDin* listGame, ArrayDin* listHistory, ArrayMap* listScoreb
             }
             else 
             {
-                for (i = 0; i < Length(*listHistory); i++) {
-                    if (isWordEqual(Get(*listHistory, i), Get(*listGame, (nomor-1)))) {
-                        DeleteAt(listHistory, i);
-                    }
+                if (nomor > Length(*listGame) || nomor < 1) {
+                    printf("\nGame gagal dihapus.\n");
                 }
-                
-                DeleteAt(listGame, (nomor-1));
-                DeleteMapAt(listScoreboard, (nomor-1));
+                else {
+                    for (i = 0; i < Length(*listHistory); i++) {
+                        if (isWordEqual(Get(*listHistory, i), Get(*listGame, (nomor-1)))) {
+                            DeleteAt(listHistory, i);
+                        }
+                    }
+                    
+                    DeleteAt(listGame, (nomor-1));
+                    DeleteMapAt(listScoreboard, (nomor-1));
 
-                printf("\nGame berhasil dihapus.\n");
+                    printf("\nGame berhasil dihapus.\n");
+                }
             }
         }
     }
@@ -160,6 +165,8 @@ void load(Word filename, ArrayDin* arrayGame, ArrayDin* arrayHistory, ArrayMap* 
     maindir = "data/";
     i = 0;
 
+    CreateMapEmpty(&M);
+
     format.Length = 4;
 
     for (i = 0; i < 4; i++) {
@@ -191,6 +198,11 @@ void load(Word filename, ArrayDin* arrayGame, ArrayDin* arrayHistory, ArrayMap* 
 
             count = wordToInt(currentWord);
 
+            gameName.TabWord[0] = '\0';
+            gameName.Length = 0;
+
+            gameScore.TabWord[0] = '\0';
+            gameScore.Length = 0;
 
             for (i = 0; i < count; i++) {
                 advNewlineFile();
@@ -374,7 +386,12 @@ void playGame (Queue* queueGame, ArrayDin arrayGame, ArrayDin* arrayHistory, Arr
                 }
 
                 while (IsMemberMap(arrayMap->Tab[i], username)) {
-                    printf("Username sudah digunakan. \n\nMasukkan username lain: ");
+                    if (IsMemberMap(arrayMap->Tab[i], username)) {
+                        printf("Username sudah terdaftar.\n");
+                    }
+
+                    printf("\nMasukkan username anda: ");
+
                     STARTCOMMAND();
 
                     if (commandWord(currentCommand) == 1) {
@@ -689,7 +706,7 @@ void displayScoreboard(ArrayDin arrayGame, ArrayMap arrayMap) {
             printf("|\n");
 
             for (int j = 0; j < (arrayMap.Tab[i]).Count; j++) {
-                printf("| %s", wordToString((arrayMap.Tab[i]).Elements[j].Key));
+                printf("| %s", wordToString(arrayMap.Tab[i].Elements[j].Key));
 
                 for (int k = 0; k < maxname + 6 - (arrayMap.Tab[i]).Elements[j].Key.Length; k++) {
                     printf(" ");
