@@ -169,8 +169,6 @@ void load(Word filename, ArrayDin* arrayGame, ArrayDin* arrayHistory, ArrayMap* 
     maindir = "data/";
     i = 0;
 
-    CreateMapEmpty(&M);
-
     format.Length = 4;
 
     for (i = 0; i < 4; i++) {
@@ -185,6 +183,7 @@ void load(Word filename, ArrayDin* arrayGame, ArrayDin* arrayHistory, ArrayMap* 
         for (i = 0; i < count; i++) {
             advNewlineFile();
             InsertLast(arrayGame, currentWord);
+            CreateMapEmpty(&M);
             InsertMapLast(ArrayMap, M);
         }
 
