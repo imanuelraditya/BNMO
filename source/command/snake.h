@@ -16,7 +16,7 @@ void dropfood(List * snake, List * food, List * posPanas, List * obstacle);
 void dropmeteor(List * food, List * obstacle, List * meteor);
 /* meletakkan meteor pada game secara acak */
 
-void makan(List * snake, List * food, List * obstacle);
+void makan(List * snake, List * food, List * obstacle, boolean * menang);
 /* bertambah panjangnya ekor snake setelah mengalami proses memakan sebuah food */
 
 void belok(char x, List *s, List * posPanas, List * obstacle, boolean * gagal, boolean * menang);
