@@ -17,7 +17,6 @@ void printpetak(List snake, List food, List meteor, List obstacle){
                 printf("|");
             }
             if(Searchlistdp(snake, j, i) != Nil){
-            //if(p != Nil && Posisix(p) == j && Posisiy(p) == i) {
                 p = Searchlistdp(snake, j, i);
                 if(stringLength(Info(p)) > 1){
                     printf(" ");
@@ -27,7 +26,6 @@ void printpetak(List snake, List food, List meteor, List obstacle){
                 printf("%s  |", Info(p));
                 //p = Next(p);    
             } else if(Searchlistdp(food, j, i) != Nil){
-            //if(p != Nil && Posisix(p) == j && Posisiy(p) == i) {
                 p = Searchlistdp(food, j, i);
                 if(stringLength(Info(p)) > 1){
                     printf(" ");
@@ -83,17 +81,6 @@ void initsnake(List * snake){
     InsVLastlistdp(snake, "H", a, b);
     p = First(*snake);
     while(i < 2){
-        // if(Posisix(p) -1 >= 0){
-        //     InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p)-1, Posisiy(p));
-        // } else if(Posisix(p)-1 < 0 && Posisiy(p)-1 >= 0 && i == 0){
-        //     InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p), Posisiy(p)-1);
-        // }  else if(Posisix(p)-1 < 0 && Posisiy(p)-1 >= 0 && i == 1 && Posisiy(p)-1 != Posisiy(temp)){
-        //     InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p), Posisiy(p)-1); 
-        // } else if(Posisix(p)-1 < 0 && Posisiy(p)-1 >= 0 && i == 1 && Posisiy(p)-1 == Posisiy(temp)){
-        //     InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p), Posisiy(p)+1); 
-        // } else if (Posisix(p)-1 < 0 && Posisiy(p)-1 < 0 ){
-        //     InsVLast(snake, wordToString(intToWord(x+1)), Posisix(p), Posisiy(p) + 1);
-        // }
         if(Posisix(p)-1 >= 0){
             InsVLastlistdp(snake, wordToString(intToWord(x+1)), (Posisix(p)-1) % 5, Posisiy(p));
         } else {
@@ -259,35 +246,26 @@ void belok(char x, List *s, List * posPanas, List * obstacle, boolean * gagal, b
             printf("Anda menabrak obstacle :<\n");
             *gagal = true;
             *menang = true;
-        } else if (Posisiy(First(*s)) != 0 && Posisiy(Next(First(*s))) == Posisiy(First(*s))-1 && Posisix(Next(First(*s))) == Posisix(First(*s))) {
+        } else if (Posisiy(First(*s)) != 0 && Searchlistdp((*s), Posisix(First(*s)), Posisiy(First(*s))-1) != Nil) {
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
-        } else if (Posisiy(First(*s)) == 0 && Posisiy(Next(First(*s))) == Posisiy(First(*s))-1 + 5 && Posisix(Next(First(*s))) == Posisix(First(*s))) {
+        } else if (Posisiy(First(*s)) == 0 && Searchlistdp((*s), Posisix(First(*s)), Posisiy(First(*s))-1 + 5 ) != Nil) {
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
         } else {
-            if (Posisiy(First(*s)) != 0 && Searchlistdp((*s), Posisix(First(*s)), Posisiy(First(*s))-1) != Nil){
-                printf("Anda menabrak badan sendiri :<\n");
-                *menang = true;
-            } else if (Posisiy(First(*s)) == 0 && Searchlistdp((*s), Posisix(First(*s)), Posisiy(First(*s))-1 + 5 ) != Nil){
-                printf("Anda menabrak badan sendiri :<\n");
-                *menang = true;
-            }else {
-                printf("Berhasil bergerak!\n");
-                printf("Berikut merupakan peta permainan:\n");
-                while(p != First(*s)){
-                    Posisi(p) = Posisi(Prev(p));
-                    p = Prev(p);
-                }
-                if(Posisiy(First(*s)) != 0){
-                    Posisiy(First(*s)) -= 1;
-                    *gagal = false;
-                } else {
-                    Posisiy(First(*s)) = Posisiy(First(*s)) - 1 + 5;
-                    *gagal = false;
-                }
-                
+            printf("Berhasil bergerak!\n");
+            printf("Berikut merupakan peta permainan:\n");
+            while(p != First(*s)){
+                Posisi(p) = Posisi(Prev(p));
+                p = Prev(p);
             }
+            if(Posisiy(First(*s)) != 0){
+                Posisiy(First(*s)) -= 1;
+                *gagal = false;
+            } else {
+                Posisiy(First(*s)) = Posisiy(First(*s)) - 1 + 5;
+                *gagal = false;
+            }    
         }
     }
     else if ((x) == 's') {
@@ -311,35 +289,27 @@ void belok(char x, List *s, List * posPanas, List * obstacle, boolean * gagal, b
             printf("Anda menabrak obstacle :<\n");
             *gagal = true;
             *menang = true;
-        } else if(Posisiy(First(*s)) != 4 && Posisiy(Next(First(*s))) == Posisiy(First(*s))+1 && Posisix(Next(First(*s))) == Posisix(First(*s))){
+        } else if(Posisiy(First(*s)) != 4 && Searchlistdp((*s), Posisix(First(*s)), Posisiy(First(*s))+1) != Nil){
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
-        } else if(Posisiy(First(*s)) == 4 && Posisiy(Next(First(*s))) == (Posisiy(First(*s))+1)%5 && Posisix(Next(First(*s))) == Posisix(First(*s))){
+        } else if(Posisiy(First(*s)) == 4 && Searchlistdp((*s), Posisix(First(*s)), (Posisiy(First(*s))+1)%5) != Nil){
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
         }
-        else {
-            if (Posisiy(First(*s)) != 4 && Searchlistdp((*s), Posisix(First(*s)), Posisiy(First(*s))+1) != Nil){
-                printf("Anda menabrak badan sendiri :<\n");
-                *menang = true;
-            } else if (Posisiy(First(*s)) == 4 && Searchlistdp((*s), Posisix(First(*s)), (Posisiy(First(*s))+1)%5) != Nil){
-                printf("Anda menabrak badan sendiri :<\n");
-                *menang = true;
-            }else {
-                printf("Berhasil bergerak!\n");
-                printf("Berikut merupakan peta permainan:\n");
-                while(p != First(*s)){
-                    Posisi(p) = Posisi(Prev(p));
-                    p = Prev(p);
-                }
-                if(Posisiy(First(*s)) != 4){    
-                    Posisiy(First(*s)) += 1;
-                    *gagal = false;
-                } else {
-                    Posisiy(First(*s)) = (Posisiy(First(*s)) + 1) % 5;
-                    *gagal = false;
-                }
+        else {        
+            printf("Berhasil bergerak!\n");
+            printf("Berikut merupakan peta permainan:\n");
+            while(p != First(*s)){
+                Posisi(p) = Posisi(Prev(p));
+                p = Prev(p);
             }
+            if(Posisiy(First(*s)) != 4){    
+                Posisiy(First(*s)) += 1;
+                *gagal = false;
+            } else {
+                Posisiy(First(*s)) = (Posisiy(First(*s)) + 1) % 5;
+                *gagal = false;
+            }    
         }
     }
     else if ((x) == 'a') {
@@ -363,34 +333,26 @@ void belok(char x, List *s, List * posPanas, List * obstacle, boolean * gagal, b
             printf("Anda menabrak obstacle :<\n");
             *gagal = true;
             *menang = true;
-        } else if(Posisix(First(*s)) != 0 && Posisix(Next(First(*s))) == Posisix(First(*s))-1 && Posisiy(Next(First(*s))) == Posisiy(First(*s))){
+        } else if(Posisix(First(*s)) != 0 && Searchlistdp((*s), Posisix(First(*s))-1, Posisiy(First(*s))) != Nil){
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
-        } else if(Posisix(First(*s)) == 0 && Posisix(Next(First(*s))) == Posisix(First(*s))-1 + 5 && Posisiy(Next(First(*s))) == Posisiy(First(*s))){
+        } else if(Posisix(First(*s)) == 0 && Searchlistdp((*s), Posisix(First(*s))-1 + 5, Posisiy(First(*s))) != Nil){
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
         }
         else {
-            if (Posisix(First(*s)) != 0 && Searchlistdp((*s), Posisix(First(*s))-1, Posisiy(First(*s))) != Nil){
-                printf("Anda menabrak badan sendiri :<\n");
-                *menang = true;
-            } else if (Posisix(First(*s)) == 0 && Searchlistdp((*s), Posisix(First(*s))-1 + 5, Posisiy(First(*s))) != Nil){
-                printf("Anda menabrak badan sendiri :<\n");
-                *menang = true;
-            }else {
-                printf("Berhasil bergerak!\n");
-                printf("Berikut merupakan peta permainan:\n");
-                while(p != First(*s)){
-                    Posisi(p) = Posisi(Prev(p));
-                    p = Prev(p);
-                }
-                if(Posisix(First(*s)) != 0){ 
-                    Posisix(First(*s)) -= 1;
-                    *gagal = false;
-                } else {
-                    Posisix(First(*s)) = Posisix(First(*s)) - 1 + 5;
-                    *gagal = false;
-                }
+            printf("Berhasil bergerak!\n");
+            printf("Berikut merupakan peta permainan:\n");
+            while(p != First(*s)){
+                Posisi(p) = Posisi(Prev(p));
+                p = Prev(p);
+            }
+            if(Posisix(First(*s)) != 0){ 
+                Posisix(First(*s)) -= 1;
+                *gagal = false;
+            } else {
+                Posisix(First(*s)) = Posisix(First(*s)) - 1 + 5;
+                *gagal = false;
             }
         }
     }
@@ -415,35 +377,27 @@ void belok(char x, List *s, List * posPanas, List * obstacle, boolean * gagal, b
             printf("Anda menabrak obstacle :<\n");
             *gagal = true;
             *menang = true;
-        } else if(Posisix(First(*s)) != 4 &&  Posisix(Next(First(*s))) == Posisix(First(*s))+1 && Posisiy(Next(First(*s))) == Posisiy(First(*s))){
+        } else if(Posisix(First(*s)) != 4 && Searchlistdp((*s), Posisix(First(*s))+1, Posisiy(First(*s))) != Nil){
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
-        } else if(Posisix(First(*s)) == 4 &&  Posisix(Next(First(*s))) == (Posisix(First(*s))+1)%5 && Posisiy(Next(First(*s))) == Posisiy(First(*s))){
+        } else if(Posisix(First(*s)) == 4 && Searchlistdp((*s), (Posisix(First(*s))+1)%5, Posisiy(First(*s))) != Nil){
             printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
             *gagal = true;
         }
         else {
-            if (Posisix(First(*s)) != 4 && Searchlistdp((*s), Posisix(First(*s))+1, Posisiy(First(*s))) != Nil){
-                printf("Anda menabrak badan sendiri :<\n");
-                *menang = true;
-            } else if (Posisix(First(*s)) == 4 && Searchlistdp((*s), (Posisix(First(*s))+1)%5, Posisiy(First(*s))) != Nil){
-                printf("Anda menabrak badan sendiri :<\n");
-                *menang = true;
-            } else {
-                printf("Berhasil bergerak!\n");
-                printf("Berikut merupakan peta permainan:\n");
-                while(p != First(*s)){
-                    Posisi(p) = Posisi(Prev(p));
-                    p = Prev(p);
-                }
-                if(Posisix(First(*s)) != 4){    
-                    Posisix(First(*s)) += 1;
-                    *gagal = false;
-                } else {
-                    Posisix(First(*s)) = (Posisix(First(*s)) + 1) %5;
-                    *gagal = false;
-                }
+            printf("Berhasil bergerak!\n");
+            printf("Berikut merupakan peta permainan:\n");
+            while(p != First(*s)){
+                Posisi(p) = Posisi(Prev(p));
+                p = Prev(p);
             }
+            if(Posisix(First(*s)) != 4){    
+                Posisix(First(*s)) += 1;
+                *gagal = false;
+            } else {
+                Posisix(First(*s)) = (Posisix(First(*s)) + 1) %5;
+                *gagal = false;
+            }    
         }
     }
     else {
@@ -476,10 +430,10 @@ int main(){
     initsnake(&snake);
 
     printf("\n                 Selamat datang di snake on meteor!\n");
-    printf(".+:*+.+:*+.+:*+. P A N D U A N  S I N G K A T  G A M E .+*:+.+*:+.+*:+. \n");
-    printf("o  : makanan yang harus dicapai agar snake bertambah panjang\n");
-    printf("H  : Head dari snake yang akan diikuti oleh badannya (1, 2, dst.)\n");
-    printf("M  : meteor yang akan muncul secara acak dan menyerang snake\n");
+    printf(" .+:*+.+:*+.+:*+. P A N D U A N  S I N G K A T  G A M E .+*:+.+*:+.+*:+. \n");
+    printf("o   : makanan yang harus dicapai agar snake bertambah panjang\n");
+    printf("H   : Head dari snake yang akan diikuti oleh badannya (1, 2, dst.)\n");
+    printf("M   : meteor yang akan muncul secara acak dan menyerang snake\n");
     printf("### : obstacle yang harus dihindari, apabila menabraknya snake akan mati\n\n");
 
     printf("\nMengenerate peta, snake dan makanan\n");
