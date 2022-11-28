@@ -10,18 +10,18 @@ int main() {
     i, x = 0;
     char* tampung;
     List test;
-    CreateEmpty(&test);
+    CreateEmptylistdp(&test);
     srand(time(NULL));
     a = (rand() % (5)) + 0;
     b = (rand() % (5)) + 0;
-    InsVLast(&test, "H", a, b);
+    InsVLastlistdp(&test, "H", a, b);
     p = First(test);
 
     while (i < 2) {
         if(Posisix(p)-1 >= 0){
-            InsVLast(&test, wordToString(intToWord(x+1)), (Posisix(p)-1) % 5, Posisiy(p));
+            InsVLastlistdp(&test, wordToString(intToWord(x+1)), (Posisix(p)-1) % 5, Posisiy(p));
         } else {
-            InsVLast(&test, wordToString(intToWord(x+1)), (Posisix(p)-1 + 5), Posisiy(p));
+            InsVLastlistdp(&test, wordToString(intToWord(x+1)), (Posisix(p)-1 + 5), Posisiy(p));
         }
         temp = p;
         p = Next(p);
@@ -39,8 +39,8 @@ int main() {
             if(n == 0){
                 printf("|");
             }
-            if(Search(test, n, m) != Nil){
-                p = Search(test, n, m);
+            if(Searchlistdp(test, n, m) != Nil){
+                p = Searchlistdp(test, n, m);
                 if(stringLength(Info(p)) > 1){
                     printf(" ");
                 } else {
@@ -56,7 +56,7 @@ int main() {
     }
 
     printf("\n");
-    PrintForward(test);
-    PrintBackward(test);
+    PrintForwardlistdp(test);
+    PrintBackwardlistdp(test);
     return 0;
 }

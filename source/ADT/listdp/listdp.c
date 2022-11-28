@@ -4,14 +4,14 @@
 
 /* PROTOTYPE */
 /****************** TEST LIST KOSONG ******************/
-boolean IsEmptyList (List L) 
+boolean IsEmptylistdp (List L) 
 {
     return ((First(L)==Nil)&&(Last(L)==Nil));
 }
 /* Mengirim true jika list kosong. Lihat definisi di atas. */
 
 /****************** PEMBUATAN LIST KOSONG ******************/
-void CreateEmpty (List *L) 
+void CreateEmptylistdp (List *L) 
 {
     First(*L)=Nil;
     Last(*L)=Nil;
@@ -20,9 +20,9 @@ void CreateEmpty (List *L)
 /* F.S. Terbentuk list kosong. Lihat definisi di atas. */
 
 /****************** Manajemen Memori ******************/
-address Alokasi (elmntype X, int a, int b) 
+address Alokasilistdp (elmntype X, int a, int b) 
 {
-    ElmtList *P=(ElmtList*)malloc(sizeof(ElmtList));
+    ElmtListdp *P=(ElmtListdp*)malloc(sizeof(ElmtListdp));
     if(P!=Nil){
         Info(P)=X;
         Posisix(P) = a;
@@ -40,7 +40,7 @@ address Alokasi (elmntype X, int a, int b)
 /* Jika alokasi berhasil, maka address tidak nil. */
 /* Misalnya: menghasilkan P, maka Info(P)=X, Next(P)=Nil, Prev(P)=Nil */
 /* Jika alokasi gagal, mengirimkan Nil. */
-void Dealokasi (address P) 
+void Dealokasilistdp (address P) 
 {
     free(P);
 }
@@ -49,12 +49,12 @@ void Dealokasi (address P)
 /* Melakukan dealokasi/pengembalian address P */
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
-address Search (List L, int a, int b) 
+address Searchlistdp (List L, int a, int b) 
 {
     address P;
     boolean found = false;
 	P = First(L);
-	if (IsEmptyList(L)){
+	if (IsEmptylistdp(L)){
 		return Nil;
 	}
 	else{
@@ -78,21 +78,21 @@ address Search (List L, int a, int b)
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void InsVFirst (List *L, elmntype X, int a, int b) 
+void InsVFirstlistdp (List *L, elmntype X, int a, int b) 
 {
-    address P=Alokasi(X, a, b);
+    address P=Alokasilistdp(X, a, b);
     if(P!=Nil){
-        InsertFirst(L,P);
+        InsertFirstlistdp(L,P);
     }
 }
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */
-void InsVLast (List *L, elmntype X, int a, int b) 
+void InsVLastlistdp (List *L, elmntype X, int a, int b) 
 {
-    address P=Alokasi(X, a, b);
+    address P=Alokasilistdp(X, a, b);
     if(P!=Nil){
-        InsertLast(L,P);
+        InsertLastlistdp(L,P);
     }
 }
 /* I.S. L mungkin kosong */
@@ -101,26 +101,26 @@ void InsVLast (List *L, elmntype X, int a, int b)
 /* bernilai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
 /*** PENGHAPUSAN ELEMEN ***/
-void DelVFirst (List *L, elmntype *X, int * a, int * b) 
+void DelVFirstlistdp (List *L, elmntype *X, int * a, int * b) 
 {
     address P;
-    DelFirst(L,&P);
+    DelFirstlistdp(L,&P);
     *X=Info(P);
     *a = Posisix(P);
     *b = Posisiy(P);
-    Dealokasi(P);
+    Dealokasilistdp(P);
 }
 /* I.S. List L tidak kosong  */
 /* F.S. Elemen pertama list dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen pertama di-dealokasi */
-void DelVLast (List *L, elmntype *X,  int * a, int * b) 
+void DelVLastlistdp (List *L, elmntype *X,  int * a, int * b) 
 {
     address P;
-    DelLast(L,&P);
+    DelLastlistdp(L,&P);
     *X=Info(P);
     *a = Posisix(P);
     *b = Posisiy(P);
-    Dealokasi(P);
+    Dealokasilistdp(P);
 }
 /* I.S. list tidak kosong */
 /* F.S. Elemen terakhir list dihapus: nilai info disimpan pada X */
@@ -128,30 +128,30 @@ void DelVLast (List *L, elmntype *X,  int * a, int * b)
 
 /****************** PRIMITIF BERDASARKAN ALAMAT ******************/
 /*** PENAMBAHAN ELEMEN BERDASARKAN ALAMAT ***/
-void InsertFirst (List *L, address P) 
+void InsertFirstlistdp (List *L, address P) 
 {
-    if(IsEmptyList(*L)){
+    if(IsEmptylistdp(*L)){
         First(*L)=P;
         Last(*L)=P;
     }
     else{
-        InsertBefore(L,P,First(*L));
+        InsertBeforelistdp(L,P,First(*L));
     }
 }
 /* I.S. Sembarang, P sudah dialokasi  */
 /* F.S. Menambahkan elemen ber-address P sebagai elemen pertama */
-void InsertLast (List *L, address P) 
+void InsertLastlistdp (List *L, address P) 
 {
-    if(IsEmptyList(*L)){
-        InsertFirst(L,P);
+    if(IsEmptylistdp(*L)){
+        InsertFirstlistdp(L,P);
     }
     else {
-        InsertAfter(L,P,Last(*L));
+        InsertAfterlistdp(L,P,Last(*L));
     }
 }
 /* I.S. Sembarang, P sudah dialokasi  */
 /* F.S. P ditambahkan sebagai elemen terakhir yang baru */
-void InsertAfter (List *L, address P, address Prec) 
+void InsertAfterlistdp (List *L, address P, address Prec) 
 {
     Prev(P)=Prec;
     Next(P)=Next(Prec);
@@ -165,7 +165,7 @@ void InsertAfter (List *L, address P, address Prec)
 }
 /* I.S. Prec pastilah elemen list; P sudah dialokasi  */
 /* F.S. Insert P sebagai elemen sesudah elemen beralamat Prec */
-void InsertBefore (List *L, address P, address Succ) 
+void InsertBeforelistdp (List *L, address P, address Succ) 
 {
     Prev(P)=Prev(Succ);
     Next(P)=Succ;
@@ -181,7 +181,7 @@ void InsertBefore (List *L, address P, address Succ)
 /* F.S. Insert P sebagai elemen sebelum elemen beralamat Succ */
 
 /*** PENGHAPUSAN SEBUAH ELEMEN ***/
-void DelFirst (List *L, address *P) 
+void DelFirstlistdp (List *L, address *P) 
 {
     *P=First(*L);
     if(First(*L)==Last(*L)){
@@ -199,7 +199,7 @@ void DelFirst (List *L, address *P)
 /* F.S. P adalah alamat elemen pertama list sebelum penghapusan */
 /*      Elemen list berkurang satu (mungkin menjadi kosong) */
 /* First element yg baru adalah suksesor elemen pertama yang lama */
-void DelLast (List *L, address *P) 
+void DelLastlistdp (List *L, address *P) 
 {
     *P=Last(*L);
     if(First(*L)==Last(*L)){
@@ -217,9 +217,9 @@ void DelLast (List *L, address *P)
 /* F.S. P adalah alamat elemen terakhir list sebelum penghapusan  */
 /*      Elemen list berkurang satu (mungkin menjadi kosong) */
 /* Last element baru adalah predesesor elemen pertama yg lama, jika ada */
-void DelP (List *L, elmntype X, int a, int b) 
+void DelPlistdp (List *L, elmntype X, int a, int b) 
 {
-    address cari=Search(*L, a, b);
+    address cari=Searchlistdp(*L, a, b);
     if(cari!=Nil){
         address P=First(*L),prec=Nil;
         while (P!=cari){
@@ -227,10 +227,10 @@ void DelP (List *L, elmntype X, int a, int b)
             P=Next(P);
         }
         if(prec==Nil){
-            DelFirst(L,&cari);
+            DelFirstlistdp(L,&cari);
         }
         else{
-            DelAfter(L,&cari,prec);
+            DelAfterlistdp(L,&cari,prec);
         }
     }
 }
@@ -239,7 +239,7 @@ void DelP (List *L, elmntype X, int a, int b)
 /* maka P dihapus dari list dan didealokasi */
 /* Jika tidak ada elemen list dengan Info(P)=X, maka list tetap */
 /* List mungkin menjadi kosong karena penghapusan */
-void DelAfter (List *L, address *Pdel, address Prec) 
+void DelAfterlistdp (List *L, address *Pdel, address Prec) 
 {
     *Pdel=Next(Prec);
     if(Next(*Pdel)==Nil){
@@ -256,7 +256,7 @@ void DelAfter (List *L, address *Pdel, address Prec)
 /* I.S. List tidak kosong. Prec adalah anggota list. */
 /* F.S. Menghapus Next(Prec): */
 /*      Pdel adalah alamat elemen list yang dihapus  */
-void DelBefore (List *L, address *Pdel, address Succ) 
+void DelBeforelistdp (List *L, address *Pdel, address Succ) 
 {
     *Pdel=Prev(Succ);
     if(Prev(*Pdel)==Nil){
@@ -275,9 +275,9 @@ void DelBefore (List *L, address *Pdel, address Succ)
 /*      Pdel adalah alamat elemen list yang dihapus  */
 
 /****************** PROSES SEMUA ELEMEN LIST ******************/
-void PrintForward (List L) 
+void PrintForwardlistdp (List L) 
 {
-    if (IsEmptyList(L)){
+    if (IsEmptylistdp(L)){
         printf("[]");
     }
     else{
@@ -301,9 +301,9 @@ void PrintForward (List L)
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika list kosong : menulis [] */
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
-void PrintBackward (List L) 
+void PrintBackwardlistdp (List L) 
 {
-    if (IsEmptyList(L)){
+    if (IsEmptylistdp(L)){
         printf("[]");
     }
     else{
