@@ -480,7 +480,7 @@ int main(){
     printf("o  : makanan yang harus dicapai agar snake bertambah panjang\n");
     printf("H  : Head dari snake yang akan diikuti oleh badannya (1, 2, dst.)\n");
     printf("M  : meteor yang akan muncul secara acak dan menyerang snake\n");
-    printf("## : obstacle yang harus dihindari, apabila menabraknya snake akan mati\n\n");
+    printf("### : obstacle yang harus dihindari, apabila menabraknya snake akan mati\n\n");
 
     printf("\nMengenerate peta, snake dan makanan\n");
     printf("\nBerhasil digenerate!\n");
