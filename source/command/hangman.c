@@ -91,7 +91,7 @@ void Hangman()
                 tebakan = wordToString(currentCommand);
                 if (tebakan[i] < 'a' || tebakan[i] > 'z')
                 {
-                    tebakanL = tebakan[0]-32;
+                    tebakanL = tebakan[0]+32;
                 }
 
                 if (pengulangan(allTebak, tebakanL))
