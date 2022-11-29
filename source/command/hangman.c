@@ -2,165 +2,243 @@
 #include <stdlib.h>
 #include "hangman.h"
 
-char* pilihTebakan(ArrayDin* daftarTebakan)
-{
+void wordList(ArrayDin* listOfWord) {
+    int jumlah, i;
+
     startWFile("data/DaftarKataHangman.txt");
-    jumlahKata = wordToInt(currentWord);
-    
-    for (i = 0 ; i < jumlahKata ; i++)
-    {
-        advNewlineFile();
-        InsertLast(daftarTebakan, currentWord);
+
+    jumlah = wordToInt(currentWord);
+
+    for (i = 0 ; i < jumlah ; i++) {
+         advNewlineFile();
+         InsertLast(listOfWord, currentWord);
+     }
+}
+
+Word chooseWord(ArrayDin listOfWord) {
+    int i, random;
+
+    random = rand() % listOfWord.Neff;
+
+    return Get(listOfWord, random);
+}
+
+boolean isAlreadyGuessed(ArrayDin listOfGuess, Word guess) {
+    int i;
+
+    for (i = 0 ; i < listOfGuess.Neff ; i++) {
+        if (isWordEqual(lowerWord(Get(listOfGuess, i)), lowerWord(guess))) {
+            return true;
+        }
     }
 
-    num = randomnumber(jumlahKata-1,0);
-    return(Get(daftarTebakan, num));
+    return false;
 }
 
-void daftarTebak(Queue allTebak)
-{
+void printGuess(ArrayDin listOfGuess) {
     int i;
-	for (i = Head(allTebak); i <= Tail(allTebak); i = (i + 1) % QMaxEl(allTebak))
-    {
-		printf("%s", wordToString(allTebak.T[i]));
-	}
+
+    for (i = 0 ; i < listOfGuess.Neff ; i++) {
+        printf("%c", Get(listOfGuess, i).TabWord[0]);
+    }
 }
 
-boolean pengulangan(Queue allTebak, char input)
-{
-    char* temp;
+boolean win(Word word, ArrayDin listOfGuess) {
+    int i, j, count = 0;
+
+    for (i = 0 ; i < word.Length ; i++) {
+        for (j = 0 ; j < listOfGuess.Neff ; j++) {
+            if (isWordEqual(upperWord(charToWord(word.TabWord[i])), upperWord(charToWord(Get(listOfGuess, j).TabWord[0])))) {
+                count++;
+            }
+        }
+    }
+
+    if (count == word.Length) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void addDictionary(ArrayDin* listOfWord) {
+    FILE *file;
     boolean found = false;
-    while (!IsQEmpty(allTebak))
-    {
-        if (HEAD(allTebak)=input)
-        {
+    int i = 0;
+
+    printf("\nMasukkan kata baru yang ingin ditambahkan: ");
+    STARTGAMENAME();
+
+    while (i < Length(*listOfWord) && !found) {
+        if (isWordEqual(lowerWord(currentCommand), lowerWord(Get(*listOfWord, i)))) {
             found = true;
         }
-        dequeue(&allTebak, &temp);
+        else {
+            i++;
+        }
+    }
+
+    if (found) {
+        printf("Kata sudah ada di dalam daftar kata.\n");
+    }
+    else {
+        InsertLast(listOfWord, upperWord(currentCommand));
+        
+        file = fopen("data/DaftarKataHangman.txt", "a");
+        fprintf(file, "%d\n", Length(*listOfWord));
+        for (i = 0 ; i < Length(*listOfWord) ; i++) {
+            fprintf(file, "%s\n", wordToString(Get(*listOfWord, i)));
+        }
+        fclose(file);
+        printf("Kata berhasil ditambahkan.\n");
     }
 }
 
-void Hangman()
-{
-    Queue allTebak;
-    ArrayDin* daftarTebakan;
-    int i, panjangDitebak, panjangBenar, kesempatan, poin;
-    char hurufTebakan[panjangDitebak];
-    char pemain, tebakanL;
-    char* kataDitebak;
-    char* tebakan;
-    boolean valid = false;
-    
-    QCreateEmpty(&allTebak, 26);
-    (*daftarTebakan) = MakeArrayDin();
-    kataDitebak = pilihTebakan(daftarTebakan);
-    panjangDitebak = Length(kataDitebak);
-    
-    kesempatan = 10;
-    poin = 0;
-    panjangBenar = 0;
-    
-    printf("Tebakan sebelumnya: -\n");
-    printf("Kata: ");
-    for(i=0; i<panjangDitebak; i++)
-    {
-        printf("_");
-    }
-    printf("\n");
-    printf("Kesempatan: 10");
-    printf("Masukkan tebakan (huruf kapital): ");
-    STARTCOMMAND();
+void hangman(int* totalscore) {
+    ArrayDin listOfWord, listOfGuess;
+    Word wordToGuess, guess;
+    int i, j, chance, score, lengthGuess, lengthWord;
+    boolean found, valid, flag;
 
-    do
-    {
-        if (tebakan[i] < 'A' || tebakan[i] > 'Z')
-        {
-            printf("Harap memasukkan input berupa 1 huruf kapital.");
-            printf("Masukkan tebakan (huruf kapital): ");
-            STARTCOMMAND();
-        }
-        else
-        {
-            valid == true;
-        }
+    flag = false;
 
-        if (valid == true)
-        {
-            while (panjangBenar<panjangDitebak && kesempatan!=0)
-            {
-                tebakan = wordToString(currentCommand);
-                tebakanL = tebakan[0]-32;
+    listOfWord = MakeArrayDin();
+    wordList(&listOfWord);
 
-                if (pengulangan(allTebak, tebakanL))
-                {
-                    printf("Huruf sudah pernah ditebak. Tebaklah huruf lain!");
-                    break;
-                }
-                else
-                {
-                    kesempatan--;
-                    for(i=0, i<panjangDitebak, i++)
-                    {
-                        if(kataDitebak[i]==tebakan)
-                        {
-                            for(i=0; i<panjangDitebak; i++)
-                            {
-                                if (kataDitebak[i]==tebakan)
-                                {
-                                    hurufTebakan[i]==tebakan;
-                                    panjangBenar++;
+    printf("Selamat datang di game Hangman!\n");
+
+    printf("\nSilakan pilih mode berikut:\n1. Menambah dictionary\n2. Bermain\n");
+
+    while (!flag) {
+        printf("Masukkan pilihan: ");
+        STARTCOMMAND();
+
+        if (commandWord(currentCommand) == 1) {
+            if (isWordEqual(lowerWord(currentCommand), lowerWord(charToWord('1')))) {
+                addDictionary(&listOfWord);
+                flag = true;
+            }
+            else if (isWordEqual(lowerWord(currentCommand), lowerWord(charToWord('2')))) {
+                flag = true;
+                chance = 10;
+                score = 0;
+                (*totalscore) = 0;
+
+                listOfWord = MakeArrayDin();
+                listOfGuess = MakeArrayDin();
+
+                wordList(&listOfWord);
+
+                wordToGuess = chooseWord(listOfWord);
+                lengthWord = wordToGuess.Length;
+                lengthGuess = 0;
+
+                do {
+                    printf("\nTebakan sebelumnya : -\n");
+                    printf("Kata:");
+                    for (i = 0 ; i < wordToGuess.Length ; i++) {
+                        printf(" _");
+                    }
+                    printf("\n");
+                    printf("Kesempatan: %d", chance);
+                    printf("\nMasukkan tebakan: ");
+                    STARTCOMMAND();
+
+                    if (commandWord(currentCommand) == 1 && currentCommand.Length == 1 && 'a' <= currentCommand.TabWord[0] && currentCommand.TabWord[0] <= 'z' || 'A' <= currentCommand.TabWord[0] && currentCommand.TabWord[0] <= 'Z') {
+                        guess = charToWord(currentCommand.TabWord[0]);
+
+                        while (!win(wordToGuess, listOfGuess) && chance > 0) {
+                            
+                                if (isAlreadyGuessed(listOfGuess, guess)) {
+                                    printf("Tebakan sudah pernah dilakukan!\n");
+                                } else {
+                                    InsertLast(&listOfGuess, guess);
+                                    
+                                    found = false;
+
+                                    for (i = 0 ; i < wordToGuess.Length ; i++) {
+                                        if (isWordEqual(upperWord(charToWord(wordToGuess.TabWord[i])), upperWord(charToWord(guess.TabWord[0])))) {
+                                            found = true;
+                                        }
+                                    }
+
+                                    if(!found) {
+                                        chance--;
+                                    }
+                                }
+
+                            valid = false;
+
+                            while (!valid && !win(wordToGuess, listOfGuess) && chance > 0) {
+                                printf("\nTebakan sebelumnya : ");
+                                printGuess(listOfGuess);
+                                printf("\n");
+                                printf("Kata:");
+                                for (i = 0 ; i < wordToGuess.Length ; i++) {
+                                    found = false;
+                                    for (j = 0 ; j < listOfGuess.Neff ; j++) {
+                                        if (isWordEqual(upperWord(charToWord(wordToGuess.TabWord[i])), upperWord(charToWord(Get(listOfGuess, j).TabWord[0])))) {
+                                            found = true;
+                                        }
+                                    }
+
+                                    if (found) {
+                                        printf(" %c", wordToGuess.TabWord[i]);
+                                    } else {
+                                        printf(" _");
+                                    }
+                                }
+                                printf("\n");
+                                printf("Kesempatan: %d\n", chance);
+                                printf("Masukkan tebakan: ");
+
+                                STARTCOMMAND();
+
+                                if (commandWord(currentCommand) == 1 && currentCommand.Length == 1 && 'a' <= currentCommand.TabWord[0] && currentCommand.TabWord[0] <= 'z' || 'A' <= currentCommand.TabWord[0] && currentCommand.TabWord[0] <= 'Z') {
+                                    guess = charToWord(currentCommand.TabWord[0]);
+                                    valid = true;
+                                } else {
+                                    printf("Masukkan salah!\n");
+                                    printf("\nMasukkan tebakan: ");
                                 }
                             }
-                            if (!pengulangan(allTebak, tebakanL))
-                            {
-                                Add(allTebak, tebakanL);
-                            }
                         }
+
+                        if (win(wordToGuess, listOfGuess)) {
+                            score = lengthWord;
+                            (*totalscore) += score;
+                            printf("\nBerhasil menebak kata %s! Kamu mendapatkan %d poin!\n", wordToString(wordToGuess), score);
+                        } else {
+                            printf("\nKamu gagal menebak kata %s!\n", wordToString(wordToGuess));
+                        }
+                    } else {
+                        printf("Masukkan salah!\n");
                     }
-                }
-            }
-            
-            printf("Tebakan sebelumnya: ");
-            daftarTebak(allTebak);
-            printf("\n");
 
-            printf("Kata: ");
-            for(i=HEAD(allTebak); i<QMaxEl(allTebak); i++)
-            {
-                if(IsWordEqual(allTebak.T[i], Get(*kataDitebak, i)))
-                {
-                    printf("%c", kataDitebak[i];)
-                }
-                else
-                {
-                    printf("_");
-                }
-            }
-            printf("\n");
+                    while (win(wordToGuess, listOfGuess) && chance > 0) {
+                            listOfWord = MakeArrayDin();
+                            listOfGuess = MakeArrayDin();
 
-            printf("Kesempatan: %d\n", kesempatan);
-            printf("Masukkan tebakan (huruf kapital): ");
-            STARTCOMMAND();
+                            wordList(&listOfWord);
+
+                            wordToGuess = chooseWord(listOfWord);
+                            lengthWord = wordToGuess.Length;
+                            lengthGuess = 0;
+                    }
+                } while (chance > 0);
+            }
+            else {
+                printf("Pilihan tidak valid.\n\n");
             }
         }
-    } (while kesempatan != 0);
-
-    if (kesempatan==0 && panjangBenar==panjangDitebak)
-    {
-        printf("Berhasil menebak kata %s! Kamu mendapatkan %d poin.\n", kataDitebak, panjangDitebak);
-        poin = panjangDitebak;
+        else {
+            printf("Masukkan salah. Silakan masukkan kembali.\n");
+        }
     }
-    else
-    {
-        printf("Gagal menebak huruf %s! Kamu mendapatkan %d poin.\n", kataDitebak, panjangBenar);
-        poin = panjangBenar;
-    }
-    QDeAlokasi(allTebak);
-
-    printf("\n");
-    printf("Masukkan nama pemain: ");
-    STARTCOMMAND();
-    pemain = wordToString(currentCommand);
-    printf("\n");
 }
 
+int main() {
+    int totalscore;
+    hangman(&totalscore);
+    return 0;
+}

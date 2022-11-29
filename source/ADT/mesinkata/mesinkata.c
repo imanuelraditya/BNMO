@@ -356,3 +356,31 @@ Word lowerWord (Word w) {
 
     return lower;
 }
+
+Word upperWord (Word w) {
+    Word upper;
+    int i;
+
+    upper.Length = w.Length;
+
+    for (i = 0; i < w.Length; i++) {
+        if (w.TabWord[i] >= 'a' && w.TabWord[i] <= 'z') {
+            upper.TabWord[i] = w.TabWord[i] - 32;
+        } else {
+            upper.TabWord[i] = w.TabWord[i];
+        }
+    }
+
+    return upper;
+}
+
+Word charToWord(char c) {
+    Word word;
+    word.Length = 1;
+    word.TabWord[0] = c;
+    return word;
+}
+
+char wordToChar(Word w) {
+    return w.TabWord[0];
+}

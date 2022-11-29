@@ -7,7 +7,7 @@
 #include "../mesinkata/mesinkata.h"
 #include "../map/map.h"
 
-#define InitialSize 10
+#define InitialSize 50
 
 typedef int MapIdx;
 typedef Map MapType;

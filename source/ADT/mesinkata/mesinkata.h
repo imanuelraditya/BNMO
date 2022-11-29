@@ -154,4 +154,13 @@ int commandWord(Word w);
 Word lowerWord(Word w);
 /* Mengubah kata menjadi huruf kecil */
 
+Word upperWord(Word w);
+/* Mengubah kata menjadi huruf besar */
+
+Word charToWord(char c);
+/* Mengubah karakter menjadi kata */
+
+char wordToChar(Word w);
+/* Mengubah kata menjadi karakter */
+
 #endif

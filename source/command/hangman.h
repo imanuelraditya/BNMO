@@ -1,27 +1,45 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "../boolean.h"
-#include "../ADT/mesinkata/mesinkata.h"
-#include "../ADT/array/arraydin.h"
-#include "../ADT/queue/queue.h"
-#include "../ADT/queue/queuedinerdash.h"
+#include "console.h"
 
-char* pilihTebakan(ArrayDin* daftarTebakan)
-/* Mengambil salah satu kata dari file daftar kata untuk ditebak oleh pemain */
-/* I.S Queue terdefinisi */
-/* F.S Mengembalika output berupa string isi dari Queue */
+void wordList(ArrayDin* listOfWord);
+/*
+    * I.S. : listOfWord sembarang
+    * F.S. : listOfWord terisi dengan daftar kata yang ada di file
+*/
 
-void daftarTebak(Queue allTebak)
-/* Mencetak daftar kata yang sudah ditebak oleh pemain */
-/* I.S Array kosong */
-/* F.S Array terisi dengan salah satu string kata dari file eksternal yang dipilih secara random */
+Word chooseWord(ArrayDin listOfWord);
+/*
+    * I.S. : listOfWord terisi dengan daftar kata
+    * F.S. : mengembalikan kata yang dipilih secara random dari listOfWord
+*/
 
-boolean pengulangan(Queue allTebak, char input)
-/* Mengirim true jika ada input huruf tebakan yang sudah pernah */
-/* ditebak oleh pemain sebelumnya */
-/* I.S Sembarang */
-/* F.S Mengembalikan true jika ditemukan karakter yang sama dengan input pada Queue*/
+boolean isAlreadyGuessed(ArrayDin listOfGuess, Word guess);
+/*
+    * I.S. : listOfGuess terisi dengan daftar huruf yang sudah di-guess
+    * F.S. : mengembalikan true jika guess sudah ada di listOfGuess
+*/
 
-void Hangman()
-/* I.S Sembarang */
-/* F.S Mengembalikan output berupa game Hangman */
+void printGuess(ArrayDin listOfGuess);
+/*
+    * I.S. : listOfGuess terisi dengan daftar huruf yang sudah di-guess
+    * F.S. : menampilkan daftar huruf yang sudah di-guess
+*/
+
+boolean win(Word word, ArrayDin listOfGuess);
+/*
+    * I.S. : word terisi dengan kata yang akan di-guess
+    *        listOfGuess terisi dengan daftar huruf yang sudah di-guess
+    * F.S. : mengembalikan true jika semua huruf pada word sudah ada di listOfGuess
+*/
+
+void addDictionary(ArrayDin* listOfWord);
+/*
+    * I.S. : listOfWord terisi dengan daftar kata
+    * F.S. : listOfWord terisi dengan daftar kata yang sudah ditambahkan
+*/
+
+void hangman(int* totalscore);
+/*
+    * I.S. : sembarang
+    * F.S. : permainan hangman dimulai
+*/

@@ -15,5 +15,6 @@
         "conio.h": "c",
         "console.h": "c",
         "map.h": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "EnabledIfIncludesResolve"
 }
