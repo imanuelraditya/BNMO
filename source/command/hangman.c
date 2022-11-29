@@ -68,15 +68,15 @@ void Hangman()
     }
     printf("\n");
     printf("Kesempatan: 10");
-    printf("Masukkan tebakan (huruf kapital): ");
+    printf("Masukkan tebakan: ");
     STARTCOMMAND();
 
     do
     {
-        if (tebakan[i] < 'A' || tebakan[i] > 'Z')
+        if tebakan != (('A' < tebakan[i] < 'Z') || ('a' < tebakan[i] < 'z'))
         {
-            printf("Harap memasukkan input berupa 1 huruf kapital.");
-            printf("Masukkan tebakan (huruf kapital): ");
+            printf("Harap memasukkan input berupa 1 huruf.");
+            printf("Masukkan tebakan: ");
             STARTCOMMAND();
         }
         else
@@ -89,7 +89,10 @@ void Hangman()
             while (panjangBenar<panjangDitebak && kesempatan!=0)
             {
                 tebakan = wordToString(currentCommand);
-                tebakanL = tebakan[0]-32;
+                if (tebakan[i] < 'a' || tebakan[i] > 'z')
+                {
+                    tebakanL = tebakan[0]-32;
+                }
 
                 if (pengulangan(allTebak, tebakanL))
                 {
