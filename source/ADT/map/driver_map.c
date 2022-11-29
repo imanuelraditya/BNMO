@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include "map.h"
+#include "../mesinkata/mesinkata.h"
 
 int main(){
     Map M;
     info I;
     CreateMapEmpty(&M);
-    I.Key = 3;
+    I.Key = stringToWord("Berbagia aku");
     I.Value = 4;
 
     Insert(&M, I.Key, I.Value);
