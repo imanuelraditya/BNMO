@@ -30,3 +30,6 @@ void dropobs(List * snake, List * food, List * obstacle);
 
 int lengthsnake(List snake);
 /* menghitung panjang snake */
+
+void snakeOnMeteor(int * score);
+/* permainan Snake On Meteor */
