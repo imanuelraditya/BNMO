@@ -2132,7 +2132,7 @@ void hangman(int* totalscore) {
                         printf("Masukkan salah!\n");
                     }
 
-                    while (win(wordToGuess, listOfGuess) && chance > 0) {
+                    if (win(wordToGuess, listOfGuess) && chance > 0) {
                             listOfWord = MakeArrayDin();
                             listOfGuess = MakeArrayDin();
 
