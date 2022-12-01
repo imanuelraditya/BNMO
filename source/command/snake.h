@@ -4,6 +4,12 @@
 #include "../boolean.h"
 #include "../ADT/mesinkata/mesinkata.h"
 
+void red();
+
+void green();
+
+void reset();
+
 void printpetak(List snake, List food, List meteor, List obstacle);
 /* mengeluarkan tampilan permainan snake on meteor */
 

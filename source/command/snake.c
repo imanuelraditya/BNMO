@@ -3,6 +3,18 @@
 #include <math.h>
 #include <time.h>
 
+// void red(){
+//     printf("\x1B[31m");
+// }
+
+// void green(){
+//     printf("\x1B[32m");
+// }
+
+// void reset(){
+//     printf("\x1B[0m");
+// }
+
 void printpetak(List snake, List food, List meteor, List obstacle){
     int i =0;
     int j = 0;
@@ -23,7 +35,10 @@ void printpetak(List snake, List food, List meteor, List obstacle){
                 } else {
                     printf("  ");
                 }
-                printf("%s  |", Infoldp(p));
+                //green();
+                printf("%s  ", Infoldp(p));
+                //reset();
+                printf("|");
                 //p = Nextldp(p);    
             } else if(Searchlistdp(food, j, i) != Nilldp){
                 p = Searchlistdp(food, j, i);
@@ -40,7 +55,10 @@ void printpetak(List snake, List food, List meteor, List obstacle){
                 } else {
                     printf("  ");
                 }
-                printf("%s  |", Infoldp(p));
+                //red();
+                printf("%s  ", Infoldp(p));
+                printf("|");
+                //reset();
             } else if(Searchlistdp(obstacle, j, i) != Nilldp){
                 p = Searchlistdp(obstacle, j, i);
                 if(stringLength(Infoldp(p)) > 1){
@@ -227,181 +245,187 @@ void belok(char x, List *s, List * posPanas, List * obstacle, boolean * gagal, b
     p = Lastldp(*s);
     printf("\n");
 
-    if((x) == 'w'){
-        if(Posisiy(Firstldp(*s)) != 0 && Searchlistdp((*posPanas), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))-1) != Nilldp){
-            printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
-            *gagal = true;
-        // } else if ((Posisiy(Firstldp(*s)) == 0)) {
-        //     printf("Anda menabrak dinding :<\n");
-        //     *gagal = true;
-        //     *menang = true;
-        } else if(Posisiy(Firstldp(*s)) == 0 && Searchlistdp((*posPanas), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))-1 + 5) != Nilldp){
-            printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
-            *gagal = true;
-        } else if (Posisiy(Firstldp(*s)) != 0 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))-1) != Nilldp) {
-            printf("Anda menabrak obstacle :<\n");
-            *gagal = true;
-            *menang = true;
-        } else if (Posisiy(Firstldp(*s)) == 0 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))-1 + 5) != Nilldp) {
-            printf("Anda menabrak obstacle :<\n");
-            *gagal = true;
-            *menang = true;
-        } else if (Posisiy(Firstldp(*s)) != 0 && Searchlistdp((*s), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))-1) != Nilldp) {
-            printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
-            *gagal = true;
-        } else if (Posisiy(Firstldp(*s)) == 0 && Searchlistdp((*s), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))-1 + 5 ) != Nilldp) {
-            printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
-            *gagal = true;
-        } else {
-            printf("Berhasil bergerak!\n");
-            printf("Berikut merupakan peta permainan:\n");
-            while(p != Firstldp(*s)){
-                Posisi(p) = Posisi(Prevldp(p));
-                p = Prevldp(p);
-            }
-            if(Posisiy(Firstldp(*s)) != 0){
-                Posisiy(Firstldp(*s)) -= 1;
-                *gagal = false;
-            } else {
-                Posisiy(Firstldp(*s)) = Posisiy(Firstldp(*s)) - 1 + 5;
-                *gagal = false;
-            }    
-        }
-    }
-    else if ((x) == 's') {
-        if (Posisiy(Firstldp(*s)) != 4 && Searchlistdp((*posPanas), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))+1) != Nilldp){
-            printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
-            *gagal = true;
-        } else if (Posisiy(Firstldp(*s)) == 4 && Searchlistdp((*posPanas), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))+1)%5) != Nilldp){
-            printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
-            *gagal = true;
-        }
-        // else if ((Posisiy(Firstldp(*s)) == 4)) {
-        //     printf("Anda menabrak dinding :<\n");
-        //     *gagal = true;
-        //     *menang = true;
-        // }
-        else if (Posisiy(Firstldp(*s)) != 4 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))+1) != Nilldp) {
-            printf("Anda menabrak obstacle :<\n");
-            *gagal = true;
-            *menang = true;
-        } else if (Posisiy(Firstldp(*s)) == 4 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))+1)%5) != Nilldp) {
-            printf("Anda menabrak obstacle :<\n");
-            *gagal = true;
-            *menang = true;
-        } else if(Posisiy(Firstldp(*s)) != 4 && Searchlistdp((*s), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))+1) != Nilldp){
-            printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
-            *gagal = true;
-        } else if(Posisiy(Firstldp(*s)) == 4 && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))+1)%5) != Nilldp){
-            printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
-            *gagal = true;
-        }
-        else {        
-            printf("Berhasil bergerak!\n");
-            printf("Berikut merupakan peta permainan:\n");
-            while(p != Firstldp(*s)){
-                Posisi(p) = Posisi(Prevldp(p));
-                p = Prevldp(p);
-            }
-            if(Posisiy(Firstldp(*s)) != 4){    
-                Posisiy(Firstldp(*s)) += 1;
-                *gagal = false;
-            } else {
-                Posisiy(Firstldp(*s)) = (Posisiy(Firstldp(*s)) + 1) % 5;
-                *gagal = false;
-            }    
-        }
-    }
-    else if ((x) == 'a') {
-        if (Posisix(Firstldp(*s)) != 0 && Searchlistdp((*posPanas), Posisix(Firstldp(*s)) -1 , Posisiy(Firstldp(*s))) != Nilldp){
-            printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
-            *gagal = true;
-        } else if (Posisix(Firstldp(*s)) == 0 && Searchlistdp((*posPanas), (Posisix(Firstldp(*s)) -1) + 5 , Posisiy(Firstldp(*s))) != Nilldp){
-            printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
-            *gagal = true;
-        }
-        // else if ((Posisix(Firstldp(*s)) == 0)) {
-        //     printf("Anda menabrak dinding :<\n");
-        //     *gagal = true;
-        //     *menang = true;
-        // }
-        else if (Posisix(Firstldp(*s)) != 0 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)) -1 , Posisiy(Firstldp(*s))) != Nilldp) {
-            printf("Anda menabrak obstacle :<\n");
-            *gagal = true;
-            *menang = true;
-        } else if (Posisix(Firstldp(*s)) == 0 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)) -1 + 5, Posisiy(Firstldp(*s))) != Nilldp) {
-            printf("Anda menabrak obstacle :<\n");
-            *gagal = true;
-            *menang = true;
-        } else if(Posisix(Firstldp(*s)) != 0 && Searchlistdp((*s), Posisix(Firstldp(*s))-1, Posisiy(Firstldp(*s))) != Nilldp){
-            printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
-            *gagal = true;
-        } else if(Posisix(Firstldp(*s)) == 0 && Searchlistdp((*s), Posisix(Firstldp(*s))-1 + 5, Posisiy(Firstldp(*s))) != Nilldp){
-            printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
-            *gagal = true;
-        }
-        else {
-            printf("Berhasil bergerak!\n");
-            printf("Berikut merupakan peta permainan:\n");
-            while(p != Firstldp(*s)){
-                Posisi(p) = Posisi(Prevldp(p));
-                p = Prevldp(p);
-            }
-            if(Posisix(Firstldp(*s)) != 0){ 
-                Posisix(Firstldp(*s)) -= 1;
-                *gagal = false;
-            } else {
-                Posisix(Firstldp(*s)) = Posisix(Firstldp(*s)) - 1 + 5;
-                *gagal = false;
-            }
-        }
-    }
-    else if ((x) == 'd') {
-        if (Posisix(Firstldp(*s)) != 4 && Searchlistdp((*posPanas), Posisix(Firstldp(*s)) + 1, Posisiy(Firstldp(*s))) != Nilldp){
-            printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
-            *gagal = true;
-        } else if (Posisix(Firstldp(*s)) == 4 && Searchlistdp((*posPanas), (Posisix(Firstldp(*s)) + 1) % 5, Posisiy(Firstldp(*s))) != Nilldp){
-            printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
-            *gagal = true;
-        }
-        // else if ((Posisix(Firstldp(*s)) == 4)) {
-        //     printf("Anda menabrak dinding :<\n");
-        //     *gagal = true;
-        //     *menang = true;
-        // }
-        else if (Posisix(Firstldp(*s)) != 4 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)) + 1, Posisiy(Firstldp(*s))) != Nilldp) {
-            printf("Anda menabrak obstacle :<\n");
-            *gagal = true;
-            *menang = true;
-        }else if (Posisix(Firstldp(*s)) == 4 && Searchlistdp((*obstacle), (Posisix(Firstldp(*s)) + 1) %5, Posisiy(Firstldp(*s))) != Nilldp) {
-            printf("Anda menabrak obstacle :<\n");
-            *gagal = true;
-            *menang = true;
-        } else if(Posisix(Firstldp(*s)) != 4 && Searchlistdp((*s), Posisix(Firstldp(*s))+1, Posisiy(Firstldp(*s))) != Nilldp){
-            printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
-            *gagal = true;
-        } else if(Posisix(Firstldp(*s)) == 4 && Searchlistdp((*s), (Posisix(Firstldp(*s))+1)%5, Posisiy(Firstldp(*s))) != Nilldp){
-            printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
-            *gagal = true;
-        }
-        else {
-            printf("Berhasil bergerak!\n");
-            printf("Berikut merupakan peta permainan:\n");
-            while(p != Firstldp(*s)){
-                Posisi(p) = Posisi(Prevldp(p));
-                p = Prevldp(p);
-            }
-            if(Posisix(Firstldp(*s)) != 4){    
-                Posisix(Firstldp(*s)) += 1;
-                *gagal = false;
-            } else {
-                Posisix(Firstldp(*s)) = (Posisix(Firstldp(*s)) + 1) %5;
-                *gagal = false;
-            }    
-        }
+    if(Searchlistdp((*s), (Posisix(Firstldp(*s))-1+5) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), (Posisix(Firstldp(*s))+1) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), (Posisix(Firstldp(*s))-1+5) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))-1+5) % 5) != Nilldp && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))+1) % 5) != Nilldp) {
+        printf("Kamu sudah tidak dapat bergerak ke arah manapun:(\n");
+        *menang = true;
     }
     else {
-        printf("Arah tidak dikenali") ;
+        if((x) == 'w'){
+            if(Posisiy(Firstldp(*s)) != 0 && Searchlistdp((*posPanas), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))-1) != Nilldp){
+                printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
+                *gagal = true;
+            // } else if ((Posisiy(Firstldp(*s)) == 0)) {
+            //     printf("Anda menabrak dinding :<\n");
+            //     *gagal = true;
+            //     *menang = true;
+            } else if(Posisiy(Firstldp(*s)) == 0 && Searchlistdp((*posPanas), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))-1 + 5) != Nilldp){
+                printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
+                *gagal = true;
+            } else if (Posisiy(Firstldp(*s)) != 0 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))-1) != Nilldp) {
+                printf("Anda menabrak obstacle :<\n");
+                *gagal = true;
+                *menang = true;
+            } else if (Posisiy(Firstldp(*s)) == 0 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))-1 + 5) != Nilldp) {
+                printf("Anda menabrak obstacle :<\n");
+                *gagal = true;
+                *menang = true;
+            } else if (Posisiy(Firstldp(*s)) != 0 && Searchlistdp((*s), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))-1) != Nilldp) {
+                printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
+                *gagal = true;
+            } else if (Posisiy(Firstldp(*s)) == 0 && Searchlistdp((*s), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))-1 + 5 ) != Nilldp) {
+                printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
+                *gagal = true;
+            } else {
+                printf("Berhasil bergerak!\n");
+                printf("Berikut merupakan peta permainan:\n");
+                while(p != Firstldp(*s)){
+                    Posisi(p) = Posisi(Prevldp(p));
+                    p = Prevldp(p);
+                }
+                if(Posisiy(Firstldp(*s)) != 0){
+                    Posisiy(Firstldp(*s)) -= 1;
+                    *gagal = false;
+                } else {
+                    Posisiy(Firstldp(*s)) = Posisiy(Firstldp(*s)) - 1 + 5;
+                    *gagal = false;
+                }    
+            }
+        }
+        else if ((x) == 's') {
+            if (Posisiy(Firstldp(*s)) != 4 && Searchlistdp((*posPanas), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))+1) != Nilldp){
+                printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
+                *gagal = true;
+            } else if (Posisiy(Firstldp(*s)) == 4 && Searchlistdp((*posPanas), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))+1)%5) != Nilldp){
+                printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
+                *gagal = true;
+            }
+            // else if ((Posisiy(Firstldp(*s)) == 4)) {
+            //     printf("Anda menabrak dinding :<\n");
+            //     *gagal = true;
+            //     *menang = true;
+            // }
+            else if (Posisiy(Firstldp(*s)) != 4 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))+1) != Nilldp) {
+                printf("Anda menabrak obstacle :<\n");
+                *gagal = true;
+                *menang = true;
+            } else if (Posisiy(Firstldp(*s)) == 4 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))+1)%5) != Nilldp) {
+                printf("Anda menabrak obstacle :<\n");
+                *gagal = true;
+                *menang = true;
+            } else if(Posisiy(Firstldp(*s)) != 4 && Searchlistdp((*s), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))+1) != Nilldp){
+                printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
+                *gagal = true;
+            } else if(Posisiy(Firstldp(*s)) == 4 && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))+1)%5) != Nilldp){
+                printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
+                *gagal = true;
+            }
+            else {        
+                printf("Berhasil bergerak!\n");
+                printf("Berikut merupakan peta permainan:\n");
+                while(p != Firstldp(*s)){
+                    Posisi(p) = Posisi(Prevldp(p));
+                    p = Prevldp(p);
+                }
+                if(Posisiy(Firstldp(*s)) != 4){    
+                    Posisiy(Firstldp(*s)) += 1;
+                    *gagal = false;
+                } else {
+                    Posisiy(Firstldp(*s)) = (Posisiy(Firstldp(*s)) + 1) % 5;
+                    *gagal = false;
+                }    
+            }
+        }
+        else if ((x) == 'a') {
+            if (Posisix(Firstldp(*s)) != 0 && Searchlistdp((*posPanas), Posisix(Firstldp(*s)) -1 , Posisiy(Firstldp(*s))) != Nilldp){
+                printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
+                *gagal = true;
+            } else if (Posisix(Firstldp(*s)) == 0 && Searchlistdp((*posPanas), (Posisix(Firstldp(*s)) -1) + 5 , Posisiy(Firstldp(*s))) != Nilldp){
+                printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
+                *gagal = true;
+            }
+            // else if ((Posisix(Firstldp(*s)) == 0)) {
+            //     printf("Anda menabrak dinding :<\n");
+            //     *gagal = true;
+            //     *menang = true;
+            // }
+            else if (Posisix(Firstldp(*s)) != 0 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)) -1 , Posisiy(Firstldp(*s))) != Nilldp) {
+                printf("Anda menabrak obstacle :<\n");
+                *gagal = true;
+                *menang = true;
+            } else if (Posisix(Firstldp(*s)) == 0 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)) -1 + 5, Posisiy(Firstldp(*s))) != Nilldp) {
+                printf("Anda menabrak obstacle :<\n");
+                *gagal = true;
+                *menang = true;
+            } else if(Posisix(Firstldp(*s)) != 0 && Searchlistdp((*s), Posisix(Firstldp(*s))-1, Posisiy(Firstldp(*s))) != Nilldp){
+                printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
+                *gagal = true;
+            } else if(Posisix(Firstldp(*s)) == 0 && Searchlistdp((*s), Posisix(Firstldp(*s))-1 + 5, Posisiy(Firstldp(*s))) != Nilldp){
+                printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
+                *gagal = true;
+            }
+            else {
+                printf("Berhasil bergerak!\n");
+                printf("Berikut merupakan peta permainan:\n");
+                while(p != Firstldp(*s)){
+                    Posisi(p) = Posisi(Prevldp(p));
+                    p = Prevldp(p);
+                }
+                if(Posisix(Firstldp(*s)) != 0){ 
+                    Posisix(Firstldp(*s)) -= 1;
+                    *gagal = false;
+                } else {
+                    Posisix(Firstldp(*s)) = Posisix(Firstldp(*s)) - 1 + 5;
+                    *gagal = false;
+                }
+            }
+        }
+        else if ((x) == 'd') {
+            if (Posisix(Firstldp(*s)) != 4 && Searchlistdp((*posPanas), Posisix(Firstldp(*s)) + 1, Posisiy(Firstldp(*s))) != Nilldp){
+                printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
+                *gagal = true;
+            } else if (Posisix(Firstldp(*s)) == 4 && Searchlistdp((*posPanas), (Posisix(Firstldp(*s)) + 1) % 5, Posisiy(Firstldp(*s))) != Nilldp){
+                printf("Meteor masih panas! Anda belum dapat kembali ke titik tersebut.\n");
+                *gagal = true;
+            }
+            // else if ((Posisix(Firstldp(*s)) == 4)) {
+            //     printf("Anda menabrak dinding :<\n");
+            //     *gagal = true;
+            //     *menang = true;
+            // }
+            else if (Posisix(Firstldp(*s)) != 4 && Searchlistdp((*obstacle), Posisix(Firstldp(*s)) + 1, Posisiy(Firstldp(*s))) != Nilldp) {
+                printf("Anda menabrak obstacle :<\n");
+                *gagal = true;
+                *menang = true;
+            }else if (Posisix(Firstldp(*s)) == 4 && Searchlistdp((*obstacle), (Posisix(Firstldp(*s)) + 1) %5, Posisiy(Firstldp(*s))) != Nilldp) {
+                printf("Anda menabrak obstacle :<\n");
+                *gagal = true;
+                *menang = true;
+            } else if(Posisix(Firstldp(*s)) != 4 && Searchlistdp((*s), Posisix(Firstldp(*s))+1, Posisiy(Firstldp(*s))) != Nilldp){
+                printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
+                *gagal = true;
+            } else if(Posisix(Firstldp(*s)) == 4 && Searchlistdp((*s), (Posisix(Firstldp(*s))+1)%5, Posisiy(Firstldp(*s))) != Nilldp){
+                printf("Anda tidak dapat bergerak ke tubuh anda sendiri\n");
+                *gagal = true;
+            }
+            else {
+                printf("Berhasil bergerak!\n");
+                printf("Berikut merupakan peta permainan:\n");
+                while(p != Firstldp(*s)){
+                    Posisi(p) = Posisi(Prevldp(p));
+                    p = Prevldp(p);
+                }
+                if(Posisix(Firstldp(*s)) != 4){    
+                    Posisix(Firstldp(*s)) += 1;
+                    *gagal = false;
+                } else {
+                    Posisix(Firstldp(*s)) = (Posisix(Firstldp(*s)) + 1) %5;
+                    *gagal = false;
+                }    
+            }
+        }
+        else {
+            printf("Arah tidak dikenali") ;
+        }
     }
 }
 
@@ -455,16 +479,13 @@ int main(){
         printf("Silahkan masukkan command anda: ") ;
         
         STARTCOMMAND();
-        if(currentCommand.Length > 1 || commandWord(currentCommand) > 1){  
-            printf("\n");                                                   
-            printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n");
-        } else{
-            command = currentCommand.TabWord[0];
-            if (command != 'a' && command != 'w' && command != 'd' && command != 's') {
+        if(commandWord(currentCommand) == 1 ){  
+            if (currentCommand.Length != 1 || (currentCommand.TabWord[0] != 'a' && currentCommand.TabWord[0] != 'w' && currentCommand.TabWord[0] != 'd' && currentCommand.TabWord[0] != 's')) {
                 printf("\n");
                 printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n\n") ;
             }
             else {
+                command = currentCommand.TabWord[0];
                 validasicommand = true;
                 belok(command, &snake, &posPanas, &obstacle, &gagal, &menang);
                 
@@ -541,7 +562,10 @@ int main(){
                     }
                 }
             }
-        } 
+        } else {
+            printf("\n");                                                   
+            printf("Command tidak valid! Silahkan input command menggunakan huruf w/a/s/d\n");
+        }
     }
     int length, score;
     length = lengthsnake(snake);
