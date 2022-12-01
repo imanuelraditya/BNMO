@@ -23,8 +23,10 @@ BNMO (dibaca: Binomo) adalah sebuah robot video game console yang dimiliki oleh 
 
 ## Save File yang Tersedia
 > data/save.txt
+
 > data/save2.txt
-> data/save6.txt
+
+> data/save3.txt
 
 ## Struktur Program
 ```
