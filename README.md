@@ -1,4 +1,4 @@
-# Tugas Besar 1 ── BNMO
+# Tugas Besar ── BNMO
 ## IF2111 Algoritma dan Struktur Data STI
 
 > Program membantu Indra dan Doni untuk memprogram 
@@ -74,9 +74,13 @@ BNMO (dibaca: Binomo) adalah sebuah robot video game console yang dimiliki oleh 
 │   │      │       └─── driver_queue.c
 │   │      │
 │   │      └─── stack
-│   │              ├─── stack.h
-│   │              ├─── stack.c
-│   │              └─── driver_stack.c
+│   │      │       ├─── stack.h
+│   │      │       ├─── stack.c
+│   │      │       └─── driver_stack.c
+│   │      └─── listdp
+│   │              ├─── listdp.h
+│   │              ├─── listdp.c
+│   │              └─── driver_listdp.c
 │   │
 │   └─── command
 │          ├─── console.h
