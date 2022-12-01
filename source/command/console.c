@@ -871,6 +871,22 @@ void sortMapDesc(Map *Map){
     }
 }
 
+void welcomeDinerDash() // baru bisa di jalanin kalo NMax di mesinkata diganti jadi 100
+/* print welcoming page bnmo */
+{
+/* ALGORITMA */
+    int j, delay;
+    startWFile("data/DinerDash.txt");
+
+    while(!finish) {
+        printf("%s\n", currentWord.TabWord);
+        for(j = 0; j < 100000000; j++) { // buat delay prosesnya
+                delay = j;
+            }
+        advNewlineFile();
+    }
+}
+
 void dinerdash(int* score){
     // Deklarasi ADT
     QueueInt Order;
@@ -897,7 +913,7 @@ void dinerdash(int* score){
     }
 
 // Program Utama
-    printf("Selamat Datang di Diner Dash!");
+    welcomeDinerDash();
     
     // Looping Untuk Keberjalanan Game
     while (QueueIntLength(Order) <= 7 && serveCount < 15)
@@ -1101,10 +1117,30 @@ int randomx()
     return a;
 }
 
+void welcomeRNG() // baru bisa di jalanin kalo NMax di mesinkata diganti jadi 100
+/* print welcoming page bnmo */
+{
+/* ALGORITMA */
+    int j, delay;
+    startWFile("data/BannerRNG.txt");
+
+    while(!finish) {
+        printf("%s\n", currentWord.TabWord);
+        for(j = 0; j < 100000000; j++) { // buat delay prosesnya
+                delay = j;
+            }
+        advNewlineFile();
+    }
+}
+
 void rng(int* score){
     int tebakan, x, i;
     i = 0;
     x = randomx();
+
+    welcomeRNG();
+    printf("\n");
+    printf("\n");
 
     printf("RNG telah dimulai. Uji keberuntungan Anda dengan menebak angka X.\n");
     
@@ -1220,6 +1256,22 @@ void PrintTower(Stack S[3], int n) {
     printf("\n");
 }
 
+void welcomeTowerOfHanoi() // baru bisa di jalanin kalo NMax di mesinkata diganti jadi 100
+/* print welcoming page bnmo */
+{
+/* ALGORITMA */
+    int j, delay;
+    startWFile("data/towerofhanoi.txt");
+
+    while(!finish) {
+        printf("%s\n", currentWord.TabWord);
+        for(j = 0; j < 100000000; j++) { // buat delay prosesnya
+                delay = j;
+            }
+        advNewlineFile();
+    }
+}
+
 void towerOfHanoi(int* score) {
     int disk, towerOrigin, towerDestination, step, i, maxScore;
     Stack Tower[3];
@@ -1229,9 +1281,9 @@ void towerOfHanoi(int* score) {
         CreateStack(&Tower[i]);
     }
 
-    printf("===========================================================\n");
-    printf("                    - TOWER OF HANOI -                     \n");
-    printf("===========================================================\n\n");
+    welcomeTowerOfHanoi();
+    printf("\n");
+    printf("\n");
 
     do {
     printf("Masukkan jumlah cakram: ");
