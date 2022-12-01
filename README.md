@@ -16,7 +16,7 @@ Dibuat oleh Kelompok 08 K02
 BNMO (dibaca: Binomo) adalah sebuah robot video game console yang dimiliki oleh Indra dan Doni. Dua bulan yang lalu, ia mengalami kerusakan dan telah berhasil diperbaiki. Sayangnya, setelah diperbaiki ia justru mendapatkan lebih banyak bug dalam sistemnya. Oleh karena itu, Indra dan Doni mencari programmer lain yang lebih handal untuk ulang memprogram robot video game console kesayangannya. Buatlah sebuah permainan berbasis CLI (command-line interface). Sistem ini dibuat dalam bahasa C dengan menggunakan struktur data yang sudah kalian pelajari di mata kuliah ini. 
 
 ## Cara Kompilasi Program
-> gcc main.c source/command/console.c source/ADT/queue/queue.c source/ADT/queuedinerdash/queue.c source/ADT/stack/stack.c source/ADT/map/map.c source/ADT/mesinkarakter/mesinkarakter.c source/ADT/mesinkata/mesinkata.c source/ADT/array/arraydin.c -o a
+> gcc main.c source/command/console.c source/ADT/queue/queue.c source/ADT/queuedinerdash/queue.c source/ADT/stack/stack.c source/ADT/map/map.c source/ADT/mesinkarakter/mesinkarakter.c source/ADT/mesinkata/mesinkata.c source/ADT/array/arraydin.c source/ADT/array/arraymap.c source/ADT/listdp/listdp.c -o a
 
 ## Configuration File yang Tersedia
 > data/config.txt
@@ -31,22 +31,25 @@ BNMO (dibaca: Binomo) adalah sebuah robot video game console yang dimiliki oleh 
 .
 ├── a.exe
 ├── README.md
-├── main.c				# main program
+├── main.c				     # main program
 ├── data
-│   ├─── bnmo.txt 			# file berisi banner yang akan dibaca sebagai welcome page
-│   ├─── config.txt			# file konfigurasi awal yang akan dibaca pada START
+│   ├─── bnmo.txt 			     # file berisi banner yang akan dibaca sebagai welcome page
+│   ├─── config.txt			     # file konfigurasi awal yang akan dibaca pada START
 │   ├─── drivermesinkata.txt		# file yang akan dibaca pada driver mesin kata
-│   ├─── save.txt			# file yang disimpan oleh user 1
-│   ├─── save2.txt			# file yang disimpan oleh user 2
-│   └─── save6.txt            # file yang disimpan oleh user 3
+│   ├─── save.txt			     # file yang disimpan oleh user 1
+│   ├─── save2.txt			     # file yang disimpan oleh user 2
+│   └─── save6.txt                 # file yang disimpan oleh user 3
 │ 
 ├── source
 │   ├─── boolean.h
 │   ├─── ADT				# folder berisikan main
 │   │      ├─── array
 │   │      │       ├─── arraydin.h
-│   │      │       ├─── araydin.c
-│   │      │       └─── driver_arraydin.c
+│   │      │       ├─── arraydin.c
+│   │      │       ├─── driver_arraydin.c
+│   │      │       ├─── arraymap.h
+│   │      │       ├─── arraymap.c
+│   │      │       └─── driver_arraymap.c
 │   │      │
 │   │      ├─── map
 │   │      │       ├─── map.h
@@ -90,5 +93,8 @@ BNMO (dibaca: Binomo) adalah sebuah robot video game console yang dimiliki oleh 
 └── docs 
      ├─── Spesifikasi Tugas Besar 1 IF2111 2022_2023.docx
      ├─── IF2111_TB1_02_08.pdf
-     └─── Form Asistensi Tugas Besar_TB1_02_08.pdf
+     ├─── Form Asistensi Tugas Besar_TB1_02_08.pdf
+     ├─── Spesifikasi Tugas Besar 2 IF2111 2022_2023.docx
+     ├─── IF2111_TB2_02_08.pdf
+     └─── Form Asistensi Tugas Besar_TB2_02_08.pdf
  ```
