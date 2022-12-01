@@ -1125,11 +1125,11 @@ void welcomeRNG() // baru bisa di jalanin kalo NMax di mesinkata diganti jadi 10
     startWFile("data/BannerRNG.txt");
 
     while(!finish) {
+        advNewlineFile();
         printf("%s\n", currentWord.TabWord);
         for(j = 0; j < 100000000; j++) { // buat delay prosesnya
                 delay = j;
             }
-        advNewlineFile();
     }
 }
 
