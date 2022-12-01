@@ -6,7 +6,7 @@
 #include "../../boolean.h"
 #include "../mesinkata/mesinkata.h"
 
-#define InitialSize 50
+#define InitialSize 150
 
 typedef int IdxType;
 typedef Word ElType;

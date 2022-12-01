@@ -1986,30 +1986,35 @@ void addDictionary(ArrayDin* listOfWord) {
     int i = 0;
 
     printf("\nMasukkan kata baru yang ingin ditambahkan: ");
-    STARTGAMENAME();
+    STARTCOMMAND();
 
-    while (i < Length(*listOfWord) && !found) {
-        if (isWordEqual(lowerWord(currentCommand), lowerWord(Get(*listOfWord, i)))) {
-            found = true;
+    if (commandWord(currentCommand) == 1) {
+        while (i < Length(*listOfWord) && !found) {
+            if (isWordEqual(lowerWord(currentCommand), lowerWord(Get(*listOfWord, i)))) {
+                found = true;
+            }
+            else {
+                i++;
+            }
+        }
+
+        if (found) {
+            printf("Kata sudah ada di dalam daftar kata.\n");
         }
         else {
-            i++;
+            InsertLast(listOfWord, upperWord(currentCommand));
+            
+            file = fopen("data/DaftarKataHangman.txt", "w");
+            fprintf(file, "%d\n", Length(*listOfWord));
+            for (i = 0 ; i < Length(*listOfWord) ; i++) {
+                fprintf(file, "%s\n", wordToString(Get(*listOfWord, i)));
+            }
+            fclose(file);
+            printf("Kata berhasil ditambahkan.\n");
         }
-    }
-
-    if (found) {
-        printf("Kata sudah ada di dalam daftar kata.\n");
     }
     else {
-        InsertLast(listOfWord, upperWord(currentCommand));
-        
-        file = fopen("data/DaftarKataHangman.txt", "w");
-        fprintf(file, "%d\n", Length(*listOfWord));
-        for (i = 0 ; i < Length(*listOfWord) ; i++) {
-            fprintf(file, "%s\n", wordToString(Get(*listOfWord, i)));
-        }
-        fclose(file);
-        printf("Kata berhasil ditambahkan.\n");
+        printf("Kata tidak valid.\n");
     }
 }
 
