@@ -107,16 +107,14 @@ void hangman(int* totalscore) {
 
     printf("Selamat datang di game Hangman!\n");
 
-    printf("\nSilakan pilih mode berikut:\n1. Menambah dictionary\n2. Bermain\n");
-
     while (!flag) {
-        printf("Masukkan pilihan: ");
+        printf("\nSilakan pilih mode berikut:\n1. Menambah dictionary\n2. Bermain\n");
+        printf("\nMasukkan pilihan: ");
         STARTCOMMAND();
 
         if (commandWord(currentCommand) == 1) {
             if (isWordEqual(lowerWord(currentCommand), lowerWord(charToWord('1')))) {
                 addDictionary(&listOfWord);
-                flag = true;
             }
             else if (isWordEqual(lowerWord(currentCommand), lowerWord(charToWord('2')))) {
                 flag = true;
@@ -228,7 +226,7 @@ void hangman(int* totalscore) {
                 } while (chance > 0);
             }
             else {
-                printf("Pilihan tidak valid.\n\n");
+                printf("Pilihan tidak valid.\n");
             }
         }
         else {
