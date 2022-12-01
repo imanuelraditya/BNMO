@@ -191,6 +191,9 @@ int lengthsnake(List snake);
 void snakeOnMeteor(int * score);
 /* permainan Snake On Meteor */
 
+void welcomeHangman();
+/* welcome page untuk permainan Hangman */
+
 void wordList(ArrayDin* listOfWord);
 /*
     * I.S. : listOfWord sembarang
