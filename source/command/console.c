@@ -2019,6 +2019,22 @@ void addDictionary(ArrayDin* listOfWord) {
     }
 }
 
+void welcomeHangman() // baru bisa di jalanin kalo NMax di mesinkata diganti jadi 100
+/* print welcoming page bnmo */
+{
+/* ALGORITMA */
+    int j, delay;
+    startWFile("data/hangman.txt");
+
+    while(!finish) {
+        printf("%s\n", currentWord.TabWord);
+        for(j = 0; j < 100000000; j++) { // buat delay prosesnya
+                delay = j;
+            }
+        advNewlineFile();
+    }
+}
+
 void hangman(int* totalscore) {
     ArrayDin listOfWord, listOfGuess;
     Word wordToGuess, guess;
@@ -2029,7 +2045,7 @@ void hangman(int* totalscore) {
 
     listOfWord = MakeArrayDin();
     wordList(&listOfWord);
-
+    welcomeHangman();
     printf("Selamat datang di game Hangman!\n");
 
     while (!flag) {

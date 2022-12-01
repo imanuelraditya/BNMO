@@ -10,6 +10,12 @@ void green();
 
 void reset();
 
+void yellow();
+
+void blue();
+
+void cyan();
+
 void printpetak(List snake, List food, List meteor, List obstacle);
 /* mengeluarkan tampilan permainan snake on meteor */
 

@@ -3,17 +3,29 @@
 #include <math.h>
 #include <time.h>
 
-// void red(){
-//     printf("\x1B[31m");
-// }
+void red(){
+    printf("\x1B[31m");
+}
 
-// void green(){
-//     printf("\x1B[32m");
-// }
+void green(){
+    printf("\x1B[32m");
+}
 
-// void reset(){
-//     printf("\x1B[0m");
-// }
+void reset(){
+    printf("\x1B[0m");
+}
+
+void yellow(){
+    printf("\x1B[33m");
+}
+
+void blue(){
+    printf("\x1B[34m");
+}
+
+void cyan(){
+    printf("\x1B[36m");
+}
 
 void printpetak(List snake, List food, List meteor, List obstacle){
     int i =0;
@@ -35,11 +47,11 @@ void printpetak(List snake, List food, List meteor, List obstacle){
                 } else {
                     printf("  ");
                 }
-                //green();
+                green();
                 printf("%s  ", Infoldp(p));
-                //reset();
+                reset();
                 printf("|");
-                //p = Nextldp(p);    
+                p = Nextldp(p);    
             } else if(Searchlistdp(food, j, i) != Nilldp){
                 p = Searchlistdp(food, j, i);
                 if(stringLength(Infoldp(p)) > 1){
@@ -47,7 +59,10 @@ void printpetak(List snake, List food, List meteor, List obstacle){
                 } else {
                     printf("  ");
                 }
-                printf("%s  |", Infoldp(p));
+                yellow();
+                printf("%s  ", Infoldp(p));
+                reset();
+                printf("|");
             } else if(Searchlistdp(meteor, j, i) != Nilldp){
                 p = Searchlistdp(meteor, j, i);
                 if(stringLength(Infoldp(p)) > 1){
@@ -55,10 +70,10 @@ void printpetak(List snake, List food, List meteor, List obstacle){
                 } else {
                     printf("  ");
                 }
-                //red();
+                red();
                 printf("%s  ", Infoldp(p));
+                reset();
                 printf("|");
-                //reset();
             } else if(Searchlistdp(obstacle, j, i) != Nilldp){
                 p = Searchlistdp(obstacle, j, i);
                 if(stringLength(Infoldp(p)) > 1){
@@ -66,7 +81,10 @@ void printpetak(List snake, List food, List meteor, List obstacle){
                 } else {
                     printf("  ");
                 }
-                printf("%s |", Infoldp(p)); 
+                red();
+                printf("%s ", Infoldp(p)); 
+                reset();
+                printf("|");
             } else {
                 printf("     |");
             }
