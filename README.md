@@ -46,7 +46,7 @@ BNMO (dibaca: Binomo) adalah sebuah robot video game console yang dimiliki oleh 
 │   ├─── save2.txt			     
 │   ├─── save3.txt		     
 │   ├─── snakeonmeteor.txt			     
-│   ├─── towerofhanoi.txt	                          
+│   └─── towerofhanoi.txt	                          
 │ 
 ├── source
 │   ├─── boolean.h
