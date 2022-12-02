@@ -40,7 +40,7 @@ BNMO (dibaca: Binomo) adalah sebuah robot video game console yang dimiliki oleh 
 │   ├─── drivermesinkata.txt		     # file yang akan dibaca pada driver mesin kata
 │   ├─── save.txt			     # file yang disimpan oleh user 1
 │   ├─── save2.txt			     # file yang disimpan oleh user 2
-│   └─── save6.txt                       # file yang disimpan oleh user 3
+│   └─── save6.txt                           # file yang disimpan oleh user 3
 │ 
 ├── source
 │   ├─── boolean.h
