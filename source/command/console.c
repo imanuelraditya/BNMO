@@ -1286,140 +1286,135 @@ void towerOfHanoi(int* score) {
     printf("\n");
 
     do {
-    printf("Masukkan jumlah cakram: ");
+        printf("Masukkan jumlah cakram: ");
 
-    STARTCOMMAND();
-    disk = wordToInt(currentCommand);
-    } while(disk < 1);
+        STARTCOMMAND();
+        disk = wordToInt(currentCommand);
+    } while(commandWord(currentCommand) != 1 || disk < 1 || ('a' <= currentCommand.TabWord[0] && currentCommand.TabWord[0] <= 'z') || ('A' <= currentCommand.TabWord[0] && currentCommand.TabWord[0] <= 'Z'));
 
     maxScore = pow(2, disk) - 1;
 
-    if (commandWord(currentCommand) == 1) {
-        if (disk > 0) {
-            for (i = 0; i < disk; i++) {
-                Push(&Tower[0], Allocate(disk - i));
-            }
-            
-            step = 0;
+    if (disk > 0) {
+        for (i = 0; i < disk; i++) {
+            Push(&Tower[0], Allocate(disk - i));
+        }
+        
+        step = 0;
 
-            printf("\n-----------------------------------------------------------\n");
-            
-            while (Count(Tower[2]) != disk) {
-                for (i = 64; i < 67; i++) {
-                    printf("\nTower %c: ", i + 1);
-                    ViewStack(Tower[i - 64]);
-                }
-
-                printf("\n\n");
-                PrintTower(Tower, disk);
-                printf("\n\n");
-                printf("Jumlah langkah: %d\n\n", step);
-                printf("Memindahkan cakram dari tower (A - C): ");
-
-                STARTCOMMAND();
-                
-                if (isWordEqual(currentCommand, stringToWord("A"))) {
-                    towerOrigin = 1;
-                }
-                else if (isWordEqual(currentCommand, stringToWord("B"))) {
-                    towerOrigin = 2;
-                }
-                else if (isWordEqual(currentCommand, stringToWord("C"))) {
-                    towerOrigin = 3;
-                }
-                else {
-                    towerOrigin = 0;
-                }
-
-                if (commandWord(currentCommand) == 1) {
-                    printf("Ke tower (A - C): ");
-
-                    STARTCOMMAND();
-                    
-                    if (isWordEqual(currentCommand, stringToWord("A"))) {
-                        towerDestination = 1;
-                    }
-                    else if (isWordEqual(currentCommand, stringToWord("B"))) {
-                        towerDestination = 2;
-                    }
-                    else if (isWordEqual(currentCommand, stringToWord("C"))) {
-                        towerDestination = 3;
-                    }
-                    else {
-                        towerDestination = 0;
-                    }
-
-                    if (commandWord(currentCommand) == 1) {
-                        towerOrigin--;
-                        towerDestination--;
-
-                        if (towerOrigin >= 0 && towerOrigin <= 2 && towerDestination >= 0 && towerDestination <= 2) {\
-                            if (towerOrigin != towerDestination) {
-                                if (!IsStackEmpty(Tower[towerOrigin])) {
-                                    if (IsStackEmpty(Tower[towerDestination]) || Info(Top(Tower[towerOrigin])) < Info(Top(Tower[towerDestination]))) {
-                                        Pop(&Tower[towerOrigin], &P);
-                                        Push(&Tower[towerDestination], P);
-                                        step++;
-
-                                        printf("\nMemindahkan cakram ke Tower %c\n", towerDestination + 65);
-
-                                        printf("\n-----------------------------------------------------------\n");
-                                    } 
-                                    else {
-                                        printf("\nCakram tidak dapat dipindahkan ke Tower %c karena berukuran lebih besar.\n", towerDestination + 65);
-                                    }
-                                } 
-                                else {
-                                    printf("\nTower tidak memiliki cakram.\n");
-                                }
-                            }
-                            else {
-                                printf("\nTower asal dan tujuan tidak boleh sama.\n");
-                            }
-                        } 
-                        else {
-                            printf("\nTower tidak valid\n");                        }
-                        
-                    } 
-                    else {
-                        invalidCommand(&currentCommand);
-                    }
-                } 
-                else {
-                    invalidCommand(&currentCommand);
-                }
-            }
-
-            for (i = 0; i < 3; i++) {
-                printf("\nTower %d: ", i + 1);
-                ViewStack(Tower[i]);
+        printf("\n-----------------------------------------------------------\n");
+        
+        while (Count(Tower[2]) != disk) {
+            for (i = 64; i < 67; i++) {
+                printf("\nTower %c: ", i + 1);
+                ViewStack(Tower[i - 64]);
             }
 
             printf("\n\n");
             PrintTower(Tower, disk);
             printf("\n\n");
-            printf("Jumlah langkah: %d\n", step);
-            printf("\nSelamat, Anda berhasil menyelesaikan Tower of Hanoi!\n");
+            printf("Jumlah langkah: %d\n\n", step);
+            printf("Memindahkan cakram dari tower (A - C): ");
 
-            (*score) = disk + ((maxScore * 5) / step);
-            printf("Skor Anda: %d\n", (*score));
-
-            while (!IsStackEmpty(Tower[0])) {
-                Pop(&Tower[0], &P);
-                DeAllocate(P);
+            STARTCOMMAND();
+            
+            if (isWordEqual(currentCommand, stringToWord("A"))) {
+                towerOrigin = 1;
+            }
+            else if (isWordEqual(currentCommand, stringToWord("B"))) {
+                towerOrigin = 2;
+            }
+            else if (isWordEqual(currentCommand, stringToWord("C"))) {
+                towerOrigin = 3;
+            }
+            else {
+                towerOrigin = 0;
             }
 
-            while (!IsStackEmpty(Tower[1])) {
-                Pop(&Tower[1], &P);
-                DeAllocate(P);
-            }
+            if (commandWord(currentCommand) == 1) {
+                printf("Ke tower (A - C): ");
 
-        } else {
-            printf("Jumlah cakram tidak valid\n");
+                STARTCOMMAND();
+                
+                if (isWordEqual(currentCommand, stringToWord("A"))) {
+                    towerDestination = 1;
+                }
+                else if (isWordEqual(currentCommand, stringToWord("B"))) {
+                    towerDestination = 2;
+                }
+                else if (isWordEqual(currentCommand, stringToWord("C"))) {
+                    towerDestination = 3;
+                }
+                else {
+                    towerDestination = 0;
+                }
+
+                if (commandWord(currentCommand) == 1) {
+                    towerOrigin--;
+                    towerDestination--;
+
+                    if (towerOrigin >= 0 && towerOrigin <= 2 && towerDestination >= 0 && towerDestination <= 2) {\
+                        if (towerOrigin != towerDestination) {
+                            if (!IsStackEmpty(Tower[towerOrigin])) {
+                                if (IsStackEmpty(Tower[towerDestination]) || Info(Top(Tower[towerOrigin])) < Info(Top(Tower[towerDestination]))) {
+                                    Pop(&Tower[towerOrigin], &P);
+                                    Push(&Tower[towerDestination], P);
+                                    step++;
+
+                                    printf("\nMemindahkan cakram ke Tower %c\n", towerDestination + 65);
+
+                                    printf("\n-----------------------------------------------------------\n");
+                                } 
+                                else {
+                                    printf("\nCakram tidak dapat dipindahkan ke Tower %c karena berukuran lebih besar.\n", towerDestination + 65);
+                                }
+                            } 
+                            else {
+                                printf("\nTower tidak memiliki cakram.\n");
+                            }
+                        }
+                        else {
+                            printf("\nTower asal dan tujuan tidak boleh sama.\n");
+                        }
+                    } 
+                    else {
+                        printf("\nTower tidak valid\n");                        }
+                    
+                } 
+                else {
+                    invalidCommand(&currentCommand);
+                }
+            } 
+            else {
+                invalidCommand(&currentCommand);
+            }
         }
-    }
-    else {
-        invalidCommand(&currentCommand);
+
+        for (i = 0; i < 3; i++) {
+            printf("\nTower %d: ", i + 1);
+            ViewStack(Tower[i]);
+        }
+
+        printf("\n\n");
+        PrintTower(Tower, disk);
+        printf("\n\n");
+        printf("Jumlah langkah: %d\n", step);
+        printf("\nSelamat, Anda berhasil menyelesaikan Tower of Hanoi!\n");
+
+        (*score) = ((maxScore * disk * 2) / step);
+        printf("Skor Anda: %d\n", (*score));
+
+        while (!IsStackEmpty(Tower[0])) {
+            Pop(&Tower[0], &P);
+            DeAllocate(P);
+        }
+
+        while (!IsStackEmpty(Tower[1])) {
+            Pop(&Tower[1], &P);
+            DeAllocate(P);
+        }
+
+    } else {
+        printf("Jumlah cakram tidak valid\n");
     }
 }
 
