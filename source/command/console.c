@@ -1125,11 +1125,11 @@ void welcomeRNG() // baru bisa di jalanin kalo NMax di mesinkata diganti jadi 10
     startWFile("data/BannerRNG.txt");
 
     while(!finish) {
+        advNewlineFile();
         printf("%s\n", currentWord.TabWord);
         for(j = 0; j < 100000000; j++) { // buat delay prosesnya
                 delay = j;
             }
-        advNewlineFile();
     }
 }
 
@@ -1826,6 +1826,22 @@ void belok(char x, List *s, List * posPanas, List * obstacle, boolean * gagal, b
     }
 }
 
+void welcomeSOM() // baru bisa di jalanin kalo NMax di mesinkata diganti jadi 100
+/* print welcoming page bnmo */
+{
+/* ALGORITMA */
+    int j, delay;
+    startWFile("data/snakeonmeteor.txt");
+
+    while(!finish) {
+        printf("%s\n", currentWord.TabWord);
+        for(j = 0; j < 100000000; j++) { // buat delay prosesnya
+                delay = j;
+            }
+        advNewlineFile();
+    }
+}
+
 void snakeOnMeteor(int * score){
 
     List snake;
@@ -1851,7 +1867,9 @@ void snakeOnMeteor(int * score){
     CreateEmptylistdp(&obstacle);
     initsnake(&snake);
 
-    printf("\n                 Selamat datang di snake on meteor!\n");
+    welcomeSOM();
+    printf("\n");
+    printf("\n");
     printf(" .+:*+.+:*+.+:*+. P A N D U A N  S I N G K A T  G A M E .+*:+.+*:+.+*:+. \n");
     printf("o   : makanan yang harus dicapai agar snake bertambah panjang\n");
     printf("H   : Head dari snake yang akan diikuti oleh badannya (1, 2, dst.)\n");

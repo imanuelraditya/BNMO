@@ -132,6 +132,8 @@ void sortMapDesc(Map *Map);
 /* I.S. Map terdefinisi */
 /* F.S. Map terurut berdasarkan indeks */
 
+void welcomeDinerDash();
+
 void dinerdash(int* score);
 /* I.S. sembarang */
 /* F.S. mengembalikan output berupa game Diner Dash */
@@ -141,6 +143,8 @@ void dinerdash(int* score);
 int randomx();
 /* I.S. sembarang */
 /* F.S. mengembalikan output berupa angka random dari 1 sampai 500 */
+
+void welcomeRNG();
 
 void rng(int* score);
 /* I.S. sembarang */
@@ -155,6 +159,8 @@ void PrintTower(Stack S[3], int n);
 I.S. Sembarang
 F.S. Menampilkan semua Info dari masing-masing elemen dari Stack
 */
+
+void welcomeTowerOfHanoi();
 
 void towerOfHanoi(int* score);
 
@@ -187,6 +193,8 @@ void dropobs(List * snake, List * food, List * obstacle);
 
 int lengthsnake(List snake);
 /* menghitung panjang snake */
+
+void welcomeSOM();
 
 void snakeOnMeteor(int * score);
 /* permainan Snake On Meteor */
