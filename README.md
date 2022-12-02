@@ -35,12 +35,18 @@ BNMO (dibaca: Binomo) adalah sebuah robot video game console yang dimiliki oleh 
 ├── README.md
 ├── main.c				     # main program
 ├── data
-│   ├─── bnmo.txt 			     # file berisi banner yang akan dibaca sebagai welcome page
-│   ├─── config.txt			     # file konfigurasi awal yang akan dibaca pada START
-│   ├─── drivermesinkata.txt		     # file yang akan dibaca pada driver mesin kata
-│   ├─── save.txt			     # file yang disimpan oleh user 1
-│   ├─── save2.txt			     # file yang disimpan oleh user 2
-│   └─── save6.txt                           # file yang disimpan oleh user 3
+│   ├─── BannerRNG.txt 			    
+│   ├─── bnmo.txt 			     
+│   ├─── config.txt		
+│   ├─── DaftarKataHangman.txt	
+│   ├─── DinerDash.txt
+│   ├─── drivermesinkata.txt		     
+│   ├─── hangman.txt		
+│   ├─── save.txt			     
+│   ├─── save2.txt			     
+│   ├─── save3.txt		     
+│   ├─── snakeonmeteor.txt			     
+│   ├─── towerofhanoi.txt	                          
 │ 
 ├── source
 │   ├─── boolean.h
