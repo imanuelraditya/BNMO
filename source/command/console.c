@@ -1642,10 +1642,22 @@ void belok(char x, List *s, List * posPanas, List * obstacle, boolean * gagal, b
     p = Lastldp(*s);
     printf("\n");
 
-    if(Searchlistdp((*s), (Posisix(Firstldp(*s))-1+5) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), (Posisix(Firstldp(*s))+1) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), (Posisix(Firstldp(*s))-1+5) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))-1+5) % 5) != Nilldp && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))+1) % 5) != Nilldp) {
+    if(Searchlistdp((*s), (Posisix(Firstldp(*s))-1+5) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), (Posisix(Firstldp(*s))+1) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))-1+5) % 5) != Nilldp && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))+1) % 5) != Nilldp) {
         printf("Kamu sudah tidak dapat bergerak ke arah manapun:(\n");
         *menang = true;
-    }
+    } else if(Searchlistdp((*posPanas), (Posisix(Firstldp(*s))-1+5) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), (Posisix(Firstldp(*s))+1) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))-1+5) % 5) != Nilldp && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))+1) % 5) != Nilldp) {
+        printf("Kamu sudah tidak dapat bergerak ke arah manapun:(\n");
+        *menang = true;
+    } else if(Searchlistdp((*s), (Posisix(Firstldp(*s))-1+5) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*posPanas), (Posisix(Firstldp(*s))+1) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))-1+5) % 5) != Nilldp && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))+1) % 5) != Nilldp) {
+        printf("Kamu sudah tidak dapat bergerak ke arah manapun:(\n");
+        *menang = true;
+    } else if(Searchlistdp((*s), (Posisix(Firstldp(*s))-1+5) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), (Posisix(Firstldp(*s))+1) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*posPanas), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))-1+5) % 5) != Nilldp && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))+1) % 5) != Nilldp) {
+        printf("Kamu sudah tidak dapat bergerak ke arah manapun:(\n");
+        *menang = true;
+    } else if(Searchlistdp((*s), (Posisix(Firstldp(*s))-1+5) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), (Posisix(Firstldp(*s))+1) % 5, Posisiy(Firstldp(*s))) != Nilldp && Searchlistdp((*s), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))-1+5) % 5) != Nilldp && Searchlistdp((*posPanas), Posisix(Firstldp(*s)), (Posisiy(Firstldp(*s))+1) % 5) != Nilldp) {
+        printf("Kamu sudah tidak dapat bergerak ke arah manapun:(\n");
+        *menang = true;
+    } /* ^ itu semua kondisional kalo Headnya trapped */
     else {
         if((x) == 'w'){
             if(Posisiy(Firstldp(*s)) != 0 && Searchlistdp((*posPanas), Posisix(Firstldp(*s)), Posisiy(Firstldp(*s))-1) != Nilldp){
@@ -1927,6 +1939,7 @@ void snakeOnMeteor(int * score){
                         }
                         
                         dropmeteor(&food, &obstacle, &meteor);
+                        InsVLastlistdp(&posPanas, wordToString(intToWord(turn)), Posisix(Firstldp(meteor)), Posisiy(Firstldp(meteor)));
                         
                         if(Searchlistdp(snake, Posisix(Firstldp(meteor)), Posisiy(Firstldp(meteor))) != Nilldp){
                             //kondisional search posisinya meteor sama kaya posisinya snakenya apa engga
@@ -1957,8 +1970,6 @@ void snakeOnMeteor(int * score){
                                 printf("Berikut merupakan peta permainan sekarang:\n");
                                 printpetak(snake, food, meteor, obstacle);
                                 printf("Silahkan lanjutkan permainan\n");
-                                
-                                InsVLastlistdp(&posPanas, wordToString(intToWord(turn)), Posisix(Firstldp(meteor)), Posisiy(Firstldp(meteor)));
                             }
                         } else {
                 
